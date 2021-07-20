@@ -1,4 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   com.shadowlayover.common.core.config.JacksonConfiguration, \
-  com.shadowlayover.common.core.config.RestTemplateConfiguration, \
-  com.shadowlayover.common.core.config.ValidatorConfiguration
+  com.shadowlayover.common.core.config.RestTemplateConfiguration
