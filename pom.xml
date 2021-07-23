@@ -10,7 +10,6 @@
   <packaging>pom</packaging>
 
   <modules>
-
     <module>shadowlayover-common</module>
   </modules>
 
