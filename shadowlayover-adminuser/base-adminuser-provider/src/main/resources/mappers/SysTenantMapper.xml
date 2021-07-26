@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shadowlayover.adminuser.provider.mapper.SysTenantMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.shadowlayover.adminuser.api.model.domain.SysTenant">
+        <id column="id" property="id" />
+        <result column="rversion" property="rversion" />
+        <result column="tenant_code" property="tenantCode" />
+        <result column="tenant_name" property="tenantName" />
+        <result column="status" property="status" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="created_by" property="createdBy" />
+        <result column="created_time" property="createdTime" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="updated_time" property="updatedTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        rversion,
+        id, tenant_code, tenant_name, status, is_deleted, created_by, created_time, updated_by, updated_time
+    </sql>
+
+</mapper>
