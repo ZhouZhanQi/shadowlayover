@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shadowlayover.adminuser.provider.mapper.SysDeptMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.shadowlayover.adminuser.api.model.domain.SysDept">
+        <id column="id" property="id" />
+        <result column="rversion" property="rversion" />
+        <result column="dept_name" property="deptName" />
+        <result column="leader" property="leader" />
+        <result column="phone" property="phone" />
+        <result column="email" property="email" />
+        <result column="status" property="status" />
+        <result column="order_num" property="orderNum" />
+        <result column="parent_id" property="parentId" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="created_by" property="createdBy" />
+        <result column="created_time" property="createdTime" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="updated_time" property="updatedTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        rversion,
+        id, dept_name, leader, phone, email, status, order_num, parent_id, tenant_id, is_deleted, created_by, created_time, updated_by, updated_time
+    </sql>
+
+</mapper>

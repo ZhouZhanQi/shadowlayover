@@ -1,5 +1,6 @@
 package com.shadowlayover.common.core.utils;
 
+import com.shadowlayover.common.core.model.ValidResult;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.HibernateValidator;
@@ -21,16 +22,16 @@ import java.util.Set;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ValidationUtils {
-    
+
     //快速结束模式
     private static Validator failFastValidator = Validation.byProvider(HibernateValidator.class)
             .configure()
             .failFast(true)
             .buildValidatorFactory().getValidator();
-    
+
     //全部校验模式
     private static Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-    
+
     /**
      * 注解验证参数(快速失败模式)
      *
@@ -44,7 +45,7 @@ public class ValidationUtils {
         }
         return ValidResult.success();
     }
-    
+
     /**
      * 注解验证参数(全部校验)
      *

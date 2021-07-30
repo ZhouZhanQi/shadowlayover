@@ -10,8 +10,8 @@
   <packaging>pom</packaging>
 
   <modules>
-
     <module>shadowlayover-common</module>
+    <module>shadowlayover-adminuser</module>
   </modules>
 
   <properties>
