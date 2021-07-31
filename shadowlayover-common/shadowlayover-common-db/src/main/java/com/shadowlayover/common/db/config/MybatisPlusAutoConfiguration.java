@@ -1,7 +1,6 @@
 package com.shadowlayover.common.db.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
-import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import com.baomidou.mybatisplus.extension.plugins.inner.*;
@@ -16,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
  * @desc mybatisplus自动装配
  */
 @Configuration
-public class MybatisPlusConfiguration {
+public class MybatisPlusAutoConfiguration {
 
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
