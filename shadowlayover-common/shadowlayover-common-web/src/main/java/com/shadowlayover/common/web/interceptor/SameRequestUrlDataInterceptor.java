@@ -3,6 +3,7 @@ package com.shadowlayover.common.web.interceptor;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import com.google.common.collect.Maps;
 import com.shadowlayover.common.core.utils.JacksonUtils;
+import lombok.Setter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,7 @@ import java.util.Map;
  * @desc: 重复请求地址与数据拦截器
  * </pre>
  */
+@Setter
 @Component
 public class SameRequestUrlDataInterceptor extends RepeatSubmitInterceptor {
     
@@ -27,6 +29,13 @@ public class SameRequestUrlDataInterceptor extends RepeatSubmitInterceptor {
     public final String REPEAT_TIME = "repeatTime";
     
     public final String SESSION_REPEAT_KEY = "repeatData";
+    
+    /**
+     * 间隔时间，单位:秒 默认10秒
+     *
+     * 两次相同参数的请求，如果间隔时间大于该参数，系统不会认定为重复提交的数据
+     */
+    private int intervalTime = 10;
     
     @Override
     public boolean isRepeatSubmit(HttpServletRequest request) throws Exception {
@@ -40,8 +49,8 @@ public class SameRequestUrlDataInterceptor extends RepeatSubmitInterceptor {
         String requestUri = request.getRequestURI();
     
         String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
+        //从缓存中获取
         
         return false;
     }
-    
 }

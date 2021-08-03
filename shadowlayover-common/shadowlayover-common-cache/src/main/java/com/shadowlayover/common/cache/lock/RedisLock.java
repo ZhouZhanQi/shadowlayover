@@ -40,9 +40,10 @@ import java.util.concurrent.TimeUnit;
  * 如果服务器返回 OK ，那么这个客户端获得锁。
  * 如果服务器返回 NIL ，那么客户端获取锁失败，可以在稍后再重试。
  *
- * @author yuhao.wangwang
- * @version 1.0
- * @date 2017年11月3日 上午10:21:27
+ * @author zhouzhanqi
+ * @date 2021/7/31-17:18
+ * @desc 1.0
+ *
  */
 @Slf4j
 @Data
