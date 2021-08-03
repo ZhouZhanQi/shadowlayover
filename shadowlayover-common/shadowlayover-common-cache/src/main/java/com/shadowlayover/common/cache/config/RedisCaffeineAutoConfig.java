@@ -7,11 +7,20 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
+import com.shadowlayover.common.cache.support.CacheMessageListener;
+import com.shadowlayover.common.cache.support.RedisCaffeineCacheManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.listener.ChannelTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -23,7 +32,12 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * </pre>
  */
 @Configuration(proxyBeanMethods = false)
-public class RedisConfig {
+@AutoConfigureAfter(RedisAutoConfiguration.class)
+@EnableConfigurationProperties(CacheRedisCaffeineProperties.class)
+public class RedisCaffeineAutoConfig {
+    
+    @Autowired
+    private CacheRedisCaffeineProperties cacheRedisCaffeineProperties;
     
     /**
      * 获取缓存操作助手对象
@@ -31,7 +45,6 @@ public class RedisConfig {
      * @return
      */
     @Bean
-    @ConditionalOnClass(LettuceConnectionFactory.class)
     public static RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory factory) {
         GenericJackson2JsonRedisSerializer serializer = newJsonRedisSerializer();
         //创建Redis缓存操作助手RedisTemplate对象
@@ -48,6 +61,12 @@ public class RedisConfig {
         redisTemplate.afterPropertiesSet();
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         return redisTemplate;
+    }
+    
+    @Bean
+    @ConditionalOnBean(RedisTemplate.class)
+    public RedisCaffeineCacheManager cacheManager(RedisTemplate<String, Object> redisTemplate) {
+        return new RedisCaffeineCacheManager(cacheRedisCaffeineProperties, redisTemplate);
     }
     
     /**
@@ -73,5 +92,15 @@ public class RedisConfig {
         // 反序列化时, 忽略不认识的字段, 而不是抛出异常
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         return new GenericJackson2JsonRedisSerializer();
+    }
+    
+    @Bean
+    public RedisMessageListenerContainer redisMessageListenerContainer(RedisTemplate<String, Object> stringKeyRedisTemplate,
+                                                                       RedisCaffeineCacheManager redisCaffeineCacheManager) {
+        RedisMessageListenerContainer redisMessageListenerContainer = new RedisMessageListenerContainer();
+        redisMessageListenerContainer.setConnectionFactory(stringKeyRedisTemplate.getConnectionFactory());
+        CacheMessageListener cacheMessageListener = new CacheMessageListener(stringKeyRedisTemplate, redisCaffeineCacheManager);
+        redisMessageListenerContainer.addMessageListener(cacheMessageListener, new ChannelTopic(cacheRedisCaffeineProperties.getRedis().getTopic()));
+        return redisMessageListenerContainer;
     }
 }

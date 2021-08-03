@@ -27,6 +27,8 @@
         <javax.servlet-version>4.0.1</javax.servlet-version>
         <shadowlayover.common-version>1.0-SNAPSHOT</shadowlayover.common-version>
         <caffeine-version>3.0.3</caffeine-version>
+        <redission-version>3.16.1</redission-version>
+        <common.lang3-version>3.12.0</common.lang3-version>
     </properties>
 
     <modules>
