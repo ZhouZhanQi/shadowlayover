@@ -11,7 +11,7 @@
 
   <modules>
     <module>shadowlayover-common</module>
-    <module>shadowlayover-adminuser</module>
+    <module>shadowlayover-system</module>
     <module>shadowlayover-oauth</module>
   </modules>
 
