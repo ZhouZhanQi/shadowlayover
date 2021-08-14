@@ -8,7 +8,7 @@
   <artifactId>shadowlayover-microservice</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>shadowlayover-microservice</name>
+  <name>base-adminuser-provider</name>
 
 
   <dependencies>
