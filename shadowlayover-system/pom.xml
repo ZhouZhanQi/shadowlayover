@@ -14,7 +14,6 @@
     <packaging>pom</packaging>
     <description>adminuser服务</description>
 
-
     <modules>
         <module>base-adminuser-api</module>
         <module>base-adminuser-provider</module>
