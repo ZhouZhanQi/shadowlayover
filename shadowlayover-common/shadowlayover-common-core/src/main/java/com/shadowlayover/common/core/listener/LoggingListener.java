@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.stereotype.Component;
 
 /**
  * @author zhouzhanqi
@@ -14,7 +15,8 @@ import org.springframework.core.env.ConfigurableEnvironment;
  * @desc 日志配置监听器
  */
 @Order(LoggingApplicationListener.DEFAULT_ORDER - 1)
-public class LoggingListener implements ApplicationListener {
+@Component
+public class LoggingListener implements ApplicationListener<ApplicationEvent> {
 
     /**
      * 提供给日志文件读取配置的key, 使用时需要在前面加上 sys:

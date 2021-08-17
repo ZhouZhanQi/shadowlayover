@@ -4,8 +4,8 @@
 <Configuration status="WARN" monitorInterval="1800">
     <!--properties:设置全局变量 -->
     <properties>
-        <property name="LOG_HOME" value="${sys::LOG_PATH}" />
-        <property name="LOG_NAME" value="${sys::APP_NAME}" />
+        <property name="LOG_HOME" value="${sys:log.path}" />
+        <property name="LOG_NAME" value="${sys:app.name}" />
     </properties>
 
     <!--Appenders:定义日志输出目的地，内容和格式等 -->
@@ -59,7 +59,7 @@
         </Logger>
         <!--Root:日志默认打印到控制台 -->
         <!--level日志级别: ALL < TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF -->
-        <Root level="ERROR">
+        <Root level="DEBUG">
             <AppenderRef ref="Console" />
         </Root>
     </Loggers>

@@ -26,9 +26,10 @@
         <easyexcel-version>2.2.10</easyexcel-version>
         <javax.servlet-version>4.0.1</javax.servlet-version>
         <shadowlayover.common-version>1.0-SNAPSHOT</shadowlayover.common-version>
-        <caffeine-version>3.0.3</caffeine-version>
+        <caffeine-version>2.9.2</caffeine-version>
         <redission-version>3.16.1</redission-version>
         <common.lang3-version>3.12.0</common.lang3-version>
+        <common.pool2-version>2.10.0</common.pool2-version>
     </properties>
 
     <modules>

@@ -1,8 +1,11 @@
 package com.shadowlayover.common.cache.support;
 
+import com.github.benmanes.caffeine.cache.CacheLoader;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.shadowlayover.common.cache.config.CacheRedisCaffeineProperties;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -81,7 +84,18 @@ public class RedisCaffeineCacheManager implements CacheManager {
         if(cacheRedisCaffeineProperties.getCaffeine().getRefreshAfterWrite() > 0) {
             cacheBuilder.refreshAfterWrite(cacheRedisCaffeineProperties.getCaffeine().getRefreshAfterWrite(), TimeUnit.MILLISECONDS);
         }
-        return cacheBuilder.build();
+        
+        return cacheBuilder.build(new CacheLoader<Object, Object>() {
+            @Override
+            public @Nullable Object load(@NonNull Object o) throws Exception {
+                return null;
+            }
+    
+            @Override
+            public @Nullable Object reload(@NonNull Object key, @NonNull Object oldValue) throws Exception {
+                return oldValue;
+            }
+        });
     }
     
     public void clearLocal(String cacheName, Object key) {
