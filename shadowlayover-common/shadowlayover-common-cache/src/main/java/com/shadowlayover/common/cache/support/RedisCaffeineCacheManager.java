@@ -2,7 +2,7 @@ package com.shadowlayover.common.cache.support;
 
 import com.github.benmanes.caffeine.cache.CacheLoader;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.shadowlayover.common.cache.config.CacheRedisCaffeineProperties;
+import com.shadowlayover.common.cache.props.CacheRedisCaffeineProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;

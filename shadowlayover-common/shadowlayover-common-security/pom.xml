@@ -18,6 +18,13 @@
         </dependency>
 
         <dependency>
+            <groupId>com.shadowlayover</groupId>
+            <artifactId>shadowlayover-common-web</artifactId>
+            <version>${shadowlayover.common-version}</version>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>

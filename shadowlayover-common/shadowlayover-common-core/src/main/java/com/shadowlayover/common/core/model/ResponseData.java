@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.shadowlayover.common.core.model.code.BaseResponseCode;
 import com.shadowlayover.common.core.utils.JacksonUtils;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
@@ -97,6 +98,10 @@ public class ResponseData<T> {
         ResponseData<T> responseData = new ResponseData<>(true, securityKey);
         responseData.setData(data);
         return responseData;
+    }
+    
+    public static <T, R extends BaseResponseCode> ResponseData<T> fail(R responseCode) {
+        return fail(responseCode.getCode(), responseCode.getMessage());
     }
     
     public static <T> ResponseData<T> fail(String errMsg) {

@@ -1,4 +1,4 @@
-package com.shadowlayover.common.cache.config;
+package com.shadowlayover.common.cache.props;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

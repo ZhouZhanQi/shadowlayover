@@ -1,7 +1,7 @@
 package com.shadowlayover.common.cache.support;
 
 import com.github.benmanes.caffeine.cache.Cache;
-import com.shadowlayover.common.cache.config.CacheRedisCaffeineProperties;
+import com.shadowlayover.common.cache.props.CacheRedisCaffeineProperties;
 import com.shadowlayover.common.cache.lock.RedisLock;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

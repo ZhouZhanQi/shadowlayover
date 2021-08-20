@@ -1,6 +1,7 @@
 package com.shadowlayover.common.core.exceptions;
 
 import cn.hutool.core.util.StrUtil;
+import com.shadowlayover.common.core.model.code.BaseResponseCode;
 
 /**
  * <pre>
@@ -9,7 +10,7 @@ import cn.hutool.core.util.StrUtil;
  * @desc: 断言异常
  * </pre>
  */
-public class AssertException extends RuntimeException {
+public class AssertException extends BaseException {
     
     private static final long serialVersionUID = 6394284648244311928L;
     
@@ -34,5 +35,9 @@ public class AssertException extends RuntimeException {
     
     public AssertException(Throwable cause, String messageTemplate, Object... params) {
         super(StrUtil.format(messageTemplate, params), cause);
+    }
+    
+    public <R extends BaseResponseCode> AssertException(R responseCode) {
+        super(responseCode);
     }
 }

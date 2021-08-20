@@ -1,4 +1,4 @@
-package com.shadowlayover.common.security.model;
+package com.shadowlayover.common.security.user;
 
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;

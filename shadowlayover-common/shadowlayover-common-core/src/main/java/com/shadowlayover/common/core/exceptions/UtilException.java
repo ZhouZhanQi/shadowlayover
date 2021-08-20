@@ -1,6 +1,7 @@
 package com.shadowlayover.common.core.exceptions;
 
 import cn.hutool.core.util.StrUtil;
+import com.shadowlayover.common.core.model.code.BaseResponseCode;
 
 /**
  * <pre>
@@ -9,7 +10,7 @@ import cn.hutool.core.util.StrUtil;
  * @desc: 工具类异常
  * </pre>
  */
-public class UtilException extends RuntimeException {
+public class UtilException extends BaseException {
     
     private static final long serialVersionUID = -8593560132531505913L;
     
@@ -31,5 +32,9 @@ public class UtilException extends RuntimeException {
     
     public UtilException(Throwable cause, String messageTemplate, Object... params) {
         super(StrUtil.format(messageTemplate, params), cause);
+    }
+    
+    public <R extends BaseResponseCode> UtilException(R responseCode) {
+        super(responseCode);
     }
 }

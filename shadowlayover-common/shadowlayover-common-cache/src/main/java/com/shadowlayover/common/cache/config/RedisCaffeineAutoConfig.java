@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
+import com.shadowlayover.common.cache.props.CacheRedisCaffeineProperties;
 import com.shadowlayover.common.cache.support.CacheMessageListener;
 import com.shadowlayover.common.cache.support.RedisCaffeineCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
