@@ -1,5 +1,6 @@
-package com.shadowlayover.common.core.model.code;
+package com.shadowlayover.common.cache.model.code;
 
+import com.shadowlayover.common.core.model.code.BaseExceptionCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -7,14 +8,16 @@ import lombok.Getter;
  * <pre>
  * @author: zhouzhanqi
  * @datetime: 2021/8/18-14:30
- * @desc: 用户中心响应编码枚举
- * code 10***
+ * @desc: 缓存包异常编码
+ * code 3***
  *
  * </pre>
  */
 @Getter
 @AllArgsConstructor
-public enum AdminUserResponseCode implements BaseExceptionCode {
+public enum CacheExceptionCode implements BaseExceptionCode {
+    
+    REDISSON_CONNECT_TYPE_ERROR(3001, "redisson连接类型错误"),
     ;
     private final int code;
     

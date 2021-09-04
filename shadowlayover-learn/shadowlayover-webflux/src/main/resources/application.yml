@@ -1,0 +1,32 @@
+server:
+  port: 40000
+  servlet:
+    context-path: /shadowlayover-webflux
+spring:
+  application:
+    name: shadowlayover-learn
+  cache:
+    multi:
+      cacheNames:
+        - shadowlayover-learn
+      cachePrefix: shadowlayover-learn
+      redis:
+        - shadowlayover-learn: 60000
+      caffeine:
+        expireAfterAccess: 60000
+        expireAfterWrite: 60000
+        refreshAfterWrite: 600000
+        initialCapacity: 256
+        maximumSize: 100
+  redis:
+    host: 127.0.0.1
+    port: 16379
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        time-between-eviction-runs: 60000
+shadowlayover:
+  log:
+    path: D:\data\logs

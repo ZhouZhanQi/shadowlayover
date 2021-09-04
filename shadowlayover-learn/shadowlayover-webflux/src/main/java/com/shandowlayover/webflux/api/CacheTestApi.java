@@ -14,12 +14,5 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class CacheTestApi {
-    
-    @Autowired
-    private CacheTestService cacheTestService;
-    
-    @GetMapping("/test")
-    public String testCache() {
-        return cacheTestService.getName();
-    }
+
 }

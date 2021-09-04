@@ -1,16 +1,13 @@
 package com.shadowlayover.common.cache.config;
 
-import com.shadowlayover.common.cache.props.CacheRedisCaffeineProperties;
-import com.shadowlayover.common.cache.props.RedissonProperties;
+import com.shadowlayover.common.cache.lock.RedissonLock;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.Redisson;
-import org.redisson.RedissonLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 
 /**
  * <pre>
@@ -26,24 +23,9 @@ import org.springframework.core.annotation.Order;
 public class RedissonConfiguration {
     
     @Bean
-    @ConditionalOnMissingBean
-    @Order(value = 2)
-    public RedissonLock redissonLock(RedissonManager redissonManager) {
-        RedissonLock redissonLock = new RedissonLock();
-        redissonLock.setRedissonManager(redissonManager);
-        log.info("[RedissonLock]组装完毕");
+    @ConditionalOnClass(RedissonClient.class)
+    public RedissonLock redissonLock(RedissonClient redissonClient) {
+        RedissonLock redissonLock = new RedissonLock(redissonClient);
         return redissonLock;
     }
-    
-    @Bean
-    @ConditionalOnMissingBean
-    @Order(value = 1)
-    public RedissonManager redissonManager(RedissonProperties redissonProperties) {
-        RedissonManager redissonManager =
-                new RedissonManager(redissonProperties);
-        log.info("[RedissonManager]组装完毕,当前连接方式:" + redissonProperties.getType() +
-                ",连接地址:" + redissonProperties.getAddress());
-        return redissonManager;
-    }
-
 }

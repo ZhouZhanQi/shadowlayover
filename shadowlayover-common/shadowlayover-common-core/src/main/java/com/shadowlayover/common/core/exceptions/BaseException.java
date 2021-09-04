@@ -1,7 +1,7 @@
 package com.shadowlayover.common.core.exceptions;
 
 import cn.hutool.core.util.StrUtil;
-import com.shadowlayover.common.core.model.code.BaseResponseCode;
+import com.shadowlayover.common.core.model.code.BaseExceptionCode;
 import lombok.Getter;
 
 /**
@@ -44,7 +44,7 @@ public class BaseException extends RuntimeException {
         this.code = code;
     }
     
-    public <R extends BaseResponseCode> BaseException(R responseCode) {
+    public <R extends BaseExceptionCode> BaseException(R responseCode) {
         this.code = responseCode.getCode();
         super.getMessage();
     }

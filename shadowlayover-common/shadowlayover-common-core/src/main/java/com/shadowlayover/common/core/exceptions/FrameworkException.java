@@ -1,7 +1,7 @@
 package com.shadowlayover.common.core.exceptions;
 
 import cn.hutool.core.util.StrUtil;
-import com.shadowlayover.common.core.model.code.BaseResponseCode;
+import com.shadowlayover.common.core.model.code.BaseExceptionCode;
 
 /**
  * <pre>
@@ -37,7 +37,7 @@ public class FrameworkException extends BaseException {
         super(StrUtil.format(messageTemplate, params), cause);
     }
     
-    public <R extends BaseResponseCode> FrameworkException(R responseCode) {
+    public <R extends BaseExceptionCode> FrameworkException(R responseCode) {
         super(responseCode);
     }
 }

@@ -4,10 +4,10 @@ package com.shadowlayover.common.core.model.code;
  * <pre>
  * @author: zhouzhanqi
  * @datetime: 2021/8/18-14:00
- * @desc: 基础响应编码
+ * @desc: 基础异常编码
  * </pre>
  */
-public interface BaseResponseCode {
+public interface BaseExceptionCode {
     
     /**
      * 响应编码

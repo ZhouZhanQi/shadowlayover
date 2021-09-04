@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class CacheTestService {
 
-    @Cacheable(value = "abc", key = "shadowlayover-learn")
-    public String getName() {
-        String testStr = "aaa";
-        testStr += "bbb";
-        return testStr;
-    }
-    
+    // @Cacheable(value = "abc", key = "shadowlayover-learn")
+    // public String getName() {
+    //     String testStr = "aaa";
+    //     testStr += "bbb";
+    //     return testStr;
+    // }
+    //
 }

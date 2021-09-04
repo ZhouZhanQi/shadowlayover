@@ -12,7 +12,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum CommonResponseCode implements BaseResponseCode {
+public enum CoreExceptionCode implements BaseExceptionCode {
     
     /**
      * 操作成功

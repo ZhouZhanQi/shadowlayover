@@ -1,7 +1,9 @@
-package com.shadowlayover.common.cache.enums;
+package com.shadowlayover.common.cache.model.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 /**
  * <pre>
@@ -45,4 +47,16 @@ public enum RedisConnectionEnum {
      * 描述
      */
     private final String desc;
+    
+    
+    /**
+     * 根据类型获取连接枚举
+     * @param type
+     * @return
+     */
+    public static RedisConnectionEnum fromType(String type) {
+        return Arrays.stream(RedisConnectionEnum.values())
+                .filter(redisConnection -> redisConnection.getType().equals(type))
+                .findFirst().orElseGet(null);
+    }
 }
