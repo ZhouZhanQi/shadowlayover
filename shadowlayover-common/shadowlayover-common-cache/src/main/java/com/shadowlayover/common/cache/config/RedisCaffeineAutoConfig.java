@@ -11,7 +11,9 @@ import com.shadowlayover.common.cache.props.CacheRedisCaffeineProperties;
 import com.shadowlayover.common.cache.support.CacheMessageListener;
 import com.shadowlayover.common.cache.support.RedisCaffeineCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -33,12 +35,13 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  */
 @EnableCaching
 @Configuration(proxyBeanMethods = false)
+@AutoConfigureAfter(RedisAutoConfiguration.class)
 @EnableConfigurationProperties(CacheRedisCaffeineProperties.class)
 public class RedisCaffeineAutoConfig {
-    
+
     @Autowired
     private CacheRedisCaffeineProperties cacheRedisCaffeineProperties;
-    
+
     /**
      * 获取缓存操作助手对象
      *
@@ -46,13 +49,13 @@ public class RedisCaffeineAutoConfig {
      */
     @Bean
     @Primary
-    @ConditionalOnMissingBean
+    @ConditionalOnMissingBean(name = "stringKeyRedisTemplate")
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
         GenericJackson2JsonRedisSerializer serializer = newJsonRedisSerializer();
         //创建Redis缓存操作助手RedisTemplate对象
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(factory);
-        
+
         // 设置value的序列化规则
         // 默认的GenericJackson2JsonRedisSerializer对特殊的类型的反序列化会有问题，所以需要调整ObjectMapper的规则
         // 例如：List<LocalDateTime> 类型的反序列会出异常，无法正常反序列化
@@ -64,12 +67,12 @@ public class RedisCaffeineAutoConfig {
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         return redisTemplate;
     }
-    
+
     @Bean
-    public RedisCaffeineCacheManager cacheManager(RedisTemplate redisTemplate) {
+    public RedisCaffeineCacheManager cacheManager(RedisTemplate<String, Object> redisTemplate) {
         return new RedisCaffeineCacheManager(cacheRedisCaffeineProperties, redisTemplate);
     }
-    
+
     @Bean
     public RedisMessageListenerContainer redisMessageListenerContainer(RedisTemplate redisTemplate,
                                                                        RedisCaffeineCacheManager cacheManager) {
@@ -79,7 +82,7 @@ public class RedisCaffeineAutoConfig {
         redisMessageListenerContainer.addMessageListener(cacheMessageListener, new ChannelTopic(cacheRedisCaffeineProperties.getRedis().getTopic()));
         return redisMessageListenerContainer;
     }
-    
+
     /**
      * 自定义json序列化配置的json序列化类
      *

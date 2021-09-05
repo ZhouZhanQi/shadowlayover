@@ -4,7 +4,6 @@ import com.shadowlayover.common.core.model.ResponseData;
 import com.shadowlayover.common.core.utils.JacksonUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,7 +23,7 @@ import java.nio.charset.StandardCharsets;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ResponseUtils {
-    
+
     /**
      * 设置响应信息
      * @param response HttpServletResponse
@@ -39,8 +38,8 @@ public class ResponseUtils {
         response.setStatus(status);
         response.getOutputStream().write(JacksonUtils.pojo2Json(data).getBytes(StandardCharsets.UTF_8));
     }
-    
-    
+
+
     /**
      * 设置webflux模型响应
      * @param response ServerHttpResponse
@@ -53,7 +52,7 @@ public class ResponseUtils {
                                                    HttpStatus status, Object data) {
         response.setStatusCode(status);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, contentType);
-        
+
         DataBuffer dataBuffer = response.bufferFactory().wrap(JacksonUtils.pojo2Json(ResponseData.fail(status.value(), data.toString()))
                 .getBytes(StandardCharsets.UTF_8));
         return response.writeWith(Mono.just(dataBuffer));

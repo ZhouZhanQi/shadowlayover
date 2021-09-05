@@ -14,7 +14,6 @@
         <module>shadowlayover-learn</module>
         <module>shadowlayover-system</module>
         <module>shadowlayover-oauth</module>
-        <module>shadowlayover-common/shadowlayover-common-security</module>
     </modules>
 
     <properties>

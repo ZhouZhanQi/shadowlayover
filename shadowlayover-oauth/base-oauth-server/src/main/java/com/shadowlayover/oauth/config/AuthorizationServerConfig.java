@@ -16,11 +16,6 @@ public class AuthorizationServerConfig {
 
     @Bean
     public UserDetailsService customUserDetailsService() {
-        return new UserDetailsService() {
-            @Override
-            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                return null;
-            }
-        };
+        return username -> null;
     }
 }

@@ -1,14 +1,24 @@
 package com.shadowlayover.common.core.utils;
 
+import cn.hutool.core.date.DatePattern;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import com.shadowlayover.common.core.exceptions.UtilException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,9 +31,32 @@ import java.util.Map;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JacksonUtils {
-    
+
     public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-    
+
+    static {
+        // 日期序列化为long
+        OBJECT_MAPPER.enable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        // 反序列化时, 忽略不认识的字段, 而不是抛出异常
+        OBJECT_MAPPER.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
+        // 日期序列化支持LocalDateTime LocalDate
+        JavaTimeModule timeModule = new JavaTimeModule();
+        timeModule.addSerializer(LocalDateTime.class,
+                new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN)));
+        timeModule.addSerializer(LocalDate.class,
+                new LocalDateSerializer(DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN)));
+        timeModule.addSerializer(LocalTime.class,
+                new LocalTimeSerializer(DateTimeFormatter.ofPattern(DatePattern.NORM_TIME_PATTERN)));
+        timeModule.addDeserializer(LocalDateTime.class,
+                new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN)));
+        timeModule.addDeserializer(LocalDate.class,
+                new LocalDateDeserializer(DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN)));
+        timeModule.addDeserializer(LocalTime.class,
+                new LocalTimeDeserializer(DateTimeFormatter.ofPattern(DatePattern.NORM_TIME_PATTERN)));
+        OBJECT_MAPPER.registerModule(timeModule);
+    }
+
     /**
      * 仅读取整个json中的某个属性值,若该属性是一个json对象,则返回空字符串""
      *
@@ -40,7 +73,7 @@ public class JacksonUtils {
             throw new UtilException("error reading json field", e);
         }
     }
-    
+
     /**
      * 将json字符串转换为指定类型的java对象
      *
@@ -55,7 +88,7 @@ public class JacksonUtils {
             throw new RuntimeException("error transform json to pojo", e);
         }
     }
-    
+
     /**
      * 将json字符串转换为指定类型的java对象, 此方法用于目标类包含泛型的java对象.
      * <br/>
@@ -73,8 +106,8 @@ public class JacksonUtils {
             throw new UtilException("error transform json to pojo", e);
         }
     }
-    
-    
+
+
     /**
      * 将json字符串转换为HashMap(json里的子对象也将转换为Map)
      *
@@ -88,7 +121,7 @@ public class JacksonUtils {
             throw new UtilException("error transform json to map", e);
         }
     }
-    
+
     /**
      * 将java对象转换为json字符串
      *
@@ -102,7 +135,7 @@ public class JacksonUtils {
             throw new UtilException("error transform pojo to json", e);
         }
     }
-    
+
     /**
      * 将java对象转换为map对象
      *
@@ -112,7 +145,7 @@ public class JacksonUtils {
     public static Map<String, Object> pojo2Map(Object pojo) {
         return json2Map(pojo2Json(pojo));
     }
-    
+
     /**
      * 将json字符串转换为List<T>
      *

@@ -38,6 +38,7 @@
         <module>shadowlayover-common-db</module>
         <module>shadowlayover-common-web</module>
         <module>shadowlayover-common-cache</module>
+        <module>shadowlayover-common-security</module>
     </modules>
 
 

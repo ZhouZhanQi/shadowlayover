@@ -5,6 +5,7 @@ import com.shadowlayover.common.web.annotation.EnableShadowlayoverAsync;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +18,7 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 /**
  * @author zhouzhanqi
  */
-@EnableShadowlayoverAsync
+@EnableCaching
 @SpringBootApplication
 public class ShadowlayoverWebfluxApplication {
     public static void main(String[] args) {
