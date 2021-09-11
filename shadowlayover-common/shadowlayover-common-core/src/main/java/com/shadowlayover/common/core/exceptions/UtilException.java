@@ -37,4 +37,8 @@ public class UtilException extends BaseException {
     public <R extends BaseExceptionCode> UtilException(R responseCode) {
         super(responseCode);
     }
+    
+    public <R extends BaseExceptionCode> UtilException(R responseCode, Object... params) {
+        super(responseCode, params);
+    }
 }

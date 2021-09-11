@@ -7,7 +7,7 @@ import lombok.Getter;
  * <pre>
  * @author: zhouzhanqi
  * @datetime: 2021/8/18-14:10
- * @desc: 公共响应信息
+ * @desc: 基础响应信息
  * </pre>
  */
 @Getter

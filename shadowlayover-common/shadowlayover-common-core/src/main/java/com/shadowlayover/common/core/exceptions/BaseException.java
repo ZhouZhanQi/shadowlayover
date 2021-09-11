@@ -45,8 +45,13 @@ public class BaseException extends RuntimeException {
     }
     
     public <R extends BaseExceptionCode> BaseException(R responseCode) {
+        super(responseCode.getMessage());
         this.code = responseCode.getCode();
-        super.getMessage();
+    }
+    
+    public <R extends BaseExceptionCode> BaseException(R responseCode, Object... params) {
+        super(StrUtil.format(responseCode.getMessage(), params));
+        this.code = responseCode.getCode();
     }
     
     public BaseException(String message, int code) {

@@ -12,6 +12,13 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ResourceTypeEnum {
 
+    CONTENT(1, "目录"),
+    
+    MENU(2, "菜单"),
+    
+    BUTTON(3, "按钮"),
+    
+    LINK(4, "链接"),
     ;
     private final Integer code;
 

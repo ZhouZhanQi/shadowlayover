@@ -22,7 +22,7 @@ public class BaseModel implements Serializable {
     /**
      * 创建者Id
      */
-    @TableField(fill = FieldFill.INSERT)
+    @TableField(value = "creator_id", fill = FieldFill.INSERT)
     private Long creatorId;
 
     /**
@@ -34,13 +34,13 @@ public class BaseModel implements Serializable {
     /**
      * 创建时间
      */
-    @TableField(fill = FieldFill.INSERT)
+    @TableField(value = "creator_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     /**
      * 更新者Id
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "updater_id", fill = FieldFill.INSERT_UPDATE)
     private Long updaterId;
 
     /**
@@ -52,18 +52,21 @@ public class BaseModel implements Serializable {
     /**
      * 更新时间
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
     /**
      *
      */
-    @TableField(fill = FieldFill.INSERT)
+    @TableField(value = "trace_id", fill = FieldFill.INSERT)
     private String traceId;
 
     @Version
     private Integer rVersion;
-
-    @TableLogic
-    private boolean deleted;
+    
+    /**
+     * 是否删除
+     */
+    @TableLogic("is_deleted")
+    private Boolean deleted;
 }

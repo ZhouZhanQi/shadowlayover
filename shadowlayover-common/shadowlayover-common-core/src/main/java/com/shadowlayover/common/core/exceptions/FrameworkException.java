@@ -40,4 +40,8 @@ public class FrameworkException extends BaseException {
     public <R extends BaseExceptionCode> FrameworkException(R responseCode) {
         super(responseCode);
     }
+    
+    public <R extends BaseExceptionCode> FrameworkException(R responseCode, Object... params) {
+        super(responseCode, params);
+    }
 }

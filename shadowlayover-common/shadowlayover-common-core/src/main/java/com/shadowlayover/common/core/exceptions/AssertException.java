@@ -40,4 +40,8 @@ public class AssertException extends BaseException {
     public <R extends BaseExceptionCode> AssertException(R responseCode) {
         super(responseCode);
     }
+    
+    public <R extends BaseExceptionCode> AssertException(R responseCode, Object... params) {
+        super(responseCode, params);
+    }
 }

@@ -5,7 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.shadowlayover.adminuser.api.model.domain.SysDept">
         <id column="id" property="id" />
-        <result column="rversion" property="rversion" />
+        <result column="r_version" property="rVersion" />
         <result column="dept_name" property="deptName" />
         <result column="leader" property="leader" />
         <result column="phone" property="phone" />
@@ -26,5 +26,8 @@
         rversion,
         id, dept_name, leader, phone, email, status, order_num, parent_id, tenant_id, is_deleted, created_by, created_time, updated_by, updated_time
     </sql>
+    <select id="getByUserId" resultType="com.shadowlayover.adminuser.api.model.domain.SysDept">
+        select * from sys_dept
+    </select>
 
 </mapper>

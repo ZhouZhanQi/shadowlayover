@@ -8,6 +8,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 import javax.annotation.CheckForNull;
 
+import java.util.function.Supplier;
+
 import static com.google.common.base.Strings.lenientFormat;
 
 /**
@@ -106,6 +108,23 @@ public class AssertUtils {
             @CheckForNull @Nullable Object... errorMessageArgs) {
         if (reference == null) {
             throw new AssertException(lenientFormat(errorMessageTemplate, errorMessageArgs));
+        }
+        return reference;
+    }
+    
+    /**
+     * 断言传入参数不能为null
+     * @param reference
+     * @param exceptionSupplier
+     * @param <T>
+     * @param <X>
+     * @return
+     * @throws Throwable
+     */
+    @CanIgnoreReturnValue
+    public static <T, X extends Throwable> T checkNotNull(@CheckForNull T reference, Supplier<? extends X> exceptionSupplier) throws Throwable {
+        if (reference == null) {
+            throw exceptionSupplier.get();
         }
         return reference;
     }

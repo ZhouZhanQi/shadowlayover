@@ -12,5 +12,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-07-27
  */
 public interface ISysDeptService extends IService<SysDept> {
-
+    
+    /**
+     * 根据职位Id查询部门信息
+     * @userId 用户Id
+     * @return 返回部门信息
+     */
+    SysDept getByUserId(Long userId);
+    
 }

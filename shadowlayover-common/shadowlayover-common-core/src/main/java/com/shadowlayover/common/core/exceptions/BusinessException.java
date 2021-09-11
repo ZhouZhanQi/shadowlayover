@@ -40,4 +40,8 @@ public class BusinessException extends BaseException {
     public <R extends BaseExceptionCode> BusinessException(R responseCode) {
         super(responseCode);
     }
+    
+    public <R extends BaseExceptionCode> BusinessException(R responseCode, Object... params) {
+        super(responseCode, params);
+    }
 }
