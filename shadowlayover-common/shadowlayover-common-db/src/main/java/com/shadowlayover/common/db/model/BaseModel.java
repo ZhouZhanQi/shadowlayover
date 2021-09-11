@@ -62,7 +62,7 @@ public class BaseModel implements Serializable {
     private String traceId;
 
     @Version
-    private Integer rVersion;
+    private Integer version;
     
     /**
      * 是否删除

@@ -98,6 +98,4 @@ public class SysDept extends BaseModel {
      */
     @TableField("updated_time")
     private LocalDateTime updatedTime;
-
-
 }
