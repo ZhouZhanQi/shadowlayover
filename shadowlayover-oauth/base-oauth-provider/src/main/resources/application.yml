@@ -1,0 +1,35 @@
+server:
+  port: 10000
+  servlet:
+    context-path: /base-oauth
+spring:
+  application:
+    name: base-oauth
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:18848
+        group: shadowlayover
+        namespace: e037d3cb-53b7-4175-b95c-ee6467983bd8
+      config:
+        server-addr: 127.0.0.1:18848
+        group: shadowlayover
+        name: base-oauth
+        namespace: e037d3cb-53b7-4175-b95c-ee6467983bd8
+  datasource:
+    dynamic:
+      #设置默认的数据源或者数据源组,默认值即为master
+      primary: master
+      #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      strict: false
+      datasource:
+        master:
+          url: jdbc:mysql://192.168.1.32:13306/shadowlayover_oauth
+          username: root
+          password: 825116
+          driver-class-name: com.mysql.cj.jdbc.Driver
+  profiles:
+    active: dev
+shadowlayover:
+  log:
+    path: /Users/zhouzq/shadowlayover/logs/

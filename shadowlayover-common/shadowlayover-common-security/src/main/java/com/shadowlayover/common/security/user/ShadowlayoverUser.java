@@ -15,26 +15,26 @@ import java.util.Collection;
  */
 @Getter
 public class ShadowlayoverUser extends User {
-    
+
     /**
      * 用户Id
      */
     private Long userId;
-    
+
     /**
      * 部门Id
      */
     private Long deptId;
-    
+
     /**
      * 租户Id
      */
     private Long tenantId;
-    
+
     public ShadowlayoverUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
     }
-    
+
     /**
      *
      * @param userId 用户Id
@@ -48,7 +48,7 @@ public class ShadowlayoverUser extends User {
      * @param accountNonLocked 是否锁定
      * @param authorities 权限集合
      */
-    public ShadowlayoverUser(Long userId, Long deptId, Long tenantId, String username, String password,
+    public ShadowlayoverUser(Long userId, Long tenantId, Long deptId, String username, String password,
                              boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired,
                              boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);

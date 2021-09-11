@@ -34,7 +34,7 @@ public class BaseModel implements Serializable {
     /**
      * 创建时间
      */
-    @TableField(value = "creator_time", fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     /**
@@ -61,12 +61,10 @@ public class BaseModel implements Serializable {
     @TableField(value = "trace_id", fill = FieldFill.INSERT)
     private String traceId;
 
-    @Version
-    private Integer version;
-    
     /**
      * 是否删除
      */
-    @TableLogic("is_deleted")
+    @TableLogic
+    @TableField(value = "is_deleted")
     private Boolean deleted;
 }
