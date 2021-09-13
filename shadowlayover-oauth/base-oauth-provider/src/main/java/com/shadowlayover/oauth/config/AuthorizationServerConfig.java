@@ -5,7 +5,6 @@ import com.shadowlayover.oauth.service.IShadowlayoverUserService;
 import com.shadowlayover.oauth.service.oauth.ClientDetailsServices;
 import com.shadowlayover.oauth.service.oauth.SingleLoginTokenServices;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -92,15 +91,15 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     private TokenGranter tokenGranter(final AuthorizationServerEndpointsConfigurer endpoints, DefaultTokenServices tokenServices) {
         List<TokenGranter> granters = new ArrayList<>(Collections.singletonList(endpoints.getTokenGranter()));
-        // 短信验证码模式
-        granters.add(new SmsCodeTokenGranter(authenticationManager, tokenServices, endpoints.getClientDetailsService(),
-                endpoints.getOAuth2RequestFactory(), redisService));
-        // 验证码模式
-        granters.add(new CaptchaTokenGranter(authenticationManager, tokenServices, endpoints.getClientDetailsService(),
-                endpoints.getOAuth2RequestFactory(), redisService));
-        // 社交登录模式
-        granters.add(new SocialTokenGranter(authenticationManager, tokenServices, endpoints.getClientDetailsService(),
-                endpoints.getOAuth2RequestFactory(), redisService, factory));
+        // // 短信验证码模式
+        // granters.add(new SmsCodeTokenGranter(authenticationManager, tokenServices, endpoints.getClientDetailsService(),
+        //         endpoints.getOAuth2RequestFactory(), redisService));
+        // // 验证码模式
+        // granters.add(new CaptchaTokenGranter(authenticationManager, tokenServices, endpoints.getClientDetailsService(),
+        //         endpoints.getOAuth2RequestFactory(), redisService));
+        // // 社交登录模式
+        // granters.add(new SocialTokenGranter(authenticationManager, tokenServices, endpoints.getClientDetailsService(),
+        //         endpoints.getOAuth2RequestFactory(), redisService, factory));
         // 增加密码模式
         granters.add(new ResourceOwnerPasswordTokenGranter(authenticationManager, tokenServices, endpoints.getClientDetailsService(), endpoints.getOAuth2RequestFactory()));
         return new CompositeTokenGranter(granters);

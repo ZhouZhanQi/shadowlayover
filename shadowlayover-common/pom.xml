@@ -42,7 +42,6 @@
         <module>shadowlayover-common-security</module>
     </modules>
 
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
