@@ -13,7 +13,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
  * @desc: oauth认证服务启动类
  * </pre>
  */
-@EnableAuthorizationServer
 @SpringBootApplication
 @EnableDiscoveryClient
 public class BaseOauthProviderApplication {

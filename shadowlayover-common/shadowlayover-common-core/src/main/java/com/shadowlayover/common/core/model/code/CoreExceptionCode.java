@@ -6,43 +6,20 @@ import lombok.Getter;
 /**
  * <pre>
  * @author: zhouzhanqi
- * @datetime: 2021/8/18-14:10
- * @desc: 基础响应信息
+ * @datetime: 2021/9/11-18:13
+ * @desc: 公共异常编码
+ * 10***
  * </pre>
  */
 @Getter
 @AllArgsConstructor
 public enum CoreExceptionCode implements BaseExceptionCode {
-    
-    /**
-     * 操作成功
-     */
-    SUCCESS(200, "操作成功"),
-    
-    /**
-     * 参数错误
-     */
-    PARAM_ERROR(400, "参数错误"),
-    
-    /**
-     * 无访问权限
-     */
-    NO_AUTH(401, "无访问权限"),
-    
-    /**
-     * 服务未找到
-     */
-    NOT_FOUND(404, "服务未找到"),
-    
-    /**
-     * 请求频繁
-     */
-    TOO_MANY_REQUESTS(429, "请求频繁"),
-    
-    /**
-     * 服务异常
-     */
-    ERROR(500, "服务异常"),
+ 
+    PARAM_CHECK_NOT_NULL(10000, "%s不能为空"),
+ 
+    DATA_QUERY_ERROR(10001, "%s查询失败"),
+ 
+    DATA_UPDATE_ERROR(10002, "%s更新失败"),
     ;
     
     private final int code;

@@ -1,7 +1,7 @@
 package com.shadowlayover.common.security.handler;
 
 import com.shadowlayover.common.core.model.ResponseData;
-import com.shadowlayover.common.core.model.code.CoreExceptionCode;
+import com.shadowlayover.common.core.model.code.CommonExceptionCode;
 import com.shadowlayover.common.web.utils.ResponseUtils;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
@@ -22,6 +22,6 @@ import java.io.IOException;
 public class ShadowlayoverAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        ResponseUtils.responseWriter(httpServletResponse, MediaType.APPLICATION_JSON_VALUE, HttpServletResponse.SC_UNAUTHORIZED, ResponseData.fail(CoreExceptionCode.NO_AUTH));
+        ResponseUtils.responseWriter(httpServletResponse, MediaType.APPLICATION_JSON_VALUE, HttpServletResponse.SC_UNAUTHORIZED, ResponseData.fail(CommonExceptionCode.NO_AUTH));
     }
 }

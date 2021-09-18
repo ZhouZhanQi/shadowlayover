@@ -1,5 +1,9 @@
 package com.shadowlayover.common.security.handler;
 
+import cn.hutool.http.ContentType;
+import com.shadowlayover.common.core.model.ResponseData;
+import com.shadowlayover.common.web.utils.ResponseUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
@@ -18,6 +22,6 @@ import java.io.IOException;
 public class ShadowlayoverAuthenticationFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-    
+        ResponseUtils.responseWriter(httpServletResponse, ContentType.JSON.getValue(), HttpStatus.UNAUTHORIZED.value(), ResponseData.fail("未授权"));
     }
 }

@@ -57,6 +57,6 @@ public enum RedisConnectionEnum {
     public static RedisConnectionEnum fromType(String type) {
         return Arrays.stream(RedisConnectionEnum.values())
                 .filter(redisConnection -> redisConnection.getType().equals(type))
-                .findFirst().orElseGet(null);
+                .findFirst().orElse(null);
     }
 }

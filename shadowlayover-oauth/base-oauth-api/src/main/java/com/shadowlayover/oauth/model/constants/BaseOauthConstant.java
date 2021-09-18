@@ -6,8 +6,10 @@ package com.shadowlayover.oauth.model.constants;
  * @desc 认证服务常量
  */
 public interface BaseOauthConstant {
-
-
+    
+    
+    String OAUTH_MOBILE = "/oauth/mobile";
+    
     /**
      * 刷新模式
      */
@@ -17,6 +19,11 @@ public interface BaseOauthConstant {
      * 客户端模式
      */
     String CLIENT_CREDENTIALS = "client_credentials";
+    
+    /**
+     * 默认手机号参数
+     */
+    String DEFAULT_PARAMETER_NAME_MOBILE = "mobilePhone";
 
     /**
      *

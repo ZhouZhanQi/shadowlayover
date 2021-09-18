@@ -1,6 +1,10 @@
 package com.shadowlayover.oauth.config;
 
+import com.shadowlayover.common.cache.RedisCacheHelper;
+import com.shadowlayover.common.security.user.ShadowlayoverUserDetailService;
+import com.shadowlayover.oauth.granter.SmsCodeTokenGranter;
 import com.shadowlayover.oauth.model.constants.BaseOauthConstant;
+import com.shadowlayover.oauth.model.enums.GrantTypeEnum;
 import com.shadowlayover.oauth.service.IShadowlayoverUserService;
 import com.shadowlayover.oauth.service.oauth.ClientDetailsServices;
 import com.shadowlayover.oauth.service.oauth.SingleLoginTokenServices;
@@ -43,9 +47,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     private final RedisConnectionFactory redisConnectionFactory;
 
-    private final IShadowlayoverUserService shadowlayoverUserService;
+    private final ShadowlayoverUserDetailService shadowlayoverUserService;
 
     private final AuthenticationManager authenticationManager;
+    
+    private final RedisCacheHelper redisCacheHelper;
 
     private boolean isSingleLogin = false;
 
@@ -91,9 +97,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     private TokenGranter tokenGranter(final AuthorizationServerEndpointsConfigurer endpoints, DefaultTokenServices tokenServices) {
         List<TokenGranter> granters = new ArrayList<>(Collections.singletonList(endpoints.getTokenGranter()));
-        // // 短信验证码模式
-        // granters.add(new SmsCodeTokenGranter(authenticationManager, tokenServices, endpoints.getClientDetailsService(),
-        //         endpoints.getOAuth2RequestFactory(), redisService));
+        // 短信验证码模式
+        granters.add(new SmsCodeTokenGranter(authenticationManager, tokenServices, endpoints.getClientDetailsService(),
+                endpoints.getOAuth2RequestFactory(), GrantTypeEnum.SMS_CODE.getKey(), redisCacheHelper));
         // // 验证码模式
         // granters.add(new CaptchaTokenGranter(authenticationManager, tokenServices, endpoints.getClientDetailsService(),
         //         endpoints.getOAuth2RequestFactory(), redisService));

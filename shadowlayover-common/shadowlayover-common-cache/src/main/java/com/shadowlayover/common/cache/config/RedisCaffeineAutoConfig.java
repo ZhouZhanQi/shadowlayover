@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
+import com.shadowlayover.common.cache.RedisCacheHelper;
 import com.shadowlayover.common.cache.props.CacheRedisCaffeineProperties;
 import com.shadowlayover.common.cache.support.CacheMessageListener;
 import com.shadowlayover.common.cache.support.RedisCaffeineCacheManager;
@@ -35,7 +36,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  */
 @EnableCaching
 @Configuration(proxyBeanMethods = false)
-@AutoConfigureAfter(RedisAutoConfiguration.class)
+// @AutoConfigureAfter(RedisAutoConfiguration.class)
 @EnableConfigurationProperties(CacheRedisCaffeineProperties.class)
 public class RedisCaffeineAutoConfig {
 
@@ -74,7 +75,7 @@ public class RedisCaffeineAutoConfig {
     }
 
     @Bean
-    public RedisMessageListenerContainer redisMessageListenerContainer(RedisTemplate redisTemplate,
+    public RedisMessageListenerContainer redisMessageListenerContainer(RedisTemplate<String, Object> redisTemplate,
                                                                        RedisCaffeineCacheManager cacheManager) {
         RedisMessageListenerContainer redisMessageListenerContainer = new RedisMessageListenerContainer();
         redisMessageListenerContainer.setConnectionFactory(redisTemplate.getConnectionFactory());
@@ -83,6 +84,11 @@ public class RedisCaffeineAutoConfig {
         return redisMessageListenerContainer;
     }
 
+    @Bean
+    public RedisCacheHelper redisCacheHelper(RedisTemplate<String, Object> redisTemplate) {
+        return new RedisCacheHelper(redisTemplate);
+    }
+    
     /**
      * 自定义json序列化配置的json序列化类
      *

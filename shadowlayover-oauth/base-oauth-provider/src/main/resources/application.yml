@@ -1,30 +1,42 @@
 server:
-  port: 10000
+  port: 20000
   servlet:
     context-path: /base-oauth
 spring:
+  profiles:
+    active: dev
   application:
     name: base-oauth
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:18848
+        server-addr: 192.168.1.98:18848
         group: shadowlayover
-        namespace: e037d3cb-53b7-4175-b95c-ee6467983bd8
+        namespace: 7c27bc92-779f-4112-a13a-45509795119a
+        ip: 192.168.1.98
       config:
-        server-addr: 127.0.0.1:18848
+        server-addr: 192.168.1.98:18848
         group: shadowlayover
         name: base-oauth
-        namespace: e037d3cb-53b7-4175-b95c-ee6467983bd8
-
-  security:
-    oauth2:
-      client:
-        registration:
-          shadowlayover:
-            redirect-uri:
-  profiles:
-    active: dev
+        namespace: 7c27bc92-779f-4112-a13a-45509795119a
+  redis:
+    host: 192.168.1.98
+    port: 16379
+  cache:
+    multi:
+      cache-names:
+        - base-oauth
+      cachePrefix: oauth
+  datasource:
+    dynamic:
+      primary: master
+      strict: false
+      datasource:
+        master:
+          url: jdbc:mysql://192.168.1.98:13306/shadowlayover_oauth
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.cj.jdbc.Driver
 shadowlayover:
   log:
     path: /Users/zhouzq/shadowlayover/logs/
