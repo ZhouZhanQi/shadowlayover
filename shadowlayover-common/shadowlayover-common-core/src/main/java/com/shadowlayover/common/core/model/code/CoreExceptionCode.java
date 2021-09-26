@@ -20,6 +20,8 @@ public enum CoreExceptionCode implements BaseExceptionCode {
     DATA_QUERY_ERROR(10001, "%s查询失败"),
  
     DATA_UPDATE_ERROR(10002, "%s更新失败"),
+    
+    JSON_DATA_CONVERT_ERROR(10003, "Json数据转换失败"),
     ;
     
     private final int code;
