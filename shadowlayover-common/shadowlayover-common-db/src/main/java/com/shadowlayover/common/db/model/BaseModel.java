@@ -56,7 +56,7 @@ public class BaseModel implements Serializable {
     private LocalDateTime updateTime;
 
     /**
-     *
+     * 调用链Id
      */
     @TableField(value = "trace_id", fill = FieldFill.INSERT)
     private String traceId;
