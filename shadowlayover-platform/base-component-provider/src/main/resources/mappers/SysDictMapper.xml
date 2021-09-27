@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shadowlayover.component.mapper.SysDictMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.shadowlayover.component.domain.SysDict">
+        <id column="id" property="id" />
+        <result column="trace_id" property="traceId" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="creator_id" property="creatorId" />
+        <result column="creator" property="creator" />
+        <result column="create_time" property="createTime" />
+        <result column="updater_id" property="updaterId" />
+        <result column="updater" property="updater" />
+        <result column="update_time" property="updateTime" />
+        <result column="service_name" property="serviceName" />
+        <result column="module_name" property="moduleName" />
+        <result column="dict_code" property="dictCode" />
+        <result column="dict_name" property="dictName" />
+        <result column="dict_desc" property="dictDesc" />
+        <result column="status" property="status" />
+        <result column="sort" property="sort" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        trace_id,
+        is_deleted,
+        creator_id,
+        creator,
+        create_time,
+        updater_id,
+        updater,
+        update_time,
+        id, service_name, module_name, dict_code, dict_name, dict_desc, status, sort
+    </sql>
+
+</mapper>

@@ -1,0 +1,34 @@
+server:
+  port: 20011
+  servlet:
+    context-path: /base-message
+spring:
+  profiles:
+    active: dev
+  application:
+    name: base-message
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.98:18848
+        group: shadowlayover
+        namespace: 54c84fc9-f0b8-44e1-8c89-e5b932161771
+        ip: 192.168.1.98
+      config:
+        server-addr: 192.168.1.98:18848
+        group: shadowlayover
+        name: base-message
+        namespace: 54c84fc9-f0b8-44e1-8c89-e5b932161771
+  datasource:
+    dynamic:
+      primary: master
+      strict: false
+      datasource:
+        master:
+          url: jdbc:mysql://192.168.1.98:13306/shadowlayover_message
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.cj.jdbc.Driver
+shadowlayover:
+  log:
+    path: /Users/zhouzq/shadowlayover/logs/

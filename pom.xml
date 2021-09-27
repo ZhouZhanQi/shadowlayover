@@ -11,8 +11,9 @@
 
     <modules>
         <module>shadowlayover-common</module>
-        <module>shadowlayover-platform</module>
         <module>shadowlayover-oauth</module>
+        <module>shadowlayover-platform</module>
+        <module>shadowlayover-platform/base-message-provider</module>
     </modules>
 
     <properties>

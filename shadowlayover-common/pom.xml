@@ -39,6 +39,7 @@
         <module>shadowlayover-common-web</module>
         <module>shadowlayover-common-cache</module>
         <module>shadowlayover-common-security</module>
+        <module>shadowlayover-common-feign</module>
     </modules>
 
     <dependencies>

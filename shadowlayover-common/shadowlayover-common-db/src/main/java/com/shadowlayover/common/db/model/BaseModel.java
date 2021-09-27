@@ -66,5 +66,5 @@ public class BaseModel implements Serializable {
      */
     @TableLogic
     @TableField(value = "is_deleted")
-    private Boolean deleted;
+    private Boolean isDeleted;
 }

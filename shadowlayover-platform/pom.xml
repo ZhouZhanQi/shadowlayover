@@ -16,7 +16,12 @@
 
     <modules>
         <module>base-component-api</module>
+        <module>base-component-client</module>
         <module>base-component-provider</module>
+
+        <module>base-message-api</module>
+        <module>base-message-client</module>
+        <module>base-message-provider</module>
     </modules>
 
     <dependencies>
@@ -29,6 +34,12 @@
         <dependency>
             <groupId>com.shadowlayover</groupId>
             <artifactId>shadowlayover-common-db</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.shadowlayover</groupId>
+            <artifactId>shadowlayover-common-feign</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

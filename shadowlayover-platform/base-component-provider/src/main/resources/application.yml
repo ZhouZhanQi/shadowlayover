@@ -1,35 +1,64 @@
 server:
-  port: 10000
+  port: 20010
   servlet:
-    context-path: /base-adminuser
+    context-path: /base-component
 spring:
+  profiles:
+    active: dev
   application:
-    name: base-adminuser
+    name: base-component
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:18848
+        server-addr: 192.168.1.98:18848
         group: shadowlayover
-        namespace: e037d3cb-53b7-4175-b95c-ee6467983bd8
+        namespace: 54c84fc9-f0b8-44e1-8c89-e5b932161771
+        ip: 192.168.1.98
       config:
-        server-addr: 127.0.0.1:18848
+        server-addr: 192.168.1.98:18848
         group: shadowlayover
-        name: base-adminuser
-        namespace: e037d3cb-53b7-4175-b95c-ee6467983bd8
+        name: base-component
+        namespace: 54c84fc9-f0b8-44e1-8c89-e5b932161771
   datasource:
     dynamic:
-      #设置默认的数据源或者数据源组,默认值即为master
       primary: master
-      #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
-      strict: false
+      strict: true
+      seata: true
+      seata-mode: at
       datasource:
         master:
-          url: jdbc:mysql://192.168.1.32:13306/shadowlayover_oauth
+          url: jdbc:mysql://192.168.1.98:13306/shadowlayover_component
           username: root
-          password: 825116
+          password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
-  profiles:
-    active: dev
+seata:
+  enabled: true
+  enable-auto-data-source-proxy: false
+  application-id: seata-server
+  tx-service-group: my_test_tx_group
+  service:
+    vgroup-mapping:
+      my_test_tx_group: default
+    grouplist:
+      default: 192.168.1.98:18091
+  config:
+    type: nacos
+    nacos:
+      server-addr: ${spring.cloud.nacos.config.server-addr}
+      group: SEATA_GROUP
+      namespace: '8bd73b4e-2b8f-4ffe-bd19-a64b1837d02a'
+      username: nacos
+      password: nacos
+      data-id: seata.properties
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      group: 'SEATA_GROUP'
+      namespace: '8bd73b4e-2b8f-4ffe-bd19-a64b1837d02a'
+      username: nacos
+      password: nacos
 shadowlayover:
   log:
     path: /Users/zhouzq/shadowlayover/logs/
