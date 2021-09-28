@@ -1,4 +1,4 @@
-package com.shadowlayover.component;
+package com.shadowlayover.component.client;
 
 import com.shadowlayover.common.core.model.ResponseData;
 import com.shadowlayover.component.service.SysConfigRemoteService;

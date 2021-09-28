@@ -15,7 +15,6 @@ import java.util.UUID;
  * @desc 元对象处理器
  */
 @Slf4j
-@Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
@@ -24,13 +23,13 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
             //获取上下文信息
             log.debug(">>>>>> start insert fill ...");
         }
-        this.strictInsertFill(metaObject, "creator_id", () -> 0L, Long.class);
+        this.strictInsertFill(metaObject, "creatorId", () -> 0L, Long.class);
         this.strictInsertFill(metaObject, "creator", () -> "admin", String.class);
-        this.strictInsertFill(metaObject, "create_time", () -> LocalDateTime.now(), LocalDateTime.class);
-        this.strictInsertFill(metaObject, "updater_id", () -> 0L, Long.class);
+        this.strictInsertFill(metaObject, "createTime", () -> LocalDateTime.now(), LocalDateTime.class);
+        this.strictInsertFill(metaObject, "updaterId", () -> 0L, Long.class);
         this.strictInsertFill(metaObject, "updater", () -> "admin", String.class);
-        this.strictInsertFill(metaObject, "update_time", () -> LocalDateTime.now(), LocalDateTime.class);
-        this.strictInsertFill(metaObject, "trace_id", () -> UUID.randomUUID().toString().replaceAll("-", ""), String.class);
+        this.strictInsertFill(metaObject, "updateTime", () -> LocalDateTime.now(), LocalDateTime.class);
+        this.strictInsertFill(metaObject, "traceId", () -> UUID.randomUUID().toString().replaceAll("-", ""), String.class);
     }
 
     @Override
@@ -39,9 +38,9 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
             //获取上下文信息
             log.debug(">>>>>> start update fill ...");
         }
-        this.strictInsertFill(metaObject, "updater_id", () -> 0L, Long.class);
+        this.strictInsertFill(metaObject, "updaterId", () -> 0L, Long.class);
         this.strictInsertFill(metaObject, "updater", () -> "admin", String.class);
-        this.strictUpdateFill(metaObject, "update_time", () -> LocalDateTime.now(), LocalDateTime.class);
-        this.strictInsertFill(metaObject, "trace_id", () -> UUID.randomUUID().toString().replaceAll("-", ""), String.class);
+        this.strictUpdateFill(metaObject, "updateTime", () -> LocalDateTime.now(), LocalDateTime.class);
+        this.strictInsertFill(metaObject, "traceId", () -> UUID.randomUUID().toString().replaceAll("-", ""), String.class);
     }
 }

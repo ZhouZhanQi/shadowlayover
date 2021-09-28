@@ -31,6 +31,7 @@
         <common.pool2-version>2.10.0</common.pool2-version>
         <spring.cloud.context-version>3.0.3</spring.cloud.context-version>
         <easyexcel-version>2.2.10</easyexcel-version>
+        <seata-version>1.4.2</seata-version>
     </properties>
 
     <modules>
@@ -40,6 +41,7 @@
         <module>shadowlayover-common-cache</module>
         <module>shadowlayover-common-security</module>
         <module>shadowlayover-common-feign</module>
+        <module>shadowlayover-common-seata</module>
     </modules>
 
     <dependencies>

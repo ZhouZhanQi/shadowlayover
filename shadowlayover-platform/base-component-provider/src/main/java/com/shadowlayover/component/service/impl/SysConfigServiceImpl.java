@@ -4,12 +4,11 @@ import com.shadowlayover.component.model.domain.SysConfig;
 import com.shadowlayover.component.mapper.SysConfigMapper;
 import com.shadowlayover.component.service.ISysConfigService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.shadowlayover.message.SysNoticeRemoteClient;
+import com.shadowlayover.message.client.SysNoticeRemoteClient;
 import com.shadowlayover.message.model.domain.SysNotice;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>

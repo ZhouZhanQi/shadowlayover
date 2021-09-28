@@ -3,7 +3,7 @@
 <mapper namespace="com.shadowlayover.component.mapper.SysDictItemMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.shadowlayover.component.domain.SysDictItem">
+    <resultMap id="BaseResultMap" type="com.shadowlayover.component.model.domain.SysDictItem">
         <id column="id" property="id" />
         <result column="trace_id" property="traceId" />
         <result column="is_deleted" property="isDeleted" />
@@ -18,7 +18,7 @@
         <result column="dict_item_name" property="dictItemName" />
         <result column="dict_item_value" property="dictItemValue" />
         <result column="dict_item_desc" property="dictItemDesc" />
-        <result column="sys_default" property="sysDefault" />
+        <result column="is_default" property="isDefault" />
         <result column="status" property="status" />
         <result column="sort" property="sort" />
     </resultMap>
@@ -33,7 +33,7 @@
         updater_id,
         updater,
         update_time,
-        id, dict_id, dict_item_code, dict_item_name, dict_item_value, dict_item_desc, sys_default, status, sort
+        id, dict_id, dict_item_code, dict_item_name, dict_item_value, dict_item_desc, is_default, status, sort
     </sql>
 
 </mapper>

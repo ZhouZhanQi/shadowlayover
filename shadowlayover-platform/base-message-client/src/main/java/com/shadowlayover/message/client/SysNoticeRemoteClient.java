@@ -1,4 +1,4 @@
-package com.shadowlayover.message;
+package com.shadowlayover.message.client;
 
 import com.shadowlayover.common.core.model.ResponseData;
 import com.shadowlayover.message.model.constants.MessageConstants;

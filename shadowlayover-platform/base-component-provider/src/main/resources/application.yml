@@ -27,38 +27,22 @@ spring:
       seata-mode: at
       datasource:
         master:
-          url: jdbc:mysql://192.168.1.98:13306/shadowlayover_component
+          url: jdbc:p6spy:mysql://192.168.1.98:13306/shadowlayover_component
           username: root
           password: 123456
-          driver-class-name: com.mysql.cj.jdbc.Driver
-seata:
-  enabled: true
-  enable-auto-data-source-proxy: false
-  application-id: seata-server
-  tx-service-group: my_test_tx_group
-  service:
-    vgroup-mapping:
-      my_test_tx_group: default
-    grouplist:
-      default: 192.168.1.98:18091
-  config:
-    type: nacos
-    nacos:
-      server-addr: ${spring.cloud.nacos.config.server-addr}
-      group: SEATA_GROUP
-      namespace: '8bd73b4e-2b8f-4ffe-bd19-a64b1837d02a'
-      username: nacos
-      password: nacos
-      data-id: seata.properties
-  registry:
-    type: nacos
-    nacos:
-      application: seata-server
-      server-addr: ${spring.cloud.nacos.discovery.server-addr}
-      group: 'SEATA_GROUP'
-      namespace: '8bd73b4e-2b8f-4ffe-bd19-a64b1837d02a'
-      username: nacos
-      password: nacos
+          driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+mybatis-plus:
+  mapper-locations: classpath*:/mappers/*.xml
 shadowlayover:
+  seata:
+    application-id: base-component-seata
+    tx-service-group: my_test_tx_group
+    namespace: 8bd73b4e-2b8f-4ffe-bd19-a64b1837d02a
+    username: nacos
+    password: nacos
+  mybatis-plus:
+    multi-tenant:
+      ignore-tables:
+        - sys_config
   log:
     path: /Users/zhouzq/shadowlayover/logs/

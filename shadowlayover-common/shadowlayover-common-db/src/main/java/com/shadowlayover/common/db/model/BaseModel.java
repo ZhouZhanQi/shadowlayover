@@ -58,7 +58,7 @@ public class BaseModel implements Serializable {
     /**
      * 调用链Id
      */
-    @TableField(value = "trace_id", fill = FieldFill.INSERT)
+    @TableField(value = "trace_id", fill = FieldFill.INSERT_UPDATE)
     private String traceId;
 
     /**

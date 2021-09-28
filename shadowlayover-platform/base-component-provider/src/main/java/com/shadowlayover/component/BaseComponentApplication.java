@@ -2,6 +2,7 @@ package com.shadowlayover.component;
 
 import com.shadowlayover.common.core.listener.LoggingListener;
 import com.shadowlayover.common.web.annotation.EnableShadowlayoverAsync;
+import io.seata.spring.annotation.datasource.EnableAutoDataSourceProxy;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -12,7 +13,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @date 2021/7/27 1:00
  * @desc 启动类
  */
-@EnableFeignClients(basePackages = "com.shadowlayover.message")
+@EnableFeignClients(basePackages = "com.shadowlayover.*.client")
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableShadowlayoverAsync

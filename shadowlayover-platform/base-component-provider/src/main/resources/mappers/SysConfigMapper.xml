@@ -3,7 +3,7 @@
 <mapper namespace="com.shadowlayover.component.mapper.SysConfigMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.shadowlayover.component.domain.SysConfig">
+    <resultMap id="BaseResultMap" type="com.shadowlayover.component.model.domain.SysConfig">
         <id column="id" property="id" />
         <result column="trace_id" property="traceId" />
         <result column="is_deleted" property="isDeleted" />
@@ -16,7 +16,7 @@
         <result column="config_type" property="configType" />
         <result column="config_key" property="configKey" />
         <result column="config_value" property="configValue" />
-        <result column="sys_default" property="sysDefault" />
+        <result column="is_default" property="isDefault" />
         <result column="remark" property="remark" />
     </resultMap>
 
@@ -30,7 +30,7 @@
         updater_id,
         updater,
         update_time,
-        id, config_type, config_key, config_value, sys_default, remark
+        id, config_type, config_key, config_value, is_default, remark
     </sql>
 
 </mapper>

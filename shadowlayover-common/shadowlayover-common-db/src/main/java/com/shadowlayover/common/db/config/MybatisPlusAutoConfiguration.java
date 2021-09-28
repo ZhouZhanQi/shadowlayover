@@ -4,10 +4,16 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import com.baomidou.mybatisplus.extension.plugins.inner.*;
+import com.shadowlayover.common.db.handler.MyMetaObjectHandler;
+import com.shadowlayover.common.db.props.ShadowlayoverMybatisPlusProperties;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Set;
 
 /**
  * @author zhouzhanqi
@@ -15,19 +21,23 @@ import org.springframework.context.annotation.Configuration;
  * @desc mybatisplus自动装配
  */
 @Configuration
+@EnableConfigurationProperties(ShadowlayoverMybatisPlusProperties.class)
 public class MybatisPlusAutoConfiguration {
-
+    
+    @Autowired
+    private ShadowlayoverMybatisPlusProperties shadowlayoverMybatisPlusProperties;
+    
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-
+        
         //多租户插件
         interceptor.addInnerInterceptor(new TenantLineInnerInterceptor(new TenantLineHandler() {
             @Override
             public Expression getTenantId() {
                 return new LongValue();
             }
-
+            
             /**
              * 获取多租户字段名
              * @return
@@ -36,7 +46,7 @@ public class MybatisPlusAutoConfiguration {
             public String getTenantIdColumn() {
                 return TenantLineHandler.super.getTenantIdColumn();
             }
-
+            
             /**
              * 过滤不需要根据租户隔离的表
              * @param tableName
@@ -44,10 +54,11 @@ public class MybatisPlusAutoConfiguration {
              */
             @Override
             public boolean ignoreTable(String tableName) {
-                return TenantLineHandler.super.ignoreTable(tableName);
+                Set<String> ignoreTables = shadowlayoverMybatisPlusProperties.getMultiTenant().getIgnoreTables();
+                return ignoreTables.stream().anyMatch(ignoreTable -> ignoreTable.equals(tableName));
             }
         }));
-
+        
         //分页插件
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         //乐观锁插件
@@ -57,5 +68,10 @@ public class MybatisPlusAutoConfiguration {
         //防止全表更新与删除
         interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
         return interceptor;
+    }
+    
+    @Bean
+    public MyMetaObjectHandler metaObjectHandler() {
+        return new MyMetaObjectHandler();
     }
 }

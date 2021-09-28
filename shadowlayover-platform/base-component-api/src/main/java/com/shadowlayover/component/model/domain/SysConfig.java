@@ -1,5 +1,7 @@
 package com.shadowlayover.component.model.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.shadowlayover.common.db.model.BaseModel;
 import lombok.Getter;
@@ -23,6 +25,7 @@ public class SysConfig extends BaseModel {
     /**
      * 主键Id
      */
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**

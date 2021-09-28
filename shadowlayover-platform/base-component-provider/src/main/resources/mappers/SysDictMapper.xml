@@ -3,7 +3,7 @@
 <mapper namespace="com.shadowlayover.component.mapper.SysDictMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.shadowlayover.component.domain.SysDict">
+    <resultMap id="BaseResultMap" type="com.shadowlayover.component.model.domain.SysDict">
         <id column="id" property="id" />
         <result column="trace_id" property="traceId" />
         <result column="is_deleted" property="isDeleted" />
