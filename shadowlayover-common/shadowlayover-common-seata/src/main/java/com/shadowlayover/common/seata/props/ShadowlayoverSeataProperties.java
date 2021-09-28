@@ -17,4 +17,10 @@ public class ShadowlayoverSeataProperties {
     private String applicationId;
     
     private String txServiceGroup;
+    
+    private String namespace;
+    
+    private String username;
+    
+    private String password;
 }
