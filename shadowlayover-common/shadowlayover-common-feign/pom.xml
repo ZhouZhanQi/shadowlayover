@@ -14,6 +14,13 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.shadowlayover</groupId>
+            <artifactId>shadowlayover-common-core</artifactId>
+            <version>${shadowlayover.common-version}</version>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>

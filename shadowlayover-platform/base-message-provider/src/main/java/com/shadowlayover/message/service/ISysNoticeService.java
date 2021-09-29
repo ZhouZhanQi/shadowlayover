@@ -12,5 +12,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-09-27
  */
 public interface ISysNoticeService extends IService<SysNotice> {
-
+    
+    /**
+     * 保存信息
+     * @param sysNotice
+     * @return
+     */
+    SysNotice saveNotice(SysNotice sysNotice);
+    
 }

@@ -7,7 +7,7 @@ import lombok.Getter;
  * <pre>
  * @author: zhouzhanqi
  * @datetime: 2021/8/18-14:10
- * @desc: 基础响应信息
+ * @desc: 基础响应信息(此错误编码信息会出触发服务熔断, 降级)
  * </pre>
  */
 @Getter

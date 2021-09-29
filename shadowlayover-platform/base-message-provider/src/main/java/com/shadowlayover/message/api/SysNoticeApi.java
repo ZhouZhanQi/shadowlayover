@@ -6,6 +6,8 @@ import com.shadowlayover.message.model.domain.SysNotice;
 import com.shadowlayover.message.service.ISysNoticeService;
 import com.shadowlayover.message.service.SysNoticeRemoteService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +28,7 @@ public class SysNoticeApi implements SysNoticeRemoteService {
     
     @Override
     public ResponseData<SysNotice> saveSysNotice(SysNotice sysNotice) {
-        sysNoticeService.save(sysNotice);
+        sysNoticeService.saveNotice(sysNotice);
         return ResponseData.success(sysNotice);
     }
 }

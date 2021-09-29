@@ -1,13 +1,9 @@
 package com.shadowlayover.message.client;
 
-import com.shadowlayover.common.core.model.ResponseData;
-import com.shadowlayover.message.client.fallback.SysNoticeRemoteFallback;
-import com.shadowlayover.message.config.MessageFeignConfiguration;
+import com.shadowlayover.common.feign.fallback.ShadowlayoverFallbackFactory;
 import com.shadowlayover.message.model.constants.MessageConstants;
-import com.shadowlayover.message.model.domain.SysNotice;
 import com.shadowlayover.message.service.SysNoticeRemoteService;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.stereotype.Component;
 
 /**
  * <pre>
@@ -16,9 +12,7 @@ import org.springframework.stereotype.Component;
  * @desc: 通知消息
  * </pre>
  */
-@FeignClient(value = MessageConstants.SERVICE_NAME, fallbackFactory = SysNoticeRemoteFallback.class, configuration = MessageFeignConfiguration.class)
+@FeignClient(value = MessageConstants.SERVICE_NAME, path = "/base-message")
 public interface SysNoticeRemoteClient extends SysNoticeRemoteService {
-
-    
 
 }
