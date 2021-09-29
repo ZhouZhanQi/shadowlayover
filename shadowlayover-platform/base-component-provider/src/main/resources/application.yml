@@ -46,3 +46,8 @@ shadowlayover:
         - sys_config
   log:
     path: /Users/zhouzq/shadowlayover/logs/
+feign:
+  okhttp:
+    enabled: true
+  sentinel:
+    enabled: true

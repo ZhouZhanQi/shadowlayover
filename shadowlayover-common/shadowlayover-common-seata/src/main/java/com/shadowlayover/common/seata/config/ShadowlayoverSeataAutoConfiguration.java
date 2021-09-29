@@ -2,10 +2,14 @@ package com.shadowlayover.common.seata.config;
 
 import com.shadowlayover.common.core.factory.YamlPropertySourceFactory;
 import com.shadowlayover.common.seata.props.ShadowlayoverSeataProperties;
+import feign.RequestInterceptor;
+import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
@@ -25,6 +29,19 @@ public class ShadowlayoverSeataAutoConfiguration implements InitializingBean {
     @Autowired
     private ShadowlayoverSeataProperties shadowlayoverSeataProperties;
     
+    @Bean
+    public RequestInterceptor requestInterceptor() {
+        return requestTemplate -> {
+            String xid = RootContext.getXID();
+            if (log.isDebugEnabled() && StringUtils.isNotBlank(xid)) {
+                log.debug(">>> seata feign add seata-xid http request header {}", xid);
+            }
+            
+            if (StringUtils.isNotBlank(xid)) {
+                requestTemplate.header(RootContext.KEY_XID, xid);
+            }
+        };
+    }
     
     @Override
     public void afterPropertiesSet() throws Exception {

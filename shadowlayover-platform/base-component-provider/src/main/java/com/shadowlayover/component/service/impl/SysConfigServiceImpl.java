@@ -1,5 +1,7 @@
 package com.shadowlayover.component.service.impl;
 
+import com.shadowlayover.common.core.model.ResponseData;
+import com.shadowlayover.common.core.utils.JacksonUtils;
 import com.shadowlayover.component.model.domain.SysConfig;
 import com.shadowlayover.component.mapper.SysConfigMapper;
 import com.shadowlayover.component.service.ISysConfigService;
@@ -8,6 +10,7 @@ import com.shadowlayover.message.client.SysNoticeRemoteClient;
 import com.shadowlayover.message.model.domain.SysNotice;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,6 +21,7 @@ import org.springframework.stereotype.Service;
  * @author zhouzhanqi
  * @since 2021-09-27
  */
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig> implements ISysConfigService {
@@ -36,6 +40,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         notice.setNoticeType(1);
         notice.setNoticeTitle("test");
         notice.setNoticeContent("test");
-        sysNoticeRemoteClient.saveSysNotice(notice);
+        ResponseData<SysNotice> responseData = sysNoticeRemoteClient.saveSysNotice(notice);
+        log.info(">>> 调用结果: {}", JacksonUtils.pojo2Json(responseData));
     }
 }
