@@ -1,6 +1,7 @@
 package com.shadowlayover.component;
 
 import com.shadowlayover.common.core.listener.LoggingListener;
+import com.shadowlayover.common.feign.annotation.EnableShadowlayoverFeigns;
 import com.shadowlayover.common.feign.config.ShadowlayoverCommonFeignConfiguration;
 import com.shadowlayover.common.web.annotation.EnableShadowlayoverAsync;
 import org.springframework.boot.SpringApplication;
@@ -13,7 +14,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @date 2021/7/27 1:00
  * @desc 启动类
  */
-@EnableFeignClients(basePackages = "com.shadowlayover.*.client", defaultConfiguration = ShadowlayoverCommonFeignConfiguration.class)
+@EnableShadowlayoverFeigns
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableShadowlayoverAsync
