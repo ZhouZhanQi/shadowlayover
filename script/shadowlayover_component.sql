@@ -26,7 +26,7 @@ CREATE TABLE operate_log
 DROP TABLE IF EXISTS sys_config;
 CREATE TABLE sys_config
 (
-    id           BIGINT(20) NOT NULL COMMENT '主键Id',
+    id           BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '主键Id',
     trace_id     VARCHAR(64)   NOT NULL COMMENT '链路Id',
     is_deleted   TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否删除',
     creator_id   BIGINT(20) NOT NULL COMMENT '创建者Id',
@@ -38,7 +38,7 @@ CREATE TABLE sys_config
     config_type  SMALLINT(6) NOT NULL COMMENT '配置类型',
     config_key   VARCHAR(64)   NOT NULL COMMENT '配置key',
     config_value VARCHAR(1024) NOT NULL COMMENT '配置value',
-    sys_default  TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否为系统默认',
+    is_default  TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否为系统默认',
     remark       VARCHAR(512) COMMENT '',
     PRIMARY KEY (id)
 ) COMMENT = '系统配置';
@@ -46,7 +46,7 @@ CREATE TABLE sys_config
 DROP TABLE IF EXISTS sys_dict;
 CREATE TABLE sys_dict
 (
-    id           BIGINT(20) NOT NULL COMMENT '主键Id',
+    id           BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '主键Id',
     trace_id     VARCHAR(64)  NOT NULL COMMENT '链路Id',
     is_deleted   TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否删除',
     creator_id   BIGINT(20) NOT NULL COMMENT '创建者Id',
@@ -68,7 +68,7 @@ CREATE TABLE sys_dict
 DROP TABLE IF EXISTS sys_dict_item;
 CREATE TABLE sys_dict_item
 (
-    id              BIGINT(20) NOT NULL COMMENT '主键Id',
+    id              BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '主键Id',
     trace_id        VARCHAR(64)  NOT NULL COMMENT '链路Id',
     is_deleted      TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否删除',
     creator_id      BIGINT(20) NOT NULL COMMENT '创建者Id',
@@ -82,7 +82,7 @@ CREATE TABLE sys_dict_item
     dict_item_name  VARCHAR(128) NOT NULL COMMENT '词典项名称',
     dict_item_value VARCHAR(512) NOT NULL COMMENT '词典项值',
     dict_item_desc  VARCHAR(255) COMMENT '词典项描述',
-    sys_default     TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否为系统默认;0否1是',
+    is_default     TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否为系统默认;0否1是',
     status          SMALLINT(6) COMMENT '状态;0启用1禁用',
     sort            INT(11) COMMENT '排序',
     PRIMARY KEY (id)
