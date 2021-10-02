@@ -24,6 +24,7 @@ import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
 import org.springframework.cloud.openfeign.support.SpringDecoder;
 import org.springframework.cloud.openfeign.support.SpringEncoder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
@@ -40,14 +41,14 @@ import java.time.format.DateTimeFormatter;
  * </pre>
  */
 public class ShadowlayoverCommonFeignConfiguration implements InitializingBean {
-    
+
     public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-    
+
     @Bean
     public Logger.Level feignLogLevel() {
         return Logger.Level.FULL;
     }
-    
+
     @Bean
     public ErrorDecoder errorDecoder() {
         //分离异常类型
@@ -59,29 +60,29 @@ public class ShadowlayoverCommonFeignConfiguration implements InitializingBean {
             }
         };
     }
-    
+
     @Bean
     public Decoder feignDecoder() {
         HttpMessageConverter jacksonConverter = new MappingJackson2HttpMessageConverter(OBJECT_MAPPER);
         ObjectFactory<HttpMessageConverters> objectFactory = () -> new HttpMessageConverters(jacksonConverter);
         return new ResponseEntityDecoder(new SpringDecoder(objectFactory));
     }
-    
-    
+
+
     @Bean
     public Encoder feignEncoder() {
         HttpMessageConverter jacksonConverter = new MappingJackson2HttpMessageConverter(OBJECT_MAPPER);
         ObjectFactory<HttpMessageConverters> objectFactory = () -> new HttpMessageConverters(jacksonConverter);
         return new SpringEncoder(objectFactory);
     }
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         // 日期序列化为long
         OBJECT_MAPPER.enable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         // 反序列化时, 忽略不认识的字段, 而不是抛出异常
         OBJECT_MAPPER.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-    
+
         // 日期序列化支持LocalDateTime LocalDate
         JavaTimeModule timeModule = new JavaTimeModule();
         timeModule.addSerializer(LocalDateTime.class,

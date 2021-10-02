@@ -23,13 +23,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class SysNoticeApi implements SysNoticeRemoteService {
-    
+
     private final ISysNoticeService sysNoticeService;
-    
+
     @Override
     public ResponseData<SysNotice> saveSysNotice(SysNotice sysNotice) {
         sysNoticeService.saveNotice(sysNotice);
         return ResponseData.success(sysNotice);
+    }
+
+    @Override
+    public ResponseData<SysNotice> getSysNotice(Long id) {
+        return ResponseData.success(sysNoticeService.getById(id));
     }
 }
 

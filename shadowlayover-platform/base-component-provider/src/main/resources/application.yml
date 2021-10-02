@@ -3,6 +3,8 @@ server:
   servlet:
     context-path: /base-component
 spring:
+  main:
+    allow-bean-definition-overriding: true
   profiles:
     active: dev
   application:
@@ -10,15 +12,15 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.1.98:18848
+        server-addr: 192.168.1.3:18848
         group: shadowlayover
-        namespace: 54c84fc9-f0b8-44e1-8c89-e5b932161771
-        ip: 192.168.1.98
+        namespace: local
+        ip: 192.168.1.3
       config:
-        server-addr: 192.168.1.98:18848
+        server-addr: 192.168.1.3:18848
         group: shadowlayover
         name: base-component
-        namespace: 54c84fc9-f0b8-44e1-8c89-e5b932161771
+        namespace: local
   datasource:
     dynamic:
       primary: master
@@ -27,7 +29,7 @@ spring:
       seata-mode: at
       datasource:
         master:
-          url: jdbc:p6spy:mysql://192.168.1.98:13306/shadowlayover_component
+          url: jdbc:p6spy:mysql://192.168.1.3:13306/shadowlayover_component
           username: root
           password: 123456
           driver-class-name: com.p6spy.engine.spy.P6SpyDriver
@@ -35,9 +37,9 @@ mybatis-plus:
   mapper-locations: classpath*:/mappers/*.xml
 shadowlayover:
   seata:
-    application-id: base-component-seata
+    application-id: component_seata-server
     tx-service-group: my_test_tx_group
-    namespace: 8bd73b4e-2b8f-4ffe-bd19-a64b1837d02a
+    namespace: seata
     username: nacos
     password: nacos
   mybatis-plus:

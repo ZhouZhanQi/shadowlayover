@@ -9,14 +9,14 @@ import org.springframework.cloud.openfeign.FallbackFactory;
  * <pre>
  * @author: zhouzhanqi
  * @datetime: 2021/9/29-15:25
- * @desc:
+ * @desc: 暂时未实现统一处理
  * </pre>
  */
 @AllArgsConstructor
 public class ShadowlayoverFallbackFactory<T> implements FallbackFactory<T> {
-    
+
     private final Target<T> target;
-    
+
     @Override
     public T create(Throwable cause) {
         final Class<T> targetType = target.type();

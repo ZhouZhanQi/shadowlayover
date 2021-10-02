@@ -7,7 +7,7 @@ seata:
     vgroup-mapping:
       my_test_tx_group: default
     grouplist:
-      default: 192.168.1.98:8091
+      default: 192.168.1.3:8091
   config:
     type: nacos
     nacos:
@@ -16,7 +16,7 @@ seata:
       namespace: ${shadowlayover.seata.namespace}
       username: ${shadowlayover.seata.username}
       password: ${shadowlayover.seata.password}
-      data-id: seata.properties
+      data-id: seataServer.properties
   registry:
     type: nacos
     nacos:

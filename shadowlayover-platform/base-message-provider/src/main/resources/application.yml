@@ -10,22 +10,22 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.1.98:18848
+        server-addr: 192.168.1.3:18848
         group: shadowlayover
-        namespace: 54c84fc9-f0b8-44e1-8c89-e5b932161771
+        namespace: local
         ip: 192.168.1.98
       config:
-        server-addr: 192.168.1.98:18848
+        server-addr: 192.168.1.3:18848
         group: shadowlayover
         name: base-message
-        namespace: 54c84fc9-f0b8-44e1-8c89-e5b932161771
+        namespace: local
   datasource:
     dynamic:
       primary: master
       strict: false
       datasource:
         master:
-          url: jdbc:mysql://192.168.1.98:13306/shadowlayover_message
+          url: jdbc:mysql://192.168.1.3:13306/shadowlayover_message
           username: root
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
