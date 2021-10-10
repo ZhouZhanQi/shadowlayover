@@ -14,12 +14,11 @@ import org.springframework.stereotype.Component;
  * @desc: 系统配置远程调用客户端
  * </pre>
  */
-@FeignClient(value = ComponentConstants.SERVICE_NAME, fallbackFactory = SysConfigRemoteClient.HystrixClientFallback.class)
+@FeignClient(value = ComponentConstants.SERVICE_NAME, fallbackFactory = SysConfigRemoteClient.SysConfigRemoteClientFallback.class)
 public interface SysConfigRemoteClient extends SysConfigRemoteService {
 
-    @Component("sysConfigFallback")
-    class HystrixClientFallback implements SysConfigRemoteClient {
-    
+    @Component
+    class SysConfigRemoteClientFallback implements SysConfigRemoteClient {
         @Override
         public ResponseData<SysConfig> saveSysConfig(SysConfig sysConfig) {
             return null;

@@ -1,6 +1,14 @@
 package com.shadowlayover.common.feign.config;
 
 import cn.hutool.core.date.DatePattern;
+import cn.hutool.http.ContentType;
+import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHandler;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;
+import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowException;
+import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -11,6 +19,9 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+import com.shadowlayover.common.core.model.ResponseData;
+import com.shadowlayover.common.core.model.code.CommonExceptionCode;
+import com.shadowlayover.common.web.utils.ResponseUtils;
 import feign.FeignException;
 import feign.Logger;
 import feign.Response;
@@ -25,9 +36,12 @@ import org.springframework.cloud.openfeign.support.SpringDecoder;
 import org.springframework.cloud.openfeign.support.SpringEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -61,13 +75,35 @@ public class ShadowlayoverCommonFeignConfiguration implements InitializingBean {
         };
     }
 
+    /**
+     * 自定义sentinel异常处理
+     * @return
+     */
+    @Bean
+    public BlockExceptionHandler shadowlayoverBlockHandler() {
+        return (httpServletRequest, httpServletResponse, e) -> {
+            ResponseData responseData = ResponseData.fail(CommonExceptionCode.SERVICE_ERROR);
+            if (e instanceof FlowException) {
+                responseData = ResponseData.fail(CommonExceptionCode.SERVICE_FLOW_LIMIT);
+            } else if (e instanceof DegradeException) {
+                responseData = ResponseData.fail(CommonExceptionCode.SERVICE_DOWN_GRADE);
+            } else if (e instanceof AuthorityException) {
+                responseData = ResponseData.fail(CommonExceptionCode.SERVICE_AUTH_RULE_LIMIT);
+            } else if (e instanceof ParamFlowException) {
+                responseData = ResponseData.fail(CommonExceptionCode.SERVICE_HOT_PARAM_FLOW_LIMIT);
+            } else if (e instanceof SystemBlockException) {
+                responseData = ResponseData.fail(CommonExceptionCode.SERVICE_SYS_RULE_LIMIT);
+            }
+            ResponseUtils.responseWriter(httpServletResponse, ContentType.JSON.toString(), HttpStatus.OK.value(), responseData);
+        };
+    }
+
     @Bean
     public Decoder feignDecoder() {
         HttpMessageConverter jacksonConverter = new MappingJackson2HttpMessageConverter(OBJECT_MAPPER);
         ObjectFactory<HttpMessageConverters> objectFactory = () -> new HttpMessageConverters(jacksonConverter);
         return new ResponseEntityDecoder(new SpringDecoder(objectFactory));
     }
-
 
     @Bean
     public Encoder feignEncoder() {

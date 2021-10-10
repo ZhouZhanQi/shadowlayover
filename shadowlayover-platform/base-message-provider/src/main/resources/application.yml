@@ -13,7 +13,7 @@ spring:
         server-addr: 192.168.1.3:18848
         group: shadowlayover
         namespace: local
-        ip: 192.168.1.98
+        ip: 192.168.1.3
       config:
         server-addr: 192.168.1.3:18848
         group: shadowlayover

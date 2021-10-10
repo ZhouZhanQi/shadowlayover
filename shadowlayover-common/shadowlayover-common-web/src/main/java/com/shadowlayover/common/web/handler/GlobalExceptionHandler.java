@@ -4,9 +4,7 @@ import com.shadowlayover.common.core.exceptions.BaseException;
 import com.shadowlayover.common.core.model.ResponseData;
 import com.shadowlayover.common.core.model.code.CommonExceptionCode;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
@@ -19,22 +17,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    
-    
+
+
     @ExceptionHandler(BaseException.class)
     public ResponseData<?> handlerBaseException(BaseException e) {
         log.error(">>> shadowlayover base exception", e);
         return ResponseData.fail(e.getCode(), e.getMessage());
-    }
-    
-    /**
-     * 通用异常捕捉
-     * @param e
-     * @return
-     */
-    @ExceptionHandler(Exception.class)
-    public ResponseData<?> handlerException(Exception e) {
-        log.error(">>> shadowlayover service error", e);
-        return ResponseData.fail(CommonExceptionCode.ERROR);
     }
 }

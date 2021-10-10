@@ -31,7 +31,7 @@ public class SysNoticeApi implements SysNoticeRemoteService {
         sysNoticeService.saveNotice(sysNotice);
         return ResponseData.success(sysNotice);
     }
-
+//
     @Override
     public ResponseData<SysNotice> getSysNotice(Long id) {
         return ResponseData.success(sysNoticeService.getById(id));

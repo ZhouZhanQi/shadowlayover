@@ -6,6 +6,8 @@ import com.shadowlayover.message.model.domain.SysNotice;
 import com.shadowlayover.message.service.SysNoticeRemoteService;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * <pre>
@@ -17,8 +19,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 @FeignClient(value = MessageConstants.SERVICE_NAME, path = "/base-message", fallbackFactory = SysNoticeRemoteClient.SysNoticeRemoteFallback.class)
 public interface SysNoticeRemoteClient extends SysNoticeRemoteService {
 
+    @Component
     class SysNoticeRemoteFallback implements FallbackFactory<SysNoticeRemoteClient> {
-
         @Override
         public SysNoticeRemoteClient create(Throwable cause) {
             return new SysNoticeRemoteClient() {
@@ -31,8 +33,6 @@ public interface SysNoticeRemoteClient extends SysNoticeRemoteService {
                 public ResponseData<SysNotice> getSysNotice(Long id) {
                     return null;
                 }
-
-
             };
         }
     }
