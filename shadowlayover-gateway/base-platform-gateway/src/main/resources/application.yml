@@ -1,7 +1,5 @@
 server:
   port: 30000
-  servlet:
-    context-path: /base-platform
 spring:
   profiles:
     active: dev
@@ -19,6 +17,14 @@ spring:
         group: shadowlayover
         name: base-platform-gateway
         namespace: 54c84fc9-f0b8-44e1-8c89-e5b932161771
+    gateway:
+      routes:
+        - id: base-message
+          uri: lb://base-message
+          predicates:
+            - Path=/base-message/**
+#          filters:
+#            - StripPrefix=1
 shadowlayover:
   log:
     path: D:\shadowlayover-workplace\logs\

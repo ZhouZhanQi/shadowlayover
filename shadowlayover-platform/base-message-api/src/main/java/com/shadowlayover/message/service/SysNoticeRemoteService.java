@@ -18,13 +18,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface SysNoticeRemoteService {
 
     /**
-     *
+     * 保存通知信息
      * @param sysNotice
      * @return
      */
     @PostMapping("sysNotice")
     ResponseData<SysNotice> saveSysNotice(@RequestBody SysNotice sysNotice);
-
+    
+    /**
+     * 获取通知信息
+     * @param id
+     * @return
+     */
     @GetMapping("sysNotice/{id}")
     ResponseData<SysNotice> getSysNotice(@PathVariable("id") Long id);
 }

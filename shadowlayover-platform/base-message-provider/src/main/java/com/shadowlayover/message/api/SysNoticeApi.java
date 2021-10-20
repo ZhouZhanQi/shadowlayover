@@ -6,6 +6,7 @@ import com.shadowlayover.message.model.domain.SysNotice;
 import com.shadowlayover.message.service.ISysNoticeService;
 import com.shadowlayover.message.service.SysNoticeRemoteService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author zhouzhanqi
  * @since 2021-09-27
  */
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class SysNoticeApi implements SysNoticeRemoteService {
@@ -34,6 +36,7 @@ public class SysNoticeApi implements SysNoticeRemoteService {
 //
     @Override
     public ResponseData<SysNotice> getSysNotice(Long id) {
+        log.info("测试链路追踪");
         return ResponseData.success(sysNoticeService.getById(id));
     }
 }
