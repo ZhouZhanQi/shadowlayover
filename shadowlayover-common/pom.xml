@@ -33,6 +33,7 @@
         <spring.cloud.context-version>3.0.3</spring.cloud.context-version>
         <easyexcel-version>2.2.10</easyexcel-version>
         <shadowlayover.seata-version>1.4.2</shadowlayover.seata-version>
+        <transmittable-version>2.12.2</transmittable-version>
     </properties>
 
     <modules>

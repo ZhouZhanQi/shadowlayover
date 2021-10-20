@@ -1,6 +1,5 @@
 package com.shadowlayover.common.core.utils;
 
-import com.shadowlayover.common.core.model.ResponseData;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

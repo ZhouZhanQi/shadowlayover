@@ -13,6 +13,7 @@
         <module>shadowlayover-common</module>
         <module>shadowlayover-oauth</module>
         <module>shadowlayover-platform</module>
+        <module>shadowlayover-gateway</module>
     </modules>
 
     <properties>

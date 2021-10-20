@@ -16,4 +16,14 @@ public interface CoreConstants {
      * 基础远程client路径
      */
     String BASE_CLIENT_PACKAGE = "com.shadowlayover.*.client";
+    
+    /**
+     * 链路追踪Id
+     */
+    String SHADOWLOYOVER_TRACE_ID = "shadowlayover-trace-id";
+    
+    /**
+     * 日志链路Id
+     */
+    String LOG_TRACE_ID = "traceId";
 }
