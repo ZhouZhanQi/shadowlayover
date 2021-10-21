@@ -27,7 +27,6 @@ public class ShadowlayoverWebRespExceptionTranslator implements WebResponseExcep
     public ResponseEntity<ResponseData<?>> translate(Exception e) throws Exception {
         ResponseEntity.BodyBuilder status = ResponseEntity.status(HttpStatus.UNAUTHORIZED);
         log.error("authentication error", e);
-        
         if (e instanceof UnsupportedGrantTypeException) {
             return status.body(ResponseData.fail(OauthResponseCode.UNSUPPORT_GRANT_TYPE_ERROR));
         }

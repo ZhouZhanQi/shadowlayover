@@ -3,10 +3,9 @@ package com.shadowlayover.common.db.model;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.Version;
+import com.shadowlayover.common.core.model.BaseDomain;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -15,7 +14,7 @@ import java.time.LocalDateTime;
  * @desc 基础数据模型
  */
 @Data
-public class BaseModel implements Serializable {
+public class BaseModel extends BaseDomain {
 
     private static final long serialVersionUID = 1L;
 

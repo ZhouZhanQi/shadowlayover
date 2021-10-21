@@ -1,5 +1,6 @@
 package com.shadowlayover.oauth.service.impl;
 
+import com.shadowlayover.common.core.model.LoginUser;
 import com.shadowlayover.common.security.user.ShadowlayoverUser;
 import com.shadowlayover.oauth.model.bo.SysUserBo;
 import com.shadowlayover.oauth.service.IShadowlayoverUserService;
@@ -24,9 +25,7 @@ import org.springframework.stereotype.Service;
 public class ShadowlayoverUserServiceImpl implements IShadowlayoverUserService {
 
     private final ISysUserService sysUserService;
-
-
-
+    
     @Autowired
     public ShadowlayoverUserServiceImpl(ISysUserService sysUserService) {
         this.sysUserService = sysUserService;
@@ -46,7 +45,10 @@ public class ShadowlayoverUserServiceImpl implements IShadowlayoverUserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        SysUserBo sysUserBo = sysUserService.loadUserDetailByUsername(username);
+        //todo 用户状态校验
+        ShadowlayoverUser shadowlayoverUser = new ShadowlayoverUser(sysUserBo.getId(), sysUserBo.getTenantId(), sysUserBo.getSysDept().getId(), sysUserBo.getUserName(), sysUserBo.getPassword(), true, false, false, false, null);
+        return shadowlayoverUser;
     }
 }
