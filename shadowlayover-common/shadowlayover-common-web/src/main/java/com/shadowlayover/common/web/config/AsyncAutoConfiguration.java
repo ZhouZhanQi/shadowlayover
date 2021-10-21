@@ -1,5 +1,6 @@
 package com.shadowlayover.common.web.config;
 
+import com.shadowlayover.common.web.executor.ShadowlayoverThreadPoolTaskExecutor;
 import com.shadowlayover.common.web.properties.AsyncPoolThreadProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
@@ -35,7 +36,7 @@ public class AsyncAutoConfiguration implements AsyncConfigurer {
     
     @Override
     public Executor getAsyncExecutor() {
-        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        ThreadPoolTaskExecutor executor = new ShadowlayoverThreadPoolTaskExecutor();
         executor.setCorePoolSize(asyncPoolThreadProperties.getCorePoolSize());
         executor.setMaxPoolSize(asyncPoolThreadProperties.getMaxPoolSize());
         executor.setQueueCapacity(asyncPoolThreadProperties.getQueueCapacity());
@@ -57,6 +58,7 @@ public class AsyncAutoConfiguration implements AsyncConfigurer {
      * @return
      */
     public AsyncUncaughtExceptionHandler shadowlayoverUncaughtExceptionHandler() {
+        //todo 存储到消息队列中去处理
         return (throwable, method, objects) -> log.error("shadowlayover async thread task error: {}, method: {}, params: {}", throwable.getMessage(), method.getName(), objects);
     }
 }

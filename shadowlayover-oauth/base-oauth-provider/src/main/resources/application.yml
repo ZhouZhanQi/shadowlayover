@@ -31,38 +31,12 @@ spring:
     dynamic:
       primary: master
       strict: true
-      seata: true
-      seata-mode: at
       datasource:
         master:
           url: jdbc:mysql://192.168.1.98:13306/shadowlayover_oauth
           username: root
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
-seata:
-  enabled: true
-  enable-auto-data-source-proxy: false
-  application-id: ${spring.application.name}
-  tx-service-group: my_test_tx_group
-  service:
-    vgroup-mapping:
-      my_test_tx_group: default
-    grouplist:
-      default: 192.168.1.98:18091
-  config:
-    type: nacos
-    nacos:
-      server-addr: ${spring.cloud.nacos.discovery.server-addr}
-      group: 'SEATA_GROUP'
-      namespace: '8bd73b4e-2b8f-4ffe-bd19-a64b1837d02a'
-      application: seata-server
-  registry:
-    type: nacos
-    nacos:
-      application: seata-server
-      server-addr: ${spring.cloud.nacos.discovery.server-addr}
-      group: 'SEATA_GROUP'
-      namespace: '8bd73b4e-2b8f-4ffe-bd19-a64b1837d02a'
 shadowlayover:
   log:
-    path: /Users/zhouzq/shadowlayover/logs/
+    path: D:\shadowlayover-workplace\logs\

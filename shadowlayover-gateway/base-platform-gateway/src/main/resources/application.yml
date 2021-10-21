@@ -19,12 +19,14 @@ spring:
         namespace: 54c84fc9-f0b8-44e1-8c89-e5b932161771
     gateway:
       routes:
+        - id: base-oauth
+          uri: lb://base-oauth
+          predicates:
+            - Path=/base-oauth/**
         - id: base-message
           uri: lb://base-message
           predicates:
             - Path=/base-message/**
-#          filters:
-#            - StripPrefix=1
 shadowlayover:
   log:
     path: D:\shadowlayover-workplace\logs\
