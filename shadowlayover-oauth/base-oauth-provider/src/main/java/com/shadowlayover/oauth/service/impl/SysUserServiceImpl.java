@@ -19,6 +19,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 /**
  * <p>
  * 系统用户 服务实现类
@@ -49,16 +50,28 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public SysUserBo loadUserDetailByUsername(String username) {
         SysUser sysUser = this.getOne(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getUserName, username));
+        return completionSysUserData(sysUser);
+    }
+
+    @Override
+    public SysUserBo loadUserDetailByMobilePhone(String mobilePhone) {
+        SysUser sysUser = this.getOne(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getMobilePhone, mobilePhone));
+        return completionSysUserData(sysUser);
+    }
     
+    /**
+     * 补全用户信息
+     * @param sysUser
+     * @return
+     */
+    private SysUserBo completionSysUserData(SysUser sysUser) {
         SysUserBo userBo = sysUserConvert.convert2Bo(sysUser);
-        
-    
         AssertUtils.checkNotNull(sysUser, new BusinessException(OauthResponseCode.USERNAME_OR_PASSWORD_ERROR));
         //查询租户
         SysTenant sysTenant = sysTenantService.getById(sysUser.getTenantId());
         AssertUtils.checkNotNull(sysTenant, new BusinessException(OauthResponseCode.TENANT_NOT_FOUND_ERROR));
         //查询角色
-        
+    
         //部门信息
         SysDept sysDept = sysDeptService.getByUserId(sysUser.getId());
         AssertUtils.checkNotNull(sysDept, new BusinessException(OauthResponseCode.DEPT_NOT_FOUND_ERROR));
@@ -66,15 +79,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         //职位信息
         SysPost sysPost = sysPostService.getByUserId(sysUser.getId());
         AssertUtils.checkNotNull(sysPost, new BusinessException(OauthResponseCode.POST_NOT_FOUND_ERROR));
-        return SysUserBo.builder()
+    
+        //复制更新用户信息
+        sysUserConvert.updateBo(userBo, SysUserBo.builder()
                 .sysTenant(sysTenant)
                 .sysDept(sysDept)
                 .sysPost(sysPost)
-                .build();
-    }
-
-    @Override
-    public SysUserBo loadUserDetailByMobilePhone(String mobilePhone) {
-        return null;
+                .build());
+        return userBo;
     }
 }

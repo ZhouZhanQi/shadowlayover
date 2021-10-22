@@ -5,6 +5,7 @@ import com.shadowlayover.oauth.model.bo.SysUserBo;
 import com.shadowlayover.oauth.model.domain.SysUser;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 /**
  * <pre>
@@ -23,4 +24,11 @@ public interface SysUserConvert extends IBaseConvert {
      */
     @Mapping(target = "password", ignore = true)
     SysUserBo convert2Bo(SysUser sysUser);
+    
+    /**
+     * 更新信息
+     * @param source
+     * @param target
+     */
+    void updateBo(SysUserBo source, @MappingTarget SysUserBo target);
 }
