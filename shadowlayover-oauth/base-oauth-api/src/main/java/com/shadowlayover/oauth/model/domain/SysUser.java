@@ -83,4 +83,12 @@ public class SysUser extends BaseModel {
      */
     @TableField("last_login_time")
     private LocalDateTime lastLoginTime;
+    
+    @TableField("user_type")
+    private Integer userType;
+    
+    private Integer status;
+    
+    @TableField(value = "is_super")
+    private Integer isSuper;
 }

@@ -1,5 +1,7 @@
 package message;
 
+import cn.hutool.core.lang.generator.UUIDGenerator;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
@@ -10,4 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class BaseMessageApplicationTest {
 
+    @Test
+    public void testAAA() {
+        System.out.println(new UUIDGenerator().next().replace("-", ""));
+    }
 }

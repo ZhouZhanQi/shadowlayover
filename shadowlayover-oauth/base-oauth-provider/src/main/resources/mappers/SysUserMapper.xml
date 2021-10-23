@@ -15,10 +15,9 @@
         <result column="tenant_id" property="tenantId" />
         <result column="last_login_ip" property="lastLoginIp" />
         <result column="last_login_time" property="lastLoginTime" />
-        <result column="is_deleted" property="deleted" />
         <result column="creator_id" property="creatorId" />
         <result column="creator_time" property="createTime" />
-        <result column="is_deleted" property="deleted" />
+        <result column="is_deleted" property="isDeleted" />
         <result column="trace_id" property="traceId" />
         <result column="creator_id" property="creatorId" />
         <result column="creator" property="creator" />
@@ -26,11 +25,14 @@
         <result column="updater_id" property="updaterId" />
         <result column="updater" property="updater" />
         <result column="update_time" property="updateTime" />
+        <result column="user_type" property="userType" />
+        <result column="status" property="status" />
+        <result column="is_super" property="isSuper" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_name, password, nickname, real_name, mobile_phone, email, sex, tenant_id, last_login_ip, last_login_time, is_deleted, trace_id, creator_id, creator, create_time, updater_id, updater, update_time
+        id, user_name, password, nickname, real_name, mobile_phone, email, sex, tenant_id, last_login_ip, last_login_time, is_deleted, trace_id, creator_id, creator, create_time, updater_id, updater, update_time, user_type, status, is_super
     </sql>
 
 </mapper>

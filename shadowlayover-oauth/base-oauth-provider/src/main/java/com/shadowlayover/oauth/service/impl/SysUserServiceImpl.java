@@ -1,21 +1,22 @@
 package com.shadowlayover.oauth.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shadowlayover.common.core.exceptions.BusinessException;
 import com.shadowlayover.common.core.utils.AssertUtils;
+import com.shadowlayover.oauth.mapper.SysUserMapper;
 import com.shadowlayover.oauth.model.bo.SysUserBo;
 import com.shadowlayover.oauth.model.convert.SysUserConvert;
 import com.shadowlayover.oauth.model.domain.SysDept;
 import com.shadowlayover.oauth.model.domain.SysPost;
 import com.shadowlayover.oauth.model.domain.SysTenant;
 import com.shadowlayover.oauth.model.domain.SysUser;
-import com.shadowlayover.oauth.mapper.SysUserMapper;
 import com.shadowlayover.oauth.model.enums.OauthResponseCode;
 import com.shadowlayover.oauth.service.ISysDeptService;
 import com.shadowlayover.oauth.service.ISysPostService;
 import com.shadowlayover.oauth.service.ISysTenantService;
 import com.shadowlayover.oauth.service.ISysUserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,7 @@ import org.springframework.stereotype.Service;
  * @author zhouzhanqi
  * @since 2021-07-27
  */
+@Slf4j
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
 
@@ -36,26 +38,24 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     private final ISysPostService sysPostService;
     
     private final ISysTenantService sysTenantService;
-    
-    private final SysUserConvert sysUserConvert;
+
 
     @Autowired
-    public SysUserServiceImpl(ISysDeptService sysDeptService, ISysPostService sysPostService, ISysTenantService sysTenantService, SysUserConvert sysUserConvert) {
+    public SysUserServiceImpl(ISysDeptService sysDeptService, ISysPostService sysPostService, ISysTenantService sysTenantService) {
         this.sysDeptService = sysDeptService;
         this.sysPostService = sysPostService;
         this.sysTenantService = sysTenantService;
-        this.sysUserConvert = sysUserConvert;
     }
 
     @Override
     public SysUserBo loadUserDetailByUsername(String username) {
-        SysUser sysUser = this.getOne(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getUserName, username));
+        SysUser sysUser = this.baseMapper.selectOneIgnoreTenant(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getUserName, username));
         return completionSysUserData(sysUser);
     }
 
     @Override
     public SysUserBo loadUserDetailByMobilePhone(String mobilePhone) {
-        SysUser sysUser = this.getOne(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getMobilePhone, mobilePhone));
+        SysUser sysUser = this.baseMapper.selectOneIgnoreTenant(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getMobilePhone, mobilePhone));
         return completionSysUserData(sysUser);
     }
     
@@ -65,7 +65,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return
      */
     private SysUserBo completionSysUserData(SysUser sysUser) {
-        SysUserBo userBo = sysUserConvert.convert2Bo(sysUser);
+        SysUserBo userBo = SysUserConvert.INSTANCE.convert2Bo(sysUser);
+        //校验密码
         AssertUtils.checkNotNull(sysUser, new BusinessException(OauthResponseCode.USERNAME_OR_PASSWORD_ERROR));
         //查询租户
         SysTenant sysTenant = sysTenantService.getById(sysUser.getTenantId());
@@ -81,7 +82,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         AssertUtils.checkNotNull(sysPost, new BusinessException(OauthResponseCode.POST_NOT_FOUND_ERROR));
     
         //复制更新用户信息
-        sysUserConvert.updateBo(userBo, SysUserBo.builder()
+        SysUserConvert.INSTANCE.updateBo(userBo, SysUserBo.builder()
                 .sysTenant(sysTenant)
                 .sysDept(sysDept)
                 .sysPost(sysPost)

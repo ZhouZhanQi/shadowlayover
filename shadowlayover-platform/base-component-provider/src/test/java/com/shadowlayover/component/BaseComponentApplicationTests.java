@@ -1,5 +1,6 @@
 package com.shadowlayover.component;
 
+import cn.hutool.core.lang.generator.UUIDGenerator;
 import com.shadowlayover.common.db.generator.CodeGenerator;
 import com.shadowlayover.component.service.ISysConfigService;
 import org.junit.jupiter.api.Test;
@@ -16,5 +17,9 @@ class BaseComponentApplicationTests {
     public void testSeata() {
         sysConfigService.testSeata();
     }
-
+    
+    @Test
+    public void testAAA() {
+        System.out.println(new UUIDGenerator().next().replace("-", ""));
+    }
 }

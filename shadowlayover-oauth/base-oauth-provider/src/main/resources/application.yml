@@ -38,5 +38,11 @@ spring:
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
 shadowlayover:
+  mybatis-plus:
+    multi-tenant:
+      ignore-tables:
+        - sys-user
   log:
     path: D:\shadowlayover-workplace\logs\
+mybatis-plus:
+  mapper-locations: classpath*:/mappers/*.xml

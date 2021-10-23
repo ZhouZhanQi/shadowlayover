@@ -1,11 +1,12 @@
 package com.shadowlayover.oauth.model.convert;
 
-import com.shadowlayover.common.core.convert.IBaseConvert;
 import com.shadowlayover.oauth.model.bo.SysUserBo;
 import com.shadowlayover.oauth.model.domain.SysUser;
+import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
 
 /**
  * <pre>
@@ -14,8 +15,10 @@ import org.mapstruct.MappingTarget;
  * @desc: 用户信息转换类
  * </pre>
  */
-@Mapper(componentModel = "spring")
-public interface SysUserConvert extends IBaseConvert {
+@Mapper(builder = @Builder(disableBuilder = true))
+public interface SysUserConvert {
+    
+    SysUserConvert INSTANCE = Mappers.getMapper( SysUserConvert.class );
     
     /**
      * 用户信息转换

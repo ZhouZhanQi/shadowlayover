@@ -35,6 +35,7 @@ public class MybatisPlusAutoConfiguration {
         interceptor.addInnerInterceptor(new TenantLineInnerInterceptor(new TenantLineHandler() {
             @Override
             public Expression getTenantId() {
+                //todo 从
                 return new LongValue();
             }
             
@@ -64,7 +65,7 @@ public class MybatisPlusAutoConfiguration {
         //乐观锁插件
         interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
         //sql性能规范
-        interceptor.addInnerInterceptor(new IllegalSQLInnerInterceptor());
+        // interceptor.addInnerInterceptor(new IllegalSQLInnerInterceptor());
         //防止全表更新与删除
         interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
         return interceptor;
