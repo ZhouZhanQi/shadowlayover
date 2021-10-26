@@ -11,7 +11,7 @@
         <result column="order_num" property="orderNum" />
         <result column="is_deleted" property="isDeleted" />
         <result column="remark" property="remark" />
-        <result column="is_deleted" property="deleted" />
+        <result column="is_deleted" property="isDeleted" />
         <result column="trace_id" property="traceId" />
         <result column="creator_id" property="creatorId" />
         <result column="creator" property="creator" />

@@ -1,5 +1,6 @@
 package com.shadowlayover.oauth.mapper;
 
+import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
 import com.shadowlayover.oauth.model.domain.SysPost;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -15,4 +16,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SysPostMapper extends BaseMapper<SysPost> {
 
+    @InterceptorIgnore(tenantLine = "true")
+    public SysPost selectOneIgnoreTenant();
 }

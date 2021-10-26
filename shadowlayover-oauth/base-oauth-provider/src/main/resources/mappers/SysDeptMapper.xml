@@ -13,7 +13,7 @@
         <result column="order_num" property="orderNum" />
         <result column="parent_id" property="parentId" />
         <result column="tenant_id" property="tenantId" />
-        <result column="is_deleted" property="deleted" />
+        <result column="is_deleted" property="isDeleted" />
         <result column="trace_id" property="traceId" />
         <result column="creator_id" property="creatorId" />
         <result column="creator" property="creator" />

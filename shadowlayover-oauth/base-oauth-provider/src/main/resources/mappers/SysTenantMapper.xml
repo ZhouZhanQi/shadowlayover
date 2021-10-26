@@ -8,7 +8,7 @@
         <result column="tenant_code" property="tenantCode" />
         <result column="tenant_name" property="tenantName" />
         <result column="status" property="status" />
-        <result column="is_deleted" property="deleted" />
+        <result column="is_deleted" property="isDeleted" />
         <result column="trace_id" property="traceId" />
         <result column="creator_id" property="creatorId" />
         <result column="creator" property="creator" />
