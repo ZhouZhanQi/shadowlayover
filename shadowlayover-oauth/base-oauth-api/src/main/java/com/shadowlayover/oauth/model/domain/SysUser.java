@@ -90,5 +90,5 @@ public class SysUser extends BaseModel {
     private Integer status;
     
     @TableField(value = "is_super")
-    private Integer isSuper;
+    private Boolean isSuper;
 }

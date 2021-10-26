@@ -6,6 +6,7 @@ import com.shadowlayover.common.core.model.LoginUser;
 import com.shadowlayover.common.security.user.ShadowlayoverUser;
 import com.shadowlayover.oauth.model.bo.SysUserBo;
 import com.shadowlayover.oauth.model.domain.SysRole;
+import com.shadowlayover.oauth.model.enums.SysUserTypeEnum;
 import com.shadowlayover.oauth.service.IShadowlayoverUserService;
 import com.shadowlayover.oauth.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -58,12 +59,17 @@ public class ShadowlayoverUserServiceImpl implements IShadowlayoverUserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         SysUserBo sysUserBo = sysUserService.loadUserDetailByUsername(username);
         List<Long> roleIdList = Lists.newArrayList();
-        if (CollectionUtils.isNotEmpty(sysUserBo.getSysRoleList())) {
+
+        if (SysUserTypeEnum.PLATFORM_USER == SysUserTypeEnum.fromCode(sysUserBo.getUserType())
+                && sysUserBo.getIsSuper()) {
+            //平台超级管理员
+            roleIdList.add(-1L);
+        } else {
             roleIdList = sysUserBo.getSysRoleList().stream().mapToLong(SysRole::getId).boxed().collect(Collectors.toList());
         }
         Collection<? extends GrantedAuthority> authorities
                 = AuthorityUtils.createAuthorityList(Convert.toStrArray(roleIdList));
-        ShadowlayoverUser shadowlayoverUser = new ShadowlayoverUser(sysUserBo.getId(), sysUserBo.getTenantId(), sysUserBo.getSysDept().getId(), sysUserBo.getUserName(), sysUserBo.getPassword(), true, false, false, false, null);
+        ShadowlayoverUser shadowlayoverUser = new ShadowlayoverUser(sysUserBo.getId(), sysUserBo.getTenantId(), sysUserBo.getSysDept().getId(), sysUserBo.getUserName(), sysUserBo.getPassword(), true, false, false, false, authorities);
         return shadowlayoverUser;
     }
 }

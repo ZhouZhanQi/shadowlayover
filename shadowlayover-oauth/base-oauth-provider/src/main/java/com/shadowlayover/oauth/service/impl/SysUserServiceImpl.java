@@ -12,6 +12,7 @@ import com.shadowlayover.oauth.model.domain.SysPost;
 import com.shadowlayover.oauth.model.domain.SysTenant;
 import com.shadowlayover.oauth.model.domain.SysUser;
 import com.shadowlayover.oauth.model.enums.OauthResponseCode;
+import com.shadowlayover.oauth.model.enums.SysUserTypeEnum;
 import com.shadowlayover.oauth.service.ISysDeptService;
 import com.shadowlayover.oauth.service.ISysPostService;
 import com.shadowlayover.oauth.service.ISysTenantService;
