@@ -1,11 +1,11 @@
 package com.shadowlayover.oauth.model.convert;
 
 import com.shadowlayover.oauth.model.bo.SysUserBo;
+import com.shadowlayover.oauth.model.domain.SysDept;
+import com.shadowlayover.oauth.model.domain.SysPost;
+import com.shadowlayover.oauth.model.domain.SysTenant;
 import com.shadowlayover.oauth.model.domain.SysUser;
-import org.mapstruct.Builder;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -25,13 +25,5 @@ public interface SysUserConvert {
      * @param sysUser
      * @return
      */
-    @Mapping(target = "password", ignore = true)
     SysUserBo convert2Bo(SysUser sysUser);
-    
-    /**
-     * 更新信息
-     * @param source
-     * @param target
-     */
-    void updateBo(SysUserBo source, @MappingTarget SysUserBo target);
 }

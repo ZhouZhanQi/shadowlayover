@@ -20,4 +20,11 @@ public interface ISysDeptService extends IService<SysDept> {
      */
     SysDept getByUserId(Long userId);
 
+    /**
+     * 根据部门Id获取部门信息
+     * @param id
+     * @return
+     */
+    SysDept getByIdIgnoreTenant(Long id);
+
 }

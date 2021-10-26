@@ -1,9 +1,12 @@
 package com.shadowlayover.oauth.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.shadowlayover.common.core.exceptions.BusinessException;
+import com.shadowlayover.common.core.utils.AssertUtils;
 import com.shadowlayover.oauth.model.domain.SysPost;
 import com.shadowlayover.oauth.mapper.SysPostMapper;
 import com.shadowlayover.oauth.model.domain.SysUserPost;
+import com.shadowlayover.oauth.model.enums.OauthResponseCode;
 import com.shadowlayover.oauth.service.ISysPostService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shadowlayover.oauth.service.ISysUserPostService;
@@ -31,6 +34,7 @@ public class SysPostServiceImpl extends ServiceImpl<SysPostMapper, SysPost> impl
     @Override
     public SysPost getByUserId(Long userId) {
         SysUserPost userPost = sysUserPostService.getOne(Wrappers.lambdaQuery(SysUserPost.class).eq(SysUserPost::getUserId, userId));
-        return this.getById(userPost.getPostId());
+        AssertUtils.checkNotNull(userPost, new BusinessException(OauthResponseCode.POST_NOT_FOUND_ERROR));
+        return this.getBaseMapper().selectOneIgnoreTenant(Wrappers.lambdaQuery(SysPost.class).eq(SysPost::getId, userPost.getPostId()));
     }
 }

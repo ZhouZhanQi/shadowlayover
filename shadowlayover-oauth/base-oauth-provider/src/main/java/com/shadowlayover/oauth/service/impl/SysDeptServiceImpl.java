@@ -39,4 +39,9 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         //查询用户部门
         return this.getById(sysPost.getDeptId());
     }
+
+    @Override
+    public SysDept getByIdIgnoreTenant(Long id) {
+        return this.getBaseMapper().selectOneIgnoreTenant(Wrappers.lambdaQuery(SysDept.class).eq(SysDept::getId, id));
+    }
 }

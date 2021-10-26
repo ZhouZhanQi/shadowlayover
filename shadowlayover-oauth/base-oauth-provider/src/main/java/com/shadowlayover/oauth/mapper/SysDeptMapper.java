@@ -1,9 +1,12 @@
 package com.shadowlayover.oauth.mapper;
 
+import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.shadowlayover.oauth.model.domain.SysDept;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * <p>
@@ -17,9 +20,11 @@ import org.apache.ibatis.annotations.Param;
 public interface SysDeptMapper extends BaseMapper<SysDept> {
 
     /**
-     * 根据用户Id查询部门信息
-     * @param userId
+     * 忽略租户查询部门信息
+     * @param queryWrapper
      * @return
      */
-    SysDept getByUserId(@Param("userId") Long userId);
+    @InterceptorIgnore(tenantLine = "true")
+    @Select("select * from sys_dept ${ew.customSqlSegment}")
+    SysDept selectOneIgnoreTenant(@Param("ew") Wrapper<SysDept> queryWrapper);
 }

@@ -65,28 +65,26 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return
      */
     private SysUserBo completionSysUserData(SysUser sysUser) {
-        SysUserBo userBo = SysUserConvert.INSTANCE.convert2Bo(sysUser);
         //校验密码
         AssertUtils.checkNotNull(sysUser, new BusinessException(OauthResponseCode.USERNAME_OR_PASSWORD_ERROR));
         //查询租户
         SysTenant sysTenant = sysTenantService.getById(sysUser.getTenantId());
         AssertUtils.checkNotNull(sysTenant, new BusinessException(OauthResponseCode.TENANT_NOT_FOUND_ERROR));
-        //查询角色
-    
-        //部门信息
-        SysDept sysDept = sysDeptService.getByUserId(sysUser.getId());
-        AssertUtils.checkNotNull(sysDept, new BusinessException(OauthResponseCode.DEPT_NOT_FOUND_ERROR));
-    
+
         //职位信息
         SysPost sysPost = sysPostService.getByUserId(sysUser.getId());
         AssertUtils.checkNotNull(sysPost, new BusinessException(OauthResponseCode.POST_NOT_FOUND_ERROR));
+        //查询角色
+    
+        //部门信息
+        SysDept sysDept = sysDeptService.getByIdIgnoreTenant(sysPost.getDeptId());
+        AssertUtils.checkNotNull(sysDept, new BusinessException(OauthResponseCode.DEPT_NOT_FOUND_ERROR));
     
         //复制更新用户信息
-        SysUserConvert.INSTANCE.updateBo(userBo, SysUserBo.builder()
-                .sysTenant(sysTenant)
-                .sysDept(sysDept)
-                .sysPost(sysPost)
-                .build());
+        SysUserBo userBo = SysUserConvert.INSTANCE.convert2Bo(sysUser);
+        userBo.setSysTenant(sysTenant);
+        userBo.setSysDept(sysDept);
+        userBo.setSysPost(sysPost);
         return userBo;
     }
 }
