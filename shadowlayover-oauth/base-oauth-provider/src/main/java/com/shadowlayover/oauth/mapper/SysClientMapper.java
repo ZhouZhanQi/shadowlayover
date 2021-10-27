@@ -2,7 +2,7 @@ package com.shadowlayover.oauth.mapper;
 
 import com.shadowlayover.oauth.model.domain.SysClient;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.mapstruct.Mapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>

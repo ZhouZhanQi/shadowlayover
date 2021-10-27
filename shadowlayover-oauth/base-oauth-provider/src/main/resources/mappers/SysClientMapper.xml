@@ -19,11 +19,11 @@
         <result column="scope" property="scope" />
         <result column="authorized_grant_types" property="authorizedGrantTypes" />
         <result column="authorities" property="authorities" />
-        <result column="web_server_redirect_uri" property="webServerRedirectUri" />
-        <result column="access_token_expires_in" property="accessTokenExpiresIn" />
-        <result column="refresh_token_expires_in" property="refreshTokenExpiresIn" />
+        <result column="redirect_uri" property="redirectUri" />
+        <result column="access_token_validity" property="accessTokenValidity" />
+        <result column="refresh_token_validity" property="refreshTokenValidity" />
         <result column="autoapprove" property="autoapprove" />
-        <result column="description" property="description" />
+        <result column="additional_information" property="additionalInformation" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -36,7 +36,7 @@
         updater_id,
         updater,
         update_time,
-        id, client_id, client_secret, resource_ids, scope, authorized_grant_types, authorities, web_server_redirect_uri, access_token_expires_in, refresh_token_expires_in, autoapprove, description
+        id, client_id, client_secret, resource_ids, scope, authorized_grant_types, authorities, redirect_uri, access_token_validity, refresh_token_validity, autoapprove, additional_information
     </sql>
 
 </mapper>

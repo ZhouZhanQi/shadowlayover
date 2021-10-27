@@ -68,14 +68,15 @@ public class OauthWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests();
 
         //任何请求
-        config.antMatchers("/token")
+        config.antMatchers("/base-oauth/token")
                 .permitAll()
                 .anyRequest()
                 //都需要身份认证
                 .authenticated()
                 .and()
                 //csrf跨站请求
-                .csrf();
+                .csrf()
+                .disable();
     }
     
     @Override

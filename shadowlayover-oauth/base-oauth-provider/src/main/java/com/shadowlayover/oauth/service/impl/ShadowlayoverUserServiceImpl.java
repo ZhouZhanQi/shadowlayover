@@ -69,7 +69,7 @@ public class ShadowlayoverUserServiceImpl implements IShadowlayoverUserService {
         }
         Collection<? extends GrantedAuthority> authorities
                 = AuthorityUtils.createAuthorityList(Convert.toStrArray(roleIdList));
-        ShadowlayoverUser shadowlayoverUser = new ShadowlayoverUser(sysUserBo.getId(), sysUserBo.getTenantId(), sysUserBo.getSysDept().getId(), sysUserBo.getUserName(), sysUserBo.getPassword(), true, false, false, false, authorities);
+        ShadowlayoverUser shadowlayoverUser = new ShadowlayoverUser(sysUserBo.getId(), sysUserBo.getTenantId(), sysUserBo.getSysDept().getId(), sysUserBo.getUserName(), sysUserBo.getPassword(), true, true, true, true, authorities);
         return shadowlayoverUser;
     }
 }

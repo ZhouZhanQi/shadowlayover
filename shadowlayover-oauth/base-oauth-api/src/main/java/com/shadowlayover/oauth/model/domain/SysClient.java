@@ -2,14 +2,9 @@ package com.shadowlayover.oauth.model.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.shadowlayover.common.db.model.BaseModel;
-import java.io.Serializable;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * <p>
