@@ -11,6 +11,9 @@ CREATE TABLE sys_user
     tenant_id       BIGINT(20) NOT NULL COMMENT '租户Id;租户Id',
     last_login_ip   VARCHAR(128) COMMENT '最后登录Ip;最后登录Ip',
     last_login_time DATETIME COMMENT '最后登录时间;最后登录时间',
+    user_type       SMALLINT DEFAULT NULL COMMENT '用户类型; 10-平台用户, 20-租户用户',
+    status          SMALLINT DEFAULT NULL COMMENT '用户状态; 0-正常, 1-禁用, 2-锁定',
+    is_super        TINYINT(1) DEFAULT NULL COMMENT '是否为超级管理员',
     is_deleted      TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否删除',
     trace_id        VARCHAR(64) NOT NULL COMMENT '调用链',
     creator_id      BIGINT(20) NOT NULL COMMENT '创建人Id',
@@ -23,7 +26,8 @@ CREATE TABLE sys_user
 ) COMMENT = '系统用户';
 
 
-CREATE UNIQUE INDEX uqx_user_name ON sys_user (user_name);
+CREATE
+UNIQUE INDEX uqx_user_name ON sys_user (user_name);
 
 CREATE TABLE sys_role
 (
@@ -72,7 +76,8 @@ CREATE TABLE sys_resource
 ) COMMENT = '系统资源';
 
 
-CREATE UNIQUE INDEX uqx_resource_code ON sys_resource (resource_code);
+CREATE
+UNIQUE INDEX uqx_resource_code ON sys_resource (resource_code);
 
 CREATE TABLE sys_tenant
 (
@@ -152,7 +157,8 @@ CREATE TABLE sys_resource_permit
 ) COMMENT = '系统资源权限';
 
 
-CREATE UNIQUE INDEX uqx_permit_code ON sys_resource_permit (permit_code);
+CREATE
+UNIQUE INDEX uqx_permit_code ON sys_resource_permit (permit_code);
 
 CREATE TABLE sys_group
 (
@@ -233,4 +239,29 @@ CREATE TABLE sys_role_resource
     update_time   DATETIME    NOT NULL COMMENT '更新时间;更新时间',
     PRIMARY KEY (id)
 ) COMMENT = '角色资源关联';
+
+CREATE TABLE `sys_client`
+(
+    `id`                     bigint                                                        NOT NULL AUTO_INCREMENT COMMENT '主键Id',
+    `client_id`              varchar(128) COLLATE utf8mb4_general_ci                       NOT NULL COMMENT '客户端Id',
+    `client_secret`          varchar(1024) COLLATE utf8mb4_general_ci                      NOT NULL COMMENT '客户端密钥',
+    `resource_ids`           varchar(256) COLLATE utf8mb4_general_ci                       NOT NULL COMMENT '资源集合',
+    `scope`                  varchar(64) COLLATE utf8mb4_general_ci                        NOT NULL COMMENT '授权范围',
+    `authorized_grant_types` varchar(64) COLLATE utf8mb4_general_ci                        NOT NULL COMMENT '授权类型',
+    `authorities`            varchar(255) COLLATE utf8mb4_general_ci                       NOT NULL COMMENT '权限',
+    `redirect_uri`           varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '回调地址',
+    `access_token_validity`  int                                                           NOT NULL COMMENT '令牌过期时间',
+    `refresh_token_validity` int                                                           NOT NULL COMMENT '刷新令牌过期时间',
+    `autoapprove`            varchar(16) COLLATE utf8mb4_general_ci                        NOT NULL COMMENT '是否自动授权',
+    `additional_information` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '说明',
+    `trace_id`               varchar(64) COLLATE utf8mb4_general_ci                        NOT NULL COMMENT '链路Id',
+    `is_deleted`             tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
+    `creator_id`             bigint                                                        NOT NULL COMMENT '创建者Id',
+    `creator`                varchar(64) COLLATE utf8mb4_general_ci                        NOT NULL COMMENT '创建者',
+    `create_time`            datetime                                                      NOT NULL COMMENT '创建时间',
+    `updater_id`             bigint                                                        NOT NULL COMMENT '更新者Id',
+    `updater`                varchar(64) COLLATE utf8mb4_general_ci                        NOT NULL COMMENT '更新时间',
+    `update_time`            datetime                                                      NOT NULL COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+) COMMENT='客户端';
 

@@ -1,4 +1,4 @@
-package com.shadowlayover.common.security.config;
+package com.shadowlayover.gateway.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

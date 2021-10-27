@@ -80,7 +80,7 @@ public class ClientDetailsServices extends JdbcClientDetailsService {
                 log.debug(">>> cache clientId: {}, clientDetails: {}", clientId, clientDetails);
             }
         } catch (Exception e) {
-            log.error("cache client error clientID: {}, message: {}", clientId, e.getMessage(), e);
+            log.error(">>> cache client error clientId: {}, message: {}", clientId, e.getMessage(), e);
         }
         return clientDetails;
     }

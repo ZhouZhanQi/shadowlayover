@@ -85,7 +85,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clientDetailsServices.setSelectClientDetailsSql(BaseOauthConstant.SELECT_CLIENT_DETAIL_SQL);
         clientDetailsServices.setFindClientDetailsSql(BaseOauthConstant.FIND_CLIENT_DETAIL_SQL);
-        clients.withClientDetails(clientDetailsServices);
     }
 
     /**
