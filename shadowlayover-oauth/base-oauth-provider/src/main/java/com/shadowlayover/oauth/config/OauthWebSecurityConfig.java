@@ -27,36 +27,36 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
  */
 @EnableWebSecurity
 public class OauthWebSecurityConfig extends WebSecurityConfigurerAdapter {
-    
+
     @Autowired
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
-    
+
     @Autowired
     private ShadowlayoverUserDetailService shadowlayoverUserDetailService;
-    
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
-    
+
     @Bean
     @Override
     @SneakyThrows
     public AuthenticationManager authenticationManagerBean() {
         return super.authenticationManagerBean();
     }
-    
+
     @Bean
     public AuthenticationSuccessHandler shadowlayoverSuccessHandler() {
         return new ShadowlayoverAuthenticationSuccessHandler();
     }
-    
+
     @Bean
     public AuthenticationFailureHandler shadowlayoverFailureHandler() {
         return new ShadowlayoverAuthenticationFailureHandler();
     }
-    
-    
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config = http.requestMatchers().anyRequest()
@@ -78,9 +78,10 @@ public class OauthWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable();
     }
-    
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(shadowlayoverUserDetailService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(shadowlayoverUserDetailService)
+                .passwordEncoder(passwordEncoder());
     }
 }

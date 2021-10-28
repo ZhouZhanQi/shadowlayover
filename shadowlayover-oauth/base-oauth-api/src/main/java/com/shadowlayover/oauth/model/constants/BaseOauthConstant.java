@@ -33,7 +33,7 @@ public interface BaseOauthConstant {
     /**
      * 基础查询语句
      */
-    String CLIENT_BASE = "select client_id, CONCAT('{noop}',client_secret) as client_secret, resource_ids, scope, " +
+    String CLIENT_BASE = "select client_id, client_secret as client_secret, resource_ids, scope, " +
             "authorized_grant_types, redirect_uri, authorities, access_token_validity," +
             "refresh_token_validity, additional_information, autoapprove from " + CLIENT_TABLE;
 

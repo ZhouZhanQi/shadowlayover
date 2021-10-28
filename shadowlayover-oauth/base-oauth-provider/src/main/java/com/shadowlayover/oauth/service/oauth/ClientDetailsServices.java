@@ -1,20 +1,19 @@
 package com.shadowlayover.oauth.service.oauth;
 
+import com.google.common.base.Joiner;
+import com.shadowlayover.common.cache.model.code.RedisKeyPrefix;
 import com.shadowlayover.oauth.model.constants.BaseOauthConstant;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.Objects;
 
@@ -75,7 +74,7 @@ public class ClientDetailsServices extends JdbcClientDetailsService {
 
         try {
             clientDetails = super.loadClientByClientId(clientId);
-            if (Objects.isNull(clientDetails)) {
+            if (Objects.nonNull(clientDetails)) {
                 redisTemplate.opsForValue().set(clientKey(clientId), clientDetails);
                 log.debug(">>> cache clientId: {}, clientDetails: {}", clientId, clientDetails);
             }
@@ -86,6 +85,6 @@ public class ClientDetailsServices extends JdbcClientDetailsService {
     }
 
     private String clientKey(String clientId) {
-        return BaseOauthConstant.CLIENT_TABLE + ":" + clientId;
+        return Joiner.on(":").join(RedisKeyPrefix.OAUTH_CLIENT.getPrefix(), clientId);
     }
 }

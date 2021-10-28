@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
+import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import com.shadowlayover.common.cache.RedisCacheHelper;
 import com.shadowlayover.common.cache.props.CacheRedisCaffeineProperties;
 import com.shadowlayover.common.cache.support.CacheMessageListener;
@@ -104,13 +105,13 @@ public class RedisCaffeineAutoConfig {
                 .withIsGetterVisibility(JsonAutoDetect.Visibility.NONE)
                 .withCreatorVisibility(JsonAutoDetect.Visibility.NONE));
         // 序列化时带上Class<T>类型信息
-        mapper.activateDefaultTyping(BasicPolymorphicTypeValidator.builder().build(), ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+        mapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
         // 字段值为默认值时(如: boolean的false, int的0, string/object的<null>), 忽略该字段, 减少序列化后的字节长度
         mapper.setSerializationInclusion(JsonInclude.Include.NON_DEFAULT);
         // 日期序列化为long
         mapper.enable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         // 反序列化时, 忽略不认识的字段, 而不是抛出异常
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        return new GenericJackson2JsonRedisSerializer();
+        return new GenericJackson2JsonRedisSerializer(mapper);
     }
 }
