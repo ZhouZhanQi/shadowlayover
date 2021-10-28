@@ -3,6 +3,7 @@ package com.shadowlayover.gateway.filter;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import com.shadowlayover.gateway.model.constants.FilterOrderedConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -77,6 +78,6 @@ public class RequestLogFilter implements GlobalFilter, Ordered {
     
     @Override
     public int getOrder() {
-        return Ordered.LOWEST_PRECEDENCE;
+        return FilterOrderedConstants.REQUEST_LOG_ORDERED;
     }
 }

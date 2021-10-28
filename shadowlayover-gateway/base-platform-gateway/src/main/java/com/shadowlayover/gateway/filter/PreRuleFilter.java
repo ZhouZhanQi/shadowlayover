@@ -1,5 +1,6 @@
 package com.shadowlayover.gateway.filter;
 
+import com.shadowlayover.gateway.model.constants.FilterOrderedConstants;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -22,6 +23,6 @@ public class PreRuleFilter implements GlobalFilter, Ordered {
     
     @Override
     public int getOrder() {
-        return 0;
+        return FilterOrderedConstants.PRE_RULE;
     }
 }

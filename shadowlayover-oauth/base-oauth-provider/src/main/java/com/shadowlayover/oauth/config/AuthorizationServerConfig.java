@@ -34,12 +34,14 @@ import org.springframework.security.oauth2.provider.CompositeTokenGranter;
 import org.springframework.security.oauth2.provider.TokenGranter;
 import org.springframework.security.oauth2.provider.password.ResourceOwnerPasswordTokenGranter;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStoreSerializationStrategy;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -78,6 +80,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.userDetailsService(shadowlayoverUserService);
         endpoints.tokenStore(redisTokenStore());
+
+//        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+//        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), jwtAccessTokenConverter()));
+
         DefaultTokenServices defaultTokenServices = createDefaultTokenServices();
         addUserDetailsService(defaultTokenServices);
         endpoints.tokenGranter(tokenGranter(endpoints, defaultTokenServices))

@@ -68,7 +68,7 @@ public class OauthWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests();
 
         //任何请求
-        config.antMatchers("/base-oauth/token")
+        config.antMatchers("/token")
                 .permitAll()
                 .anyRequest()
                 //都需要身份认证

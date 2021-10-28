@@ -2,6 +2,7 @@ package com.shadowlayover.gateway.filter;
 
 import cn.hutool.core.lang.generator.UUIDGenerator;
 import com.shadowlayover.common.core.model.constants.CoreConstants;
+import com.shadowlayover.gateway.model.constants.FilterOrderedConstants;
 import org.slf4j.MDC;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -35,6 +36,6 @@ public class PreRequestFilter implements GlobalFilter, Ordered {
     
     @Override
     public int getOrder() {
-        return Ordered.HIGHEST_PRECEDENCE;
+        return FilterOrderedConstants.PRE_REQUEST;
     }
 }

@@ -63,6 +63,20 @@ public class AssertUtils {
             throw new AssertException(lenientFormat(errorMessageTemplate, errorMessageArgs));
         }
     }
+
+    /**
+     * 断言传入参数不能为null
+     * @param expression
+     * @return
+     * @throws Throwable
+     */
+    @CanIgnoreReturnValue
+    public static <X extends Throwable> void checkArgument(boolean expression, Supplier<? extends X> exceptionSupplier) throws Throwable {
+        if (expression) {
+            return;
+        }
+        throw exceptionSupplier.get();
+    }
     
     /**
      * 断言传入对象不能为null
