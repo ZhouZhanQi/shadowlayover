@@ -25,9 +25,10 @@ CREATE TABLE sys_user
     PRIMARY KEY (id)
 ) COMMENT = '系统用户';
 
-
 CREATE
 UNIQUE INDEX uqx_user_name ON sys_user (user_name);
+INSERT INTO `shadowlayover_oauth`.`sys_user` (`id`, `user_name`, `password`, `nickname`, `real_name`, `mobile_phone`, `email`, `sex`, `tenant_id`, `last_login_ip`, `last_login_time`, `user_type`, `status`, `is_super`, `is_deleted`, `trace_id`, `creator_id`, `creator`, `create_time`, `updater_id`, `updater`, `update_time`) VALUES (1, 'admin', '{bcrypt}$2a$10$3hNx/zyetKyuTuyO82TVb.RKeRe8pFT3t.U1vvy7KEOqM1QaVAoie', 'admin', NULL, '13800138000', NULL, 0, 1000000, NULL, '2021-10-23 15:45:28', 10, 0, 1, 0, '165f4e04b17a442aac2807cd2112a3b2', 0, 'sys', '2021-10-23 15:46:10', 0, 'sys', '2021-10-23 15:46:29');
+
 
 CREATE TABLE sys_role
 (
@@ -95,6 +96,8 @@ CREATE TABLE sys_tenant
     update_time DATETIME    NOT NULL COMMENT '更新时间;更新时间',
     PRIMARY KEY (id)
 ) COMMENT = '系统租户';
+INSERT INTO `shadowlayover_oauth`.`sys_tenant` (`id`, `tenant_code`, `tenant_name`, `status`, `is_deleted`, `trace_id`, `creator_id`, `creator`, `create_time`, `updater_id`, `updater`, `update_time`) VALUES (1000000, 'shadow_layover', 'Left Untold', 0, 0, 'c9fd2f56a2ac429bbd10755c4accefad', 0, 'admin', '2021-10-26 18:07:55', 0, 'admin', '2021-10-26 18:08:02');
+
 
 CREATE TABLE sys_dept
 (
@@ -117,6 +120,8 @@ CREATE TABLE sys_dept
     update_time  DATETIME    NOT NULL COMMENT '更新时间;更新时间',
     PRIMARY KEY (id)
 ) COMMENT = '系统租户部门';
+INSERT INTO `shadowlayover_oauth`.`sys_dept` (`id`, `dept_name`, `leader`, `phone`, `email`, `status`, `order_num`, `parent_id`, `tenant_id`, `is_deleted`, `trace_id`, `creator_id`, `creator`, `created_time`, `updater_id`, `updater`, `update_time`) VALUES (10000, '罗生门', 'Left Untold', '13800138000', NULL, 0, 1, 0, 1000000, 0, 'c0822c808f9949c6864619db9bed5467', 0, 'admin', '2021-10-26 18:12:45', 0, 'admin', '2021-10-26 18:12:51');
+
 
 CREATE TABLE sys_post
 (
@@ -137,6 +142,9 @@ CREATE TABLE sys_post
     update_time DATETIME    NOT NULL COMMENT '更新时间;更新时间',
     PRIMARY KEY (id)
 ) COMMENT = '系统租户职位';
+
+INSERT INTO `shadowlayover_oauth`.`sys_post` (`id`, `post_code`, `post_name`, `dept_id`, `order_num`, `status`, `remark`, `is_deleted`, `trace_id`, `creator_id`, `creator`, `create_time`, `updater_id`, `updater`, `update_time`) VALUES (10000, 'manager', '主管', 10000, 1, 0, '部门负责人', 0, 'f012182d0a9f4e3c91ed040010ba5fb8', 0, 'admin', '2021-10-26 18:16:06', 0, 'admin', '2021-10-26 18:16:14');
+
 
 CREATE TABLE sys_resource_permit
 (
@@ -175,6 +183,8 @@ CREATE TABLE sys_group
     update_time DATETIME    NOT NULL COMMENT '更新时间;更新时间',
     PRIMARY KEY (id)
 ) COMMENT = '系统用户组';
+INSERT INTO `shadowlayover_oauth`.`sys_group` (`id`, `group_code`, `group_name`, `is_deleted`, `trace_id`, `creator_id`, `creator`, `create_time`, `updater_id`, `updater`, `update_time`) VALUES (1, 'platform_manager', '平台管理员', 0, 'd7a932139bd24b6e9ed54a9a691f0d41', 0, 'admin', '2021-10-26 18:19:20', 0, 'admin', '2021-10-26 18:19:28');
+
 
 CREATE TABLE sys_user_group
 (
@@ -191,6 +201,8 @@ CREATE TABLE sys_user_group
     update_time DATETIME    NOT NULL COMMENT '更新时间;更新时间',
     PRIMARY KEY (id)
 ) COMMENT = '用户组关联';
+INSERT INTO `shadowlayover_oauth`.`sys_user_group` (`id`, `user_id`, `group_code`, `is_deleted`, `trace_id`, `creator_id`, `creator`, `create_time`, `updater_id`, `updater`, `update_time`) VALUES (1, '1', 'platform_manager', 0, 'bcf1bbefa8bf40cd9fb9fb44f82d29df', 0, 'admin', '2021-10-26 19:19:44', 0, 'admin', '2021-10-26 19:19:55');
+
 
 CREATE TABLE sys_user_post
 (
@@ -207,6 +219,8 @@ CREATE TABLE sys_user_post
     update_time DATETIME    NOT NULL COMMENT '更新时间;更新时间',
     PRIMARY KEY (id)
 ) COMMENT = '用户职位关联';
+INSERT INTO `shadowlayover_oauth`.`sys_user_post` (`id`, `user_id`, `post_id`, `is_deleted`, `trace_id`, `creator_id`, `creator`, `create_time`, `updater_id`, `updater`, `update_time`) VALUES (1, 1, 10000, 0, 'e783a4edd8e34e8c874dd12b86c9e380', 0, 'admin', '2021-10-26 19:20:30', 0, 'admin', '2021-10-26 19:20:37');
+
 
 CREATE TABLE sys_role_post
 (
@@ -264,4 +278,6 @@ CREATE TABLE `sys_client`
     `update_time`            datetime                                                      NOT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`)
 ) COMMENT='客户端';
+INSERT INTO `shadowlayover_oauth`.`sys_client` (`id`, `client_id`, `client_secret`, `resource_ids`, `scope`, `authorized_grant_types`, `redirect_uri`, `authorities`, `access_token_validity`, `refresh_token_validity`, `autoapprove`, `additional_information`, `trace_id`, `is_deleted`, `creator_id`, `creator`, `create_time`, `updater_id`, `updater`, `update_time`) VALUES (1, 'platform', '{bcrypt}$2a$10$3hNx/zyetKyuTuyO82TVb.RKeRe8pFT3t.U1vvy7KEOqM1QaVAoie', NULL, 'all', 'refresh_token,password', '', NULL, 7200, 7200, NULL, NULL, 'cc7b537ed39148c9a7754d6be2328871', 0, 0, 'admin', '2021-10-27 17:16:15', 0, 'admin', '2021-10-27 17:16:25');
+
 
