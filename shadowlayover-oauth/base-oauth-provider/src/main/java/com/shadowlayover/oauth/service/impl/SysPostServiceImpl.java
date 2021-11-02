@@ -6,7 +6,7 @@ import com.shadowlayover.common.core.utils.AssertUtils;
 import com.shadowlayover.oauth.model.domain.SysPost;
 import com.shadowlayover.oauth.mapper.SysPostMapper;
 import com.shadowlayover.oauth.model.domain.SysUserPost;
-import com.shadowlayover.oauth.model.enums.OauthResponseCode;
+import com.shadowlayover.oauth.model.code.OauthResponseCode;
 import com.shadowlayover.oauth.service.ISysPostService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shadowlayover.oauth.service.ISysUserPostService;

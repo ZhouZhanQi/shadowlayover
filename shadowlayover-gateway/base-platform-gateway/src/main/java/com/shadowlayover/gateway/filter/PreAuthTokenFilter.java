@@ -1,27 +1,21 @@
 package com.shadowlayover.gateway.filter;
 
-import cn.hutool.core.date.LocalDateTimeUtil;
-import com.shadowlayover.common.core.exceptions.BusinessException;
-import com.shadowlayover.common.core.utils.AssertUtils;
-import com.shadowlayover.common.security.model.code.SecurityExceptionCode;
-import com.shadowlayover.common.security.utils.AccessTokenUtils;
-import com.shadowlayover.gateway.config.ShadowlayoverSecurityProperties;
 import com.shadowlayover.gateway.model.constants.FilterOrderedConstants;
+import com.shadowlayover.gateway.props.ShadowlayoverGatewayProperties;
+import com.shadowlayover.gateway.utils.AccessTokenUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
-
-import java.time.LocalDateTime;
 
 /**
  * <pre>
@@ -31,13 +25,20 @@ import java.time.LocalDateTime;
  * </pre>
  */
 @RequiredArgsConstructor
-@Component
+@Configuration
 public class PreAuthTokenFilter implements GlobalFilter, Ordered {
 
 
-    private final ShadowlayoverSecurityProperties securityProperties;
+    private final ShadowlayoverGatewayProperties securityProperties;
 
-    private final TokenStore tokenStore;
+    private final RedisConnectionFactory redisConnectionFactory;
+
+//    @Bean
+//    public RedisTokenStore redisTokenStore() {
+//        RedisTokenStore redisTokenStore = new RedisTokenStore(redisConnectionFactory);
+//        redisTokenStore.setPrefix("oauth:");
+//        return redisTokenStore;
+//    }
 
     /**
      * 请求地址匹配
@@ -58,7 +59,7 @@ public class PreAuthTokenFilter implements GlobalFilter, Ordered {
         }
 
         String authorization = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
-        AccessTokenUtils.checkTokenFromHead(tokenStore, authorization);
+//        AccessTokenUtils.checkTokenFromHead(redisTokenStore(), authorization);
         //校验地址是否需要权限
         return chain.filter(exchange);
     }

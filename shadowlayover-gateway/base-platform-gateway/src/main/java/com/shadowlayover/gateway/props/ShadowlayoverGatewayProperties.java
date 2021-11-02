@@ -1,4 +1,4 @@
-package com.shadowlayover.gateway.config;
+package com.shadowlayover.gateway.props;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -16,9 +16,9 @@ import java.util.List;
  */
 @Data
 @RefreshScope
-@ConfigurationProperties(prefix = "shadowlayover.security")
+@ConfigurationProperties(prefix = "shadowlayover.gateway")
 @Component
-public class ShadowlayoverSecurityProperties {
+public class ShadowlayoverGatewayProperties {
     
     /**
      * 需要登录，不需要校验权限

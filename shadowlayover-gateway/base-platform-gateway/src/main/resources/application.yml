@@ -1,8 +1,8 @@
 server:
   port: 30000
 spring:
-  profiles:
-    active: dev
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: base-platform-gateway
   cloud:
@@ -27,6 +27,20 @@ spring:
           uri: lb://base-message
           predicates:
             - Path=/base-message/**
+  security:
+    oauth2:
+      client:
+        registration:
+          platform:
+            client-id: platform
+            client-secret: 123456
+            provider: base-oauth
+            authorization-grant-type: password
+        #服务认证
+        provider:
+          base-oauth:
+            authorization-uri: http://base-oauth/base-oauth/oauth/authorize
+            token-uri: http://base-oauth/base-oauth/oauth/token
   redis:
     host: 192.168.1.98
     port: 16379

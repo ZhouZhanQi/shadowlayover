@@ -6,7 +6,7 @@ import com.shadowlayover.common.cache.RedisCacheHelper;
 import com.shadowlayover.common.cache.model.code.RedisKeyPrefix;
 import com.shadowlayover.common.core.exceptions.BusinessException;
 import com.shadowlayover.oauth.authentication.sms.SmsCodeAuthenticationToken;
-import com.shadowlayover.oauth.model.enums.OauthResponseCode;
+import com.shadowlayover.oauth.model.code.OauthResponseCode;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.AuthenticationManager;

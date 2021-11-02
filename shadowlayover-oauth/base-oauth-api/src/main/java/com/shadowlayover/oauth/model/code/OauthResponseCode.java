@@ -1,4 +1,4 @@
-package com.shadowlayover.oauth.model.enums;
+package com.shadowlayover.oauth.model.code;
 
 import com.shadowlayover.common.core.model.code.BaseExceptionCode;
 import lombok.AllArgsConstructor;

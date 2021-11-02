@@ -1,7 +1,7 @@
 package com.shadowlayover.oauth.translator;
 
 import com.shadowlayover.common.core.model.ResponseData;
-import com.shadowlayover.oauth.model.enums.OauthResponseCode;
+import com.shadowlayover.oauth.model.code.OauthResponseCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
