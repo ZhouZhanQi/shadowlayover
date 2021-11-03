@@ -1,11 +1,15 @@
 package com.shadowlayover.oauth;
 
 import com.shadowlayover.common.db.generator.CodeGenerator;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 @SpringBootTest
@@ -27,6 +31,10 @@ public class OauthApplicationTest {
 
 
 //        System.out.println(Pattern.matches(patch, "和ADP820挂"));
+
+        List<Boolean> booleanList = Lists.newArrayList(true, false);
+
+        System.out.println(booleanList.stream().allMatch(locked -> locked));
 
     }
 }

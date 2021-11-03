@@ -1,9 +1,11 @@
 package com.shadowlayover.gateway.config;
 
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import com.shadowlayover.gateway.props.ShadowlayoverGatewayProperties;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.web.server.SecurityWebFilterChain;
 
 /**
  * <pre>
@@ -12,24 +14,36 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @desc: web security
  * </pre>
  */
-@EnableWebSecurity
-public class ShadowlayoverSecurityConfig extends WebSecurityConfigurerAdapter {
+@RequiredArgsConstructor
+@EnableWebFluxSecurity
+public class ShadowlayoverSecurityConfig {
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        //忽略静态资源
-//        web.ignoring().antMatchers();
-        super.configure(web);
-    }
+    private final ShadowlayoverGatewayProperties shadowlayoverGatewayProperties;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/base-oauth/oauth/token")
+    @Bean
+    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+//        http.authorizeExchange()
+//                .pathMatchers(ArrayUtil.toArray(shadowlayoverGatewayProperties.getIgnoreUrls(),String.class)).permitAll()//白名单配置
+//                .anyExchange()
+//                .access(new ReactiveAuthorizationManager<AuthorizationContext>() {
+//                    @Override
+//                    public Mono<AuthorizationDecision> check(Mono<Authentication> mono, AuthorizationContext context) {
+//                        //todo 校验token准确性, 不校验功能权限
+//                        return Mono.just(new AuthorizationDecision(true));
+//                    }
+//                })
+//                .and()
+//                .exceptionHandling()
+//                .accessDeniedHandler(new ShadowlayoverAccessDeniedHandler())//处理未授权
+//                .authenticationEntryPoint(new ShadowlayoverAuthenticationEntryPoint())//处理未认证
+//                .and()
+//                .csrf().disable();
+        //网关不做拦截
+        http.authorizeExchange()
+                .anyExchange()
                 .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .oauth2Client();
+                .and().csrf()
+                .disable();
+        return http.build();
     }
 }

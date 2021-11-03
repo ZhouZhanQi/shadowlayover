@@ -1,27 +1,16 @@
 package com.shadowlayover.oauth.config;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 import com.shadowlayover.common.cache.RedisCacheHelper;
 import com.shadowlayover.common.security.user.ShadowlayoverUserDetailService;
 import com.shadowlayover.oauth.granter.SmsCodeTokenGranter;
 import com.shadowlayover.oauth.model.constants.BaseOauthConstant;
 import com.shadowlayover.oauth.model.enums.GrantTypeEnum;
-import com.shadowlayover.oauth.service.IShadowlayoverUserService;
 import com.shadowlayover.oauth.service.oauth.ClientDetailsServices;
 import com.shadowlayover.oauth.service.oauth.SingleLoginTokenServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.serializer.SerializationException;
-import org.springframework.data.redis.serializer.SerializationUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper;
@@ -34,14 +23,10 @@ import org.springframework.security.oauth2.provider.CompositeTokenGranter;
 import org.springframework.security.oauth2.provider.TokenGranter;
 import org.springframework.security.oauth2.provider.password.ResourceOwnerPasswordTokenGranter;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
-import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStoreSerializationStrategy;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
-import org.springframework.util.Assert;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -96,7 +81,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         // 允许表单认证请求
         security.allowFormAuthenticationForClients()
                 //spel表达式 访问公钥端点（/auth/token_key）需要认证
-                .tokenKeyAccess("isAuthenticated()")
+                .tokenKeyAccess("permitAll()")
                 //spel表达式 访问令牌解析端点（/auth/check_token）需要认证
                 .checkTokenAccess("isAuthenticated()");
     }

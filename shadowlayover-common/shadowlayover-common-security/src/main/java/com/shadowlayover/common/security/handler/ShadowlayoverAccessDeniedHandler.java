@@ -19,8 +19,14 @@ import java.io.IOException;
  * </pre>
  */
 public class ShadowlayoverAccessDeniedHandler implements AccessDeniedHandler {
+
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
         ResponseUtils.responseWriter(httpServletResponse, MediaType.APPLICATION_JSON_VALUE, HttpServletResponse.SC_FORBIDDEN, ResponseData.fail("没有访问权限"));
     }
+
+//    @Override
+//    public Mono<Void> handle(ServerWebExchange serverWebExchange, AccessDeniedException e) {
+//        return ResponseUtils.webFluxResponseWriter(serverWebExchange.getResponse(), MediaType.APPLICATION_JSON_VALUE,  HttpStatus.FORBIDDEN, ResponseData.fail("没有访问权限"));
+//    }
 }

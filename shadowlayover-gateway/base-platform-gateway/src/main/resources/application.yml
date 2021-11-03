@@ -27,20 +27,20 @@ spring:
           uri: lb://base-message
           predicates:
             - Path=/base-message/**
-  security:
-    oauth2:
-      client:
-        registration:
-          platform:
-            client-id: platform
-            client-secret: 123456
-            provider: base-oauth
-            authorization-grant-type: password
-        #服务认证
-        provider:
-          base-oauth:
-            authorization-uri: http://base-oauth/base-oauth/oauth/authorize
-            token-uri: http://base-oauth/base-oauth/oauth/token
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          platform:
+#            client-id: platform
+#            client-secret: 123456
+#            provider: base-oauth
+#            authorization-grant-type: password
+#        #服务认证
+#        provider:
+#          base-oauth:
+#            authorization-uri: http://base-oauth/base-oauth/oauth/authorize
+#            token-uri: http://base-oauth/base-oauth/oauth/token
   redis:
     host: 192.168.1.98
     port: 16379
@@ -50,5 +50,8 @@ spring:
         - base-platform
       cachePrefix: platform
 shadowlayover:
+  gateway:
+    ignore-urls:
+      - /base-oauth/oauth/token
   log:
     path: D:\shadowlayover-workplace\logs\

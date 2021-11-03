@@ -1,7 +1,7 @@
 server:
   port: 20000
-  servlet:
-    context-path: /base-oauth
+#  servlet:
+#    context-path: /base-oauth
 spring:
   profiles:
     active: dev

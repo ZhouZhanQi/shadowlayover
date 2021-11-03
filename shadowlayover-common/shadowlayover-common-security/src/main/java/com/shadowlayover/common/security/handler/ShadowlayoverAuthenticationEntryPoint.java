@@ -20,8 +20,14 @@ import java.io.IOException;
  * </pre>
  */
 public class ShadowlayoverAuthenticationEntryPoint implements AuthenticationEntryPoint {
+
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         ResponseUtils.responseWriter(httpServletResponse, MediaType.APPLICATION_JSON_VALUE, HttpServletResponse.SC_UNAUTHORIZED, ResponseData.fail(CommonExceptionCode.NO_AUTH));
     }
+
+//    @Override
+//    public Mono<Void> commence(ServerWebExchange serverWebExchange, AuthenticationException e) {
+//        return ResponseUtils.webFluxResponseWriter(serverWebExchange.getResponse(), MediaType.APPLICATION_JSON_VALUE, HttpStatus.FORBIDDEN, ResponseData.fail(CommonExceptionCode.NO_AUTH));
+//    }
 }

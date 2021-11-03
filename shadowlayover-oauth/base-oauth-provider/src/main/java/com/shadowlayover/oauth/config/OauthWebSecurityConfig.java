@@ -59,20 +59,20 @@ public class OauthWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config = http.requestMatchers().anyRequest()
+        http
+                .requestMatchers()
+                .anyRequest()
                 .and()
                 .formLogin()
                 .and()
                 .apply(smsCodeAuthenticationSecurityConfig)
                 .and()
-                .authorizeRequests();
-
-        //任何请求
-        config.antMatchers("/token")
-                .permitAll()
-                .anyRequest()
+                .authorizeRequests()
+                .antMatchers("/oauth/token").permitAll()
+                .antMatchers("/token").permitAll()
+                .antMatchers("/auth/**").permitAll()
                 //都需要身份认证
-                .authenticated()
+                .anyRequest().authenticated()
                 .and()
                 //csrf跨站请求
                 .csrf()
