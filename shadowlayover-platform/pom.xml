@@ -27,20 +27,17 @@
     <dependencies>
         <dependency>
             <groupId>com.shadowlayover</groupId>
-            <artifactId>shadowlayover-common-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>shadowlayover-starter-core</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.shadowlayover</groupId>
-            <artifactId>shadowlayover-common-db</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>shadowlayover-starter-db</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.shadowlayover</groupId>
-            <artifactId>shadowlayover-common-feign</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>shadowlayover-starter-feign</artifactId>
         </dependency>
     </dependencies>
 </project>
