@@ -11,7 +11,6 @@ import com.shadowlayover.common.cache.RedisCacheHelper;
 import com.shadowlayover.common.cache.layer.ShadowlayoverRedisCacheManager;
 import com.shadowlayover.common.cache.props.CacheRedisCaffeineProperties;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -30,7 +29,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
-import java.util.concurrent.TimeUnit;
 
 /**
  * <pre>
@@ -47,8 +45,6 @@ public class RedisConfiguration {
 
     private final CacheRedisCaffeineProperties cacheRedisCaffeineProperties;
 
-    private final LettuceConnectionFactory lettuceConnectionFactory;
-
     /**
      * 获取缓存操作助手对象
      *
@@ -57,7 +53,7 @@ public class RedisConfiguration {
     @Bean
     @Primary
     @ConditionalOnMissingBean(name = "redisTemplate")
-    public RedisTemplate<String, Object> redisTemplate() {
+    public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory) {
         GenericJackson2JsonRedisSerializer serializer = newJsonRedisSerializer();
         //创建Redis缓存操作助手RedisTemplate对象
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
@@ -77,7 +73,7 @@ public class RedisConfiguration {
 
     @Bean(name = "stringRedisTemplate")
     @ConditionalOnMissingBean(StringRedisTemplate.class)
-    public StringRedisTemplate stringRedisTemplate() {
+    public StringRedisTemplate stringRedisTemplate(LettuceConnectionFactory lettuceConnectionFactory) {
         StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();
         stringRedisTemplate.setConnectionFactory(lettuceConnectionFactory);
         stringRedisTemplate.afterPropertiesSet();
@@ -117,7 +113,7 @@ public class RedisConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(RedisCacheManager.class)
-    public RedisCacheManager redisCacheManager() {
+    public RedisCacheManager redisCacheManager(LettuceConnectionFactory lettuceConnectionFactory) {
         RedisCacheWriter redisCacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(lettuceConnectionFactory);
         // 注意：这里 RedisCacheConfiguration 每一个方法调用之后，都会返回一个新的 RedisCacheConfiguration 对象，所以要注意对象的引用关系。
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.of(cacheRedisCaffeineProperties.getRedis().getDefaultExpiration(), ChronoUnit.MILLIS));

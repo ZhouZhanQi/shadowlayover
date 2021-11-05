@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @desc: key值缓存过期通知
  * </pre>
  */
-@Component
+//@Component
 public class RedisKeyExpirationListener extends KeyExpirationEventMessageListener {
     
     public RedisKeyExpirationListener(RedisMessageListenerContainer listenerContainer) {

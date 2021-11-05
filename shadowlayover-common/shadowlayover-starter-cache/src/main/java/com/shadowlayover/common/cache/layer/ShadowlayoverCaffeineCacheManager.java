@@ -1,10 +1,12 @@
 package com.shadowlayover.common.cache.layer;
 
-import cn.hutool.core.util.ArrayUtil;
 import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.CacheLoader;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.shadowlayover.common.cache.props.CacheRedisCaffeineProperties;
 import org.apache.commons.collections4.MapUtils;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 
 import java.util.Map;
@@ -18,24 +20,36 @@ import java.util.concurrent.TimeUnit;
  * </pre>
  */
 public class ShadowlayoverCaffeineCacheManager extends CaffeineCacheManager {
-    private final CacheRedisCaffeineProperties cacheRedisCaffeineProperties;
+
+    private CacheRedisCaffeineProperties cacheRedisCaffeineProperties;
 
     public ShadowlayoverCaffeineCacheManager(CacheRedisCaffeineProperties cacheRedisCaffeineProperties) {
-        super(ArrayUtil.toArray(cacheRedisCaffeineProperties.getCacheNames(), String.class));
+//        super(ArrayUtil.toArray(cacheRedisCaffeineProperties.getCacheNames(), String.class));
         this.cacheRedisCaffeineProperties = cacheRedisCaffeineProperties;
         this.setAllowNullValues(cacheRedisCaffeineProperties.isCacheNullValues());
-        this.setCaffeine(caffeineCache());
+        super.setCacheNames(cacheRedisCaffeineProperties.getCacheNames());
+        super.setCacheLoader(new CacheLoader<Object, Object>() {
+            @Override
+            public @Nullable Object load(@NonNull Object key) throws Exception {
+                return null;
+            }
+
+            @Override
+            public @Nullable Object reload(@NonNull Object key, @NonNull Object oldValue) throws Exception {
+                return oldValue;
+            }
+        });
+        super.setCaffeine(caffeine());
     }
 
-
-    public Caffeine<Object, Object> caffeineCache(){
+    public Caffeine<Object, Object> caffeine() {
         Caffeine<Object, Object> cacheBuilder = Caffeine.newBuilder();
-        if(cacheRedisCaffeineProperties.getCaffeine().getExpireAfterAccess() > 0) {
-            cacheBuilder.expireAfterAccess(cacheRedisCaffeineProperties.getCaffeine().getExpireAfterAccess(), TimeUnit.MILLISECONDS);
-        }
-        if(cacheRedisCaffeineProperties.getCaffeine().getExpireAfterWrite() > 0) {
-            cacheBuilder.expireAfterWrite(cacheRedisCaffeineProperties.getCaffeine().getExpireAfterWrite(), TimeUnit.MILLISECONDS);
-        }
+//        if(cacheRedisCaffeineProperties.getCaffeine().getExpireAfterAccess() > 0) {
+//            cacheBuilder.expireAfterAccess(cacheRedisCaffeineProperties.getCaffeine().getExpireAfterAccess(), TimeUnit.MILLISECONDS);
+//        }
+//        if(cacheRedisCaffeineProperties.getCaffeine().getExpireAfterWrite() > 0) {
+//            cacheBuilder.expireAfterWrite(cacheRedisCaffeineProperties.getCaffeine().getExpireAfterWrite(), TimeUnit.MILLISECONDS);
+//        }
         if(cacheRedisCaffeineProperties.getCaffeine().getInitialCapacity() > 0) {
             cacheBuilder.initialCapacity(cacheRedisCaffeineProperties.getCaffeine().getInitialCapacity());
         }
@@ -51,11 +65,20 @@ public class ShadowlayoverCaffeineCacheManager extends CaffeineCacheManager {
 
     @Override
     protected Cache<Object, Object> createNativeCaffeineCache(String name) {
-        Map<String, Long> expires = cacheRedisCaffeineProperties.getRedis().getExpires();
+        Map<String, Long> expires = cacheRedisCaffeineProperties.getCaffeine().getExpires();
         if (MapUtils.isNotEmpty(expires)) {
             if (expires.containsKey(name)) {
                 Long timeExpire = expires.get(name);
-                return Caffeine.newBuilder().expireAfterWrite(timeExpire, TimeUnit.MILLISECONDS).build();
+                return Caffeine.newBuilder().expireAfterWrite(timeExpire, TimeUnit.MILLISECONDS).build(new CacheLoader<Object, Object>() {
+                    @Override
+                    public @Nullable Object load(@NonNull Object key) throws Exception {
+                        return null;
+                    }
+                    @Override
+                    public @Nullable Object reload(@NonNull Object key, @NonNull Object oldValue) throws Exception {
+                        return oldValue;
+                    }
+                });
             }
         }
         return super.createNativeCaffeineCache(name);

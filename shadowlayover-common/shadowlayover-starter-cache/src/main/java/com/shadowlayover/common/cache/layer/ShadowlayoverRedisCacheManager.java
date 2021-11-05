@@ -1,9 +1,7 @@
 package com.shadowlayover.common.cache.layer;
 
 import com.shadowlayover.common.cache.props.CacheRedisCaffeineProperties;
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.cache.RedisCache;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
@@ -21,7 +19,7 @@ import java.util.Map;
  */
 public class ShadowlayoverRedisCacheManager extends RedisCacheManager {
 
-    private final CacheRedisCaffeineProperties cacheRedisCaffeineProperties;
+    private CacheRedisCaffeineProperties cacheRedisCaffeineProperties;
 
     public ShadowlayoverRedisCacheManager(CacheRedisCaffeineProperties cacheRedisCaffeineProperties, RedisCacheWriter cacheWriter, RedisCacheConfiguration defaultCacheConfiguration) {
         super(cacheWriter, defaultCacheConfiguration);
@@ -50,6 +48,7 @@ public class ShadowlayoverRedisCacheManager extends RedisCacheManager {
 
     @Override
     protected RedisCache createRedisCache(String name, RedisCacheConfiguration cacheConfig) {
+        cacheConfig.prefixCacheNameWith(cacheRedisCaffeineProperties.getCachePrefix());
         Map<String, Long> expires = cacheRedisCaffeineProperties.getRedis().getExpires();
         if (MapUtils.isNotEmpty(expires)) {
             if (expires.containsKey(name)) {

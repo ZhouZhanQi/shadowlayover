@@ -1,27 +1,26 @@
 package com.shadowlayover.oauth;
 
-import com.shadowlayover.common.db.generator.CodeGenerator;
+import com.shadowlayover.common.core.utils.JacksonUtils;
+import com.shadowlayover.oauth.model.bo.SysUserBo;
+import com.shadowlayover.oauth.service.ISysUserService;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.regex.Pattern;
 
 @SpringBootTest
 public class OauthApplicationTest {
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private ISysUserService sysUserService;
 
 
     @Test
     public void testPasswordEncode() {
-        System.out.println(passwordEncoder.encode("123456"));
+        SysUserBo sysUserBo = sysUserService.loadUserDetailByMobilePhone("13800138000");
+        System.out.println(JacksonUtils.pojo2Json(sysUserBo));
     }
 
     public static void main(String[] args) {

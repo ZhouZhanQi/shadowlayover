@@ -53,13 +53,11 @@
         <dependency>
             <groupId>com.shadowlayover</groupId>
             <artifactId>shadowlayover-starter-web</artifactId>
-            <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>com.shadowlayover</groupId>
             <artifactId>shadowlayover-starter-security</artifactId>
-            <optional>true</optional>
         </dependency>
 
         <dependency>

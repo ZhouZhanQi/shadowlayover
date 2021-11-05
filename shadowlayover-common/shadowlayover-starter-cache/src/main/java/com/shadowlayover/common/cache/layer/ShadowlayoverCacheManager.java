@@ -53,7 +53,6 @@ public class ShadowlayoverCacheManager implements CacheManager {
     protected Cache createShadowlayoverCache(String name) {
         CaffeineCache caffeineCache = (CaffeineCache) this.caffeineCacheManager.getCache(name);
         RedisCache redisCache = (RedisCache) this.redisCacheManager.getCache(name);
-        log.debug("[Herodotus] |- CACHE - Herodotus cache [{}] is CREATED.", name);
         return new RedisCaffeineCache(name, redisCache, caffeineCache, cacheRedisCaffeineProperties);
     }
 }

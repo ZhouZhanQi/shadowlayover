@@ -18,6 +18,7 @@ import com.shadowlayover.oauth.service.ISysTenantService;
 import com.shadowlayover.oauth.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 
@@ -53,6 +54,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return completionSysUserData(sysUser);
     }
 
+    @Cacheable(cacheNames = "sys-user")
     @Override
     public SysUserBo loadUserDetailByMobilePhone(String mobilePhone) {
         SysUser sysUser = this.baseMapper.selectOneIgnoreTenant(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getMobilePhone, mobilePhone));

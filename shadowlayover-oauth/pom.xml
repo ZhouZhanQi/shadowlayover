@@ -23,13 +23,11 @@
         <dependency>
             <groupId>com.shadowlayover</groupId>
             <artifactId>shadowlayover-starter-core</artifactId>
-            <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>com.shadowlayover</groupId>
             <artifactId>shadowlayover-starter-db</artifactId>
-            <optional>true</optional>
         </dependency>
     </dependencies>
 </project>
