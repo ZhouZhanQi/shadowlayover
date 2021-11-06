@@ -37,10 +37,9 @@ import java.time.temporal.ChronoUnit;
  * @desc: redis缓存配置
  * </pre>
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @RequiredArgsConstructor
 @EnableConfigurationProperties(CacheRedisCaffeineProperties.class)
-@AutoConfigureAfter({RedisAutoConfiguration.class})
 public class RedisConfiguration {
 
     private final CacheRedisCaffeineProperties cacheRedisCaffeineProperties;

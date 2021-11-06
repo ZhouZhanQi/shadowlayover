@@ -1,2 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.shadowlayover.common.cache.config.RedisCaffeineAutoConfig
+#org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+#  com.shadowlayover.common.cache.config.ShadowlayoverAutoConfiguration

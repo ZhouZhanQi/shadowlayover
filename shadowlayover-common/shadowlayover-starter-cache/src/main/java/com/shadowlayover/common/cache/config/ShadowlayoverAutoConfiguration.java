@@ -2,7 +2,12 @@ package com.shadowlayover.common.cache.config;
 
 import com.shadowlayover.common.cache.layer.ShadowlayoverCacheManager;
 import com.shadowlayover.common.cache.props.CacheRedisCaffeineProperties;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
@@ -15,15 +20,15 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 /**
  * <pre>
  * @author: zhouzhanqi
- * @datetime: 2021/7/31-17:18
- * @desc: redis配置
+ * @datetime: 2021/11/5-17:00
+ * @desc: 缓存自动配置
  * </pre>
  */
-@EnableCaching
+@Slf4j
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(CacheRedisCaffeineProperties.class)
-@Import(RedisConfiguration.class)
-public class RedisCaffeineAutoConfig {
+@Import({RedisConfiguration.class, CaffeineConfiguration.class})
+public class ShadowlayoverAutoConfiguration {
 
     @Autowired
     private CacheRedisCaffeineProperties cacheRedisCaffeineProperties;
@@ -31,6 +36,7 @@ public class RedisCaffeineAutoConfig {
     @Bean
     @Primary
     public ShadowlayoverCacheManager cacheManager(CaffeineCacheManager caffeineCacheManager, RedisCacheManager redisCacheManager) {
+        log.info(">>> shadowlayover enable layer cache");
         ShadowlayoverCacheManager cacheManager = new ShadowlayoverCacheManager();
         cacheManager.setCaffeineCacheManager(caffeineCacheManager);
         cacheManager.setRedisCacheManager(redisCacheManager);

@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  * @desc: caffeine缓存配置
  * </pre>
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @RequiredArgsConstructor
 @EnableConfigurationProperties(CacheRedisCaffeineProperties.class)
 public class CaffeineConfiguration {

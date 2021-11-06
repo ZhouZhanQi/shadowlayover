@@ -1,5 +1,6 @@
 package com.shadowlayover.gateway;
 
+import com.shadowlayover.common.cache.annotation.EnableShadowlayoverCache;
 import com.shadowlayover.common.core.listener.LoggingListener;
 import com.shadowlayover.common.core.model.constants.CoreConstants;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @desc: 平台网关启动类
  * </pre>
  */
-@ComponentScan(basePackages = {CoreConstants.BASE_COMPONENT_PACKAGE})
+@EnableShadowlayoverCache
 @SpringBootApplication
 @EnableDiscoveryClient
 public class BasePlatformGatewayApplication {
