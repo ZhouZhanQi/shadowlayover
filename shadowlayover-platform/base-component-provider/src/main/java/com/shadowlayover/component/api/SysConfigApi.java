@@ -6,6 +6,7 @@ import com.shadowlayover.component.service.ISysConfigService;
 import com.shadowlayover.component.service.SysConfigRemoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -22,7 +23,7 @@ public class SysConfigApi implements SysConfigRemoteService {
     private final ISysConfigService sysConfigService;
     
     @Override
-    public ResponseData<SysConfig> saveSysConfig(SysConfig sysConfig) {
+    public ResponseData<SysConfig> saveSysConfig(@RequestBody SysConfig sysConfig) {
         sysConfigService.testSeata();
         return ResponseData.success();
     }

@@ -54,6 +54,7 @@ import java.time.format.DateTimeFormatter;
  * @desc:
  * </pre>
  */
+@Configuration(proxyBeanMethods = false)
 public class ShadowlayoverCommonFeignConfiguration implements InitializingBean {
 
     public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();

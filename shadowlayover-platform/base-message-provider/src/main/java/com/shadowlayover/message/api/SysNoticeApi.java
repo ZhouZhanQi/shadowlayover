@@ -1,6 +1,7 @@
 package com.shadowlayover.message.api;
 
 
+import com.shadowlayover.common.core.exceptions.BaseException;
 import com.shadowlayover.common.core.model.ResponseData;
 import com.shadowlayover.message.model.domain.SysNotice;
 import com.shadowlayover.message.service.ISysNoticeService;
@@ -33,7 +34,14 @@ public class SysNoticeApi implements SysNoticeRemoteService {
         sysNoticeService.saveNotice(sysNotice);
         return ResponseData.success(sysNotice);
     }
-//
+
+    @Override
+    public ResponseData<SysNotice> saveSysNotice2(SysNotice sysNotice) {
+        sysNoticeService.testNotice(sysNotice);
+        return ResponseData.success(sysNotice);
+    }
+
+    //
     @Override
     public ResponseData<SysNotice> getSysNotice(Long id) {
         log.info("测试链路追踪");

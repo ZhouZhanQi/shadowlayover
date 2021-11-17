@@ -33,6 +33,11 @@ public interface SysNoticeRemoteClient extends SysNoticeRemoteService {
                 public ResponseData<SysNotice> getSysNotice(Long id) {
                     return null;
                 }
+
+                @Override
+                public ResponseData<SysNotice> saveSysNotice2(SysNotice sysNotice) {
+                    return null;
+                }
             };
         }
     }

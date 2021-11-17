@@ -24,4 +24,10 @@ public class GlobalExceptionHandler {
         log.error(">>> shadowlayover base exception", e);
         return ResponseData.fail(e.getCode(), e.getMessage());
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseData<?> handlerException(Exception e) {
+        log.error(">>> shadowlayover exception", e);
+        return ResponseData.fail(CommonExceptionCode.SERVICE_ERROR);
+    }
 }

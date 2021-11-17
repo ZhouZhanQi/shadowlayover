@@ -1,13 +1,13 @@
 seata:
   enabled: true
-  enable-auto-data-source-proxy: false
+#  enable-auto-data-source-proxy: false
   application-id: ${shadowlayover.seata.application-id}
   tx-service-group: ${shadowlayover.seata.tx-service-group}
   service:
     vgroup-mapping:
       my_test_tx_group: default
     grouplist:
-      default: 192.168.1.3:8091
+      default: 192.168.1.98:8091
   config:
     type: nacos
     nacos:

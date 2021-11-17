@@ -26,6 +26,7 @@
         <module>shadowlayover-starter-security</module>
         <module>shadowlayover-starter-feign</module>
         <module>shadowlayover-starter-seata</module>
+        <module>shadowlayover-starter-rocketmq</module>
     </modules>
 
     <dependencies>

@@ -221,6 +221,12 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>shadowlayover-starter-rocketmq</artifactId>
+                <version>${shadowlayover.starter-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>shadowlayover-starter-seata</artifactId>
                 <version>${shadowlayover.starter-version}</version>
             </dependency>

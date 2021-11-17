@@ -23,7 +23,7 @@ import org.springframework.context.annotation.PropertySource;
 @Slf4j
 @EnableConfigurationProperties(ShadowlayoverSeataProperties.class)
 @PropertySource(factory = YamlPropertySourceFactory.class, value = "classpath:shadowlayover-seata.yml")
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class ShadowlayoverSeataAutoConfiguration implements InitializingBean {
     
     @Autowired
@@ -42,7 +42,7 @@ public class ShadowlayoverSeataAutoConfiguration implements InitializingBean {
             }
         };
     }
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         log.info("shadowlayover seata init applicationId: {}, txServiceGroup: {} ...", shadowlayoverSeataProperties.getApplicationId(), shadowlayoverSeataProperties.getTxServiceGroup());

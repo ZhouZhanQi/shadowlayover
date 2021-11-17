@@ -1,5 +1,6 @@
 package com.shadowlayover.message.service.impl;
 
+import com.shadowlayover.common.core.exceptions.BaseException;
 import com.shadowlayover.message.model.domain.SysNotice;
 import com.shadowlayover.message.mapper.SysNoticeMapper;
 import com.shadowlayover.message.service.ISysNoticeService;
@@ -18,10 +19,27 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class SysNoticeServiceImpl extends ServiceImpl<SysNoticeMapper, SysNotice> implements ISysNoticeService {
-    
-    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
+
     @Override
     public SysNotice saveNotice(SysNotice sysNotice) {
+        sysNotice = new SysNotice();
+        sysNotice.setNoticeTitle("aaa");
+        sysNotice.setNoticeContent("aaa");
+        sysNotice.setNoticeType(1);
+        sysNotice.setStatus(1);
+        this.save(sysNotice);
+        throw new BaseException("22222");
+//        return sysNotice;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public SysNotice testNotice(SysNotice sysNotice) {
+        sysNotice = new SysNotice();
+        sysNotice.setNoticeTitle("bbb");
+        sysNotice.setNoticeContent("bbb");
+        sysNotice.setNoticeType(1);
+        sysNotice.setStatus(1);
         this.save(sysNotice);
         return sysNotice;
     }

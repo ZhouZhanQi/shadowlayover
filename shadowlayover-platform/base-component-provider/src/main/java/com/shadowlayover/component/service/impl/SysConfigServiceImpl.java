@@ -1,5 +1,6 @@
 package com.shadowlayover.component.service.impl;
 
+import com.shadowlayover.common.core.exceptions.FrameworkException;
 import com.shadowlayover.common.core.model.ResponseData;
 import com.shadowlayover.common.core.utils.JacksonUtils;
 import com.shadowlayover.component.model.domain.SysConfig;
@@ -12,6 +13,8 @@ import io.seata.spring.annotation.GlobalTransactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 /**
  * <p>
@@ -41,6 +44,9 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         notice.setNoticeTitle("test");
         notice.setNoticeContent("test");
         ResponseData<SysNotice> responseData = sysNoticeRemoteClient.saveSysNotice(notice);
-        log.info(">>> 调用结果: {}", JacksonUtils.pojo2Json(responseData));
+        if (Objects.isNull(responseData)) {
+            throw new FrameworkException("22222");
+        }
+//        log.info(">>> 调用结果: {}", JacksonUtils.pojo2Json(responseData));
     }
 }

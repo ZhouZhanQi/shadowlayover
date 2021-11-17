@@ -45,6 +45,16 @@
 
         <dependency>
             <groupId>com.shadowlayover</groupId>
+            <artifactId>shadowlayover-starter-rocketmq</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.shadowlayover</groupId>
+            <artifactId>shadowlayover-starter-seata</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.shadowlayover</groupId>
             <artifactId>base-message-api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

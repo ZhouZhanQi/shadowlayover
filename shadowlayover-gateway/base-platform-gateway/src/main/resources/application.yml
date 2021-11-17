@@ -10,14 +10,13 @@ spring:
       discovery:
         server-addr: 192.168.1.98:18848
         group: shadowlayover
-        namespace: 54c84fc9-f0b8-44e1-8c89-e5b932161771
+        namespace: local
         ip: 192.168.1.98
       config:
         server-addr: 192.168.1.98:18848
         group: shadowlayover
         name: base-platform-gateway
-        namespace: 54c84fc9-f0b8-44e1-8c89-e5b932161771
-    gateway:
+        namespace: local
       routes:
         - id: base-oauth
           uri: lb://base-oauth
@@ -27,20 +26,6 @@ spring:
           uri: lb://base-message
           predicates:
             - Path=/base-message/**
-#  security:
-#    oauth2:
-#      client:
-#        registration:
-#          platform:
-#            client-id: platform
-#            client-secret: 123456
-#            provider: base-oauth
-#            authorization-grant-type: password
-#        #服务认证
-#        provider:
-#          base-oauth:
-#            authorization-uri: http://base-oauth/base-oauth/oauth/authorize
-#            token-uri: http://base-oauth/base-oauth/oauth/token
   redis:
     host: 192.168.1.98
     port: 16379

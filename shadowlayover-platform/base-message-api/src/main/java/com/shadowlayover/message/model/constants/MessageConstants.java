@@ -12,4 +12,6 @@ public interface MessageConstants {
      * 服务名
      */
     String SERVICE_NAME = "base-message";
+
+
 }

@@ -19,5 +19,7 @@ public interface ISysNoticeService extends IService<SysNotice> {
      * @return
      */
     SysNotice saveNotice(SysNotice sysNotice);
+
+    SysNotice testNotice(SysNotice sysNotice);
     
 }

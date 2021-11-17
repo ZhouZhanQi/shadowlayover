@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -25,6 +26,7 @@ import java.util.Objects;
  */
 @Slf4j
 @Configuration(proxyBeanMethods = false)
+@Import(ShadowlayoverCommonFeignConfiguration.class)
 public class ShadowlayoverFeignAutoConfiguration {
     
     @Bean("shadowlayoverFeignRequestInterceptor")
@@ -50,8 +52,8 @@ public class ShadowlayoverFeignAutoConfiguration {
                         String headValue = request.getHeader(headName);
                         if (headName.equalsIgnoreCase(CoreConstants.SHADOWLOYOVER_TRACE_ID)) {
                             TraceUtils.mdcTraceId(headValue);
+                            template.header(headName, headValue);
                         }
-                        template.header(CoreConstants.SHADOWLOYOVER_TRACE_ID, headValue);
                     }
                 }
             }

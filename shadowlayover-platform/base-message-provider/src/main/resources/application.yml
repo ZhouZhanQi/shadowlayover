@@ -12,23 +12,39 @@ spring:
       discovery:
         server-addr: 192.168.1.98:18848
         group: shadowlayover
-        namespace: 54c84fc9-f0b8-44e1-8c89-e5b932161771
+        namespace: local
         ip: 192.168.1.98
       config:
         server-addr: 192.168.1.98:18848
         group: shadowlayover
         name: base-message
-        namespace: 54c84fc9-f0b8-44e1-8c89-e5b932161771
+        namespace: local
+    stream:
+      bindings:
+        message-input:
+          destination: message
+          content-type: application/json
+        message-output:
+          destination: message
+          content-type: application/json
+          group: base-message
   datasource:
-    dynamic:
-      primary: master
-      strict: false
-      datasource:
-        master:
-          url: jdbc:mysql://192.168.1.98:13306/shadowlayover_message
-          username: root
-          password: 123456
-          driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.1.98:13306/shadowlayover_message
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis-plus:
+  mapper-locations: classpath*:/mappers/*.xml
 shadowlayover:
+  seata:
+    application-id: message_seata-server
+    tx-service-group: my_test_tx_group
+    namespace: seata
+    username: nacos
+    password: nacos
+  mybatis-plus:
+    multi-tenant:
+      ignore-tables:
+        - sys_notice
   log:
     path: D:\shadowlayover-workplace\logs\
