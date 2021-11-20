@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shadowlayover.example.mapper.OrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.shadowlayover.example.model.domain.Order">
+        <id column="id" property="id" />
+        <result column="trace_id" property="traceId" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="creator_id" property="creatorId" />
+        <result column="creator" property="creator" />
+        <result column="create_time" property="createTime" />
+        <result column="updater_id" property="updaterId" />
+        <result column="updater" property="updater" />
+        <result column="update_time" property="updateTime" />
+        <result column="order_title" property="orderTitle" />
+        <result column="order_content" property="orderContent" />
+        <result column="status" property="status" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        trace_id,
+        is_deleted,
+        creator_id,
+        creator,
+        create_time,
+        updater_id,
+        updater,
+        update_time,
+        id, order_title, order_content, status, remark
+    </sql>
+
+</mapper>

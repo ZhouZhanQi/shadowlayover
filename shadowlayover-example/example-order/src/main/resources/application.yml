@@ -1,0 +1,34 @@
+server:
+  port: 20100
+  servlet:
+    context-path: /example-order
+spring:
+  profiles:
+    active: dev
+  application:
+    name: example-order
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.98:18848
+        group: shadowlayover
+        namespace: local
+        ip: 192.168.1.98
+      config:
+        server-addr: 192.168.1.98:18848
+        group: shadowlayover
+        name: base-message
+        namespace: local
+  datasource:
+    url: jdbc:mysql://192.168.1.98:13306/shadowlayover_order
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis-plus:
+  mapper-locations: classpath*:/mappers/*.xml
+  mybatis-plus:
+    multi-tenant:
+      ignore-tables:
+        - order
+  log:
+    path: D:\shadowlayover-workplace\logs\

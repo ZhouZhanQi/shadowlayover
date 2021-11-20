@@ -12,8 +12,10 @@
     <modules>
         <module>shadowlayover-common</module>
         <module>shadowlayover-oauth</module>
-        <module>shadowlayover-platform</module>
+        <module>shadowlayover-message</module>
         <module>shadowlayover-gateway</module>
+        <module>shadowlayover-example</module>
+        <module>shadowlayover-component</module>
     </modules>
 
     <properties>
