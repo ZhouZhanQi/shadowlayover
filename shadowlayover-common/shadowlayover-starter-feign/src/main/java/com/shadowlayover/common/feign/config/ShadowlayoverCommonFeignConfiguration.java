@@ -18,6 +18,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+import com.shadowlayover.common.core.factory.YamlPropertySourceFactory;
 import com.shadowlayover.common.core.model.ResponseData;
 import com.shadowlayover.common.core.model.code.CommonExceptionCode;
 import com.shadowlayover.common.core.model.constants.CoreConstants;
@@ -28,6 +29,8 @@ import feign.Response;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
+import okhttp3.ConnectionPool;
+import okhttp3.OkHttpClient;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
@@ -37,6 +40,7 @@ import org.springframework.cloud.openfeign.support.SpringEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -54,6 +58,7 @@ import java.time.format.DateTimeFormatter;
  * </pre>
  */
 @Configuration(proxyBeanMethods = false)
+@PropertySource(factory = YamlPropertySourceFactory.class, value = "classpath:shadowlayover-feign.yml")
 public class ShadowlayoverCommonFeignConfiguration implements InitializingBean {
 
     public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();

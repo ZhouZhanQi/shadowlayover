@@ -2,6 +2,7 @@ package com.shadowlayover.message.client;
 
 import com.shadowlayover.common.core.model.ResponseData;
 import com.shadowlayover.message.model.constants.MessageConstants;
+import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,9 +23,10 @@ public interface ExampleOrderClient {
     Object testOrder();
 
     @Component
-    public class ExampleOrderRemoteFallback implements ExampleOrderClient {
+    public class ExampleOrderRemoteFallback implements FallbackFactory<ExampleOrderClient> {
+
         @Override
-        public Object testOrder() {
+        public ExampleOrderClient create(Throwable cause) {
             return null;
         }
     }

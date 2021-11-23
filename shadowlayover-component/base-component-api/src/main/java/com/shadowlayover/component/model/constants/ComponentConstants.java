@@ -12,4 +12,10 @@ public interface ComponentConstants {
      * 服务名
      */
     String SERVICE_NAME = "base-component";
+
+
+    /**
+     * 基础包路径
+     */
+    String SERVICE_BASE_PACKAGE = "com.shadowlayover.component";
 }

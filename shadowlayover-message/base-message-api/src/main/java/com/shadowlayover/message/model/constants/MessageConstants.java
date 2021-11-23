@@ -13,5 +13,9 @@ public interface MessageConstants {
      */
     String SERVICE_NAME = "base-message";
 
+    /**
+     * 基础包路径
+     */
+    String SERVICE_BASE_PACKAGE = "com.shadowlayover.message";
 
 }

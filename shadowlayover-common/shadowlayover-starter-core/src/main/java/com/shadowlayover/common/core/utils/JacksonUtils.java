@@ -3,6 +3,7 @@ package com.shadowlayover.common.core.utils;
 import cn.hutool.core.date.DatePattern;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -55,6 +56,7 @@ public class JacksonUtils {
         timeModule.addDeserializer(LocalTime.class,
                 new LocalTimeDeserializer(DateTimeFormatter.ofPattern(DatePattern.NORM_TIME_PATTERN)));
         OBJECT_MAPPER.registerModule(timeModule);
+        OBJECT_MAPPER.registerModule(new Jdk8Module());
     }
 
     /**

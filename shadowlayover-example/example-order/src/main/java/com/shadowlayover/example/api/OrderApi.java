@@ -22,7 +22,7 @@ public class OrderApi {
 
     @PostMapping("order")
     public ResponseData<Order> createOrder() throws InterruptedException {
-        Thread.sleep(20000);
+        Thread.sleep(50000);
         return ResponseData.success();
     }
 }

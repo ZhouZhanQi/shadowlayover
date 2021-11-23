@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  * @desc: 通知消息
  * </pre>
  */
-@FeignClient(value = MessageConstants.SERVICE_NAME, path = "/base-message", fallback = SysNoticeRemoteClient.SysNoticeRemoteFallback.class)
+@FeignClient(value = MessageConstants.SERVICE_NAME, path = "/base-message", fallbackFactory = SysNoticeRemoteClient.SysNoticeRemoteFallback.class)
 public interface SysNoticeRemoteClient extends SysNoticeRemoteService {
 
     @Component

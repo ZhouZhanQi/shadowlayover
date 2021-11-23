@@ -46,3 +46,9 @@ feign:
     enabled: true
   sentinel:
     enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
