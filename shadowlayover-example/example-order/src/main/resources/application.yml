@@ -19,6 +19,24 @@ spring:
         group: shadowlayover
         name: base-message
         namespace: local
+    stream:
+      rocketmq:
+        binder:
+          name-server: 192.168.1.98:9876
+        binddings:
+          messageconsumer-in-0:
+            consumer:
+              delayLevelWhenNextConsume: -1
+      function:
+        definition: messageconsumer
+      bindings:
+        messageconsumer-in-0:
+          destination: message
+          content-type: application/json
+          group: base-message
+        messageproducer-out-0:
+          destination: message
+          content-type: application/json
   datasource:
     url: jdbc:mysql://192.168.1.98:13306/shadowlayover_order
     username: root

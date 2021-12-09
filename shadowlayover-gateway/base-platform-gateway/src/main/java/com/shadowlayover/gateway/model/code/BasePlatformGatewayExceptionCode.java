@@ -20,6 +20,8 @@ public enum BasePlatformGatewayExceptionCode implements BaseExceptionCode {
     TOKEN_INFO_STORE_EMPTY(900002, "token信息为空"),
 
     TOKEN_INFO_EXPIRED(900003, "token信息过期"),
+
+    TOKEN_USER_INFO_EXPIRED(900004, "用户信息过期"),
     ;
 
     private final int code;
@@ -28,11 +30,11 @@ public enum BasePlatformGatewayExceptionCode implements BaseExceptionCode {
 
     @Override
     public int getCode() {
-        return 0;
+        return this.code;
     }
 
     @Override
     public String getMessage() {
-        return null;
+        return this.message;
     }
 }

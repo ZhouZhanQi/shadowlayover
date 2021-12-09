@@ -1,5 +1,6 @@
 package com.shadowlayover.gateway.filter;
 
+import com.shadowlayover.gateway.component.OauthTokenComponent;
 import com.shadowlayover.gateway.model.constants.FilterOrderedConstants;
 import com.shadowlayover.gateway.props.ShadowlayoverGatewayProperties;
 import com.shadowlayover.gateway.utils.AccessTokenUtils;
@@ -12,8 +13,10 @@ import org.springframework.core.Ordered;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -25,20 +28,13 @@ import reactor.core.publisher.Mono;
  * </pre>
  */
 @RequiredArgsConstructor
-@Configuration
+@Component
 public class PreAuthTokenFilter implements GlobalFilter, Ordered {
 
 
     private final ShadowlayoverGatewayProperties securityProperties;
-
-    private final RedisConnectionFactory redisConnectionFactory;
-
-//    @Bean
-//    public RedisTokenStore redisTokenStore() {
-//        RedisTokenStore redisTokenStore = new RedisTokenStore(redisConnectionFactory);
-//        redisTokenStore.setPrefix("oauth:");
-//        return redisTokenStore;
-//    }
+    
+    private final OauthTokenComponent oauthTokenComponent;
 
     /**
      * 请求地址匹配
@@ -47,19 +43,21 @@ public class PreAuthTokenFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+
         //网关身份
         ServerHttpRequest request = exchange.getRequest();
         String requestPath = request.getURI().getRawPath();
-
-        boolean isIgnorePath = securityProperties.getIgnoreUrls()
-                .stream()
-                .anyMatch(ignoreUrl -> pathMatcher.match(ignoreUrl, requestPath));
-        if (isIgnorePath) {
+        if (matchIgnoreUrl(requestPath)) {
             return chain.filter(exchange);
         }
 
         String authorization = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
-//        AccessTokenUtils.checkTokenFromHead(redisTokenStore(), authorization);
+        oauthTokenComponent.checkToken(AccessTokenUtils.getTokenFromHead(authorization));
+
+        //校验token
+        if (matchPublicUrl(requestPath)) {
+            return chain.filter(exchange);
+        }
         //校验地址是否需要权限
         return chain.filter(exchange);
     }
@@ -67,5 +65,24 @@ public class PreAuthTokenFilter implements GlobalFilter, Ordered {
     @Override
     public int getOrder() {
         return FilterOrderedConstants.PRE_AUTH_TOKE;
+    }
+
+    /**
+     * 查询是否匹配公共请求地址
+     * 需要token 不需要鉴权
+     * @param requestPath
+     * @return
+     */
+    private boolean matchPublicUrl(String requestPath) {
+        return securityProperties.getPublicUrls().stream().anyMatch(publicUrl -> pathMatcher.match(publicUrl, requestPath));
+    }
+
+    /**
+     * 匹配忽略权限接口
+     * @param requestPath
+     * @return
+     */
+    private boolean matchIgnoreUrl(String requestPath) {
+        return securityProperties.getIgnoreUrls().stream().anyMatch(ignoreUrl -> pathMatcher.match(ignoreUrl, requestPath));
     }
 }

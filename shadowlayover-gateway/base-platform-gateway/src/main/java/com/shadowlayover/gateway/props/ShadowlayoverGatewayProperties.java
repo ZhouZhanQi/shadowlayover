@@ -1,6 +1,7 @@
 package com.shadowlayover.gateway.props;
 
 import lombok.Data;
+import org.assertj.core.util.Lists;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
@@ -23,10 +24,10 @@ public class ShadowlayoverGatewayProperties {
     /**
      * 需要登录，不需要校验权限
      */
-    private List<String> publicUrls;
+    private List<String> publicUrls = Lists.newArrayList();
     
     /**
      * 不需要登录，不校验权限
      */
-    private List<String> ignoreUrls;
+    private List<String> ignoreUrls = Lists.newArrayList();
 }

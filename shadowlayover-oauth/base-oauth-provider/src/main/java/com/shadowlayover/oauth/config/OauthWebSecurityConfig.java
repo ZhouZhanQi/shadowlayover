@@ -68,9 +68,7 @@ public class OauthWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .apply(smsCodeAuthenticationSecurityConfig)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/oauth/token").permitAll()
-                .antMatchers("/token").permitAll()
-                .antMatchers("/auth/**").permitAll()
+                .antMatchers("/base-oauth/oauth/**").permitAll()
                 //都需要身份认证
                 .anyRequest().authenticated()
                 .and()

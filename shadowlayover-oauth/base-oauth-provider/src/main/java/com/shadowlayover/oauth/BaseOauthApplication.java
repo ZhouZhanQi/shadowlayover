@@ -13,7 +13,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @desc: oauth认证服务启动类
  * </pre>
  */
-@EnableShadowlayoverCache(enableLayerCache = true)
+@EnableShadowlayoverCache
 @SpringBootApplication
 @EnableDiscoveryClient
 public class BaseOauthApplication {

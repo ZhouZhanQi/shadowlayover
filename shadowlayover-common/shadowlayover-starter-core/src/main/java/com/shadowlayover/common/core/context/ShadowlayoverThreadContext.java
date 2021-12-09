@@ -1,12 +1,12 @@
 package com.shadowlayover.common.core.context;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
-import com.shadowlayover.common.core.model.LoginUser;
+import com.shadowlayover.common.core.model.ShadowlayoverContext;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Map;
+import java.util.Optional;
 
 /**
  * <pre>
@@ -17,14 +17,14 @@ import java.util.Map;
  */
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ShadowlayoverUserContext {
-    private static final ThreadLocal<LoginUser> threadLocalMap = new TransmittableThreadLocal<>();
+public class ShadowlayoverThreadContext {
+    private static final ThreadLocal<ShadowlayoverContext> threadLocalMap = new TransmittableThreadLocal<>();
     
-    public static void setUserContext(LoginUser user) {
-        threadLocalMap.set(user);
+    public static void setContext(ShadowlayoverContext shadowlayoverContext) {
+        threadLocalMap.set(shadowlayoverContext);
     }
     
-    public static LoginUser getUserContext() {
+    public static ShadowlayoverContext getContext() {
         return threadLocalMap.get();
     }
     

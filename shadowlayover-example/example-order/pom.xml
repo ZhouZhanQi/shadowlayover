@@ -29,6 +29,11 @@
 
         <dependency>
             <groupId>com.shadowlayover</groupId>
+            <artifactId>shadowlayover-starter-rocketmq</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.shadowlayover</groupId>
             <artifactId>shadowlayover-starter-web</artifactId>
         </dependency>
 

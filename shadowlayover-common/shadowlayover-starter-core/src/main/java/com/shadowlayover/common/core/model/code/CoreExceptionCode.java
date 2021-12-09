@@ -22,6 +22,8 @@ public enum CoreExceptionCode implements BaseExceptionCode {
     DATA_UPDATE_ERROR(10002, "%s更新失败"),
     
     JSON_DATA_CONVERT_ERROR(10003, "Json数据转换失败"),
+
+    SERVICE_CIRCUIT_BREAKER(1000, "%s服务熔断, s%"),
     ;
     
     private final int code;

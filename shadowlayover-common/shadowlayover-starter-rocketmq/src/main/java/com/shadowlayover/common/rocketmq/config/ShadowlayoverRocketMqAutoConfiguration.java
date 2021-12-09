@@ -18,8 +18,15 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration(proxyBeanMethods = false)
 public class ShadowlayoverRocketMqAutoConfiguration implements InitializingBean {
 
+//    @StreamRetryTemplate
+//    public RetryTemplate retryTemplate() {
+//        return new RetryTemplate() {
+//
+//        };
+//    }
+
     @Override
     public void afterPropertiesSet() throws Exception {
-
+        log.info("shadowlayover rocketmq init  ...");
     }
 }

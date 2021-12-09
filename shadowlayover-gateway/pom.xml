@@ -35,7 +35,12 @@
 
         <dependency>
             <groupId>com.shadowlayover</groupId>
-            <artifactId>shadowlayover-starter-security</artifactId>
+            <artifactId>shadowlayover-starter-feign</artifactId>
         </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>com.shadowlayover</groupId>-->
+<!--            <artifactId>shadowlayover-starter-security</artifactId>-->
+<!--        </dependency>-->
     </dependencies>
 </project>

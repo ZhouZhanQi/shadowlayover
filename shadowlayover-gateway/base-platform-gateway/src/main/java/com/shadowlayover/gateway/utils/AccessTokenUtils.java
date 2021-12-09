@@ -7,10 +7,13 @@ import com.shadowlayover.gateway.model.code.BasePlatformGatewayExceptionCode;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.util.Maps;
+import org.springframework.web.client.RestTemplate;
 //import org.springframework.security.oauth2.common.OAuth2AccessToken;
 //import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 /**
  * <pre>
@@ -34,14 +37,4 @@ public class AccessTokenUtils {
         return headValue.replaceFirst(BEARER_TOKEN_PREFIX, "");
     }
 
-    /**
-     * 校验token
-     * @param tokenStore
-     * @param headValue
-     */
-//    public static void checkTokenFromHead(RedisTokenStore tokenStore, String headValue) {
-//        OAuth2AccessToken oAuth2AccessToken = tokenStore.readAccessToken(AccessTokenUtils.getTokenFromHead(getTokenFromHead(headValue)));
-//        AssertUtils.checkNotNull(oAuth2AccessToken, new BusinessException(BasePlatformGatewayExceptionCode.TOKEN_INFO_EXPIRED));
-//        AssertUtils.checkArgument(LocalDateTime.now().isAfter(LocalDateTimeUtil.of(oAuth2AccessToken.getExpiration())), new BusinessException(BasePlatformGatewayExceptionCode.TOKEN_INFO_EXPIRED));
-//    }
 }

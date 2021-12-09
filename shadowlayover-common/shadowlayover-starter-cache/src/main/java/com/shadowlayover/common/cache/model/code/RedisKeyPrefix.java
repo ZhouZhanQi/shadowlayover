@@ -29,6 +29,11 @@ public enum RedisKeyPrefix {
      * 客户端信息
      */
     OAUTH_CLIENT("oauth:client", false),
+
+    /**
+     * 用户信息
+     */
+    OAUTH_TOKEN_USER("oauth:token_user", false),
     ;
     private final String prefix;
     

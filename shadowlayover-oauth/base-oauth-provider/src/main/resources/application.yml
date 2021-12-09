@@ -1,7 +1,7 @@
 server:
   port: 20000
-#  servlet:
-#    context-path: /base-oauth
+  servlet:
+    context-path: /base-oauth
 spring:
   profiles:
     active: dev
@@ -12,13 +12,13 @@ spring:
       discovery:
         server-addr: 192.168.1.98:18848
         group: shadowlayover
-        namespace: 54c84fc9-f0b8-44e1-8c89-e5b932161771
+        namespace: local
         ip: 192.168.1.98
       config:
         server-addr: 192.168.1.98:18848
         group: shadowlayover
         name: base-oauth
-        namespace: 54c84fc9-f0b8-44e1-8c89-e5b932161771
+        namespace: local
   redis:
     host: 192.168.1.98
     port: 16379
@@ -34,15 +34,10 @@ spring:
       cache-names:
         - sys-user
   datasource:
-    dynamic:
-      primary: master
-      strict: true
-      datasource:
-        master:
-          url: jdbc:mysql://192.168.1.98:13306/shadowlayover_oauth
-          username: root
-          password: 123456
-          driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.1.98:13306/shadowlayover_oauth
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
 shadowlayover:
   mybatis-plus:
     multi-tenant:

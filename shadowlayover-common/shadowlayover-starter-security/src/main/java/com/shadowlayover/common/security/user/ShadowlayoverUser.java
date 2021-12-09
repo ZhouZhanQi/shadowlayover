@@ -1,6 +1,8 @@
 package com.shadowlayover.common.security.user;
 
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
@@ -15,6 +17,8 @@ import java.util.Collection;
  */
 @Getter
 public class ShadowlayoverUser extends User {
+
+    private static final long serialVersionUID = 6808180295080013496L;
 
     /**
      * 用户Id

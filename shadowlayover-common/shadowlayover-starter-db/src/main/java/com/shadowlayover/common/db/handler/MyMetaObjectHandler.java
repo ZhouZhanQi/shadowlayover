@@ -1,13 +1,12 @@
 package com.shadowlayover.common.db.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.shadowlayover.common.core.context.ShadowlayoverThreadContext;
+import com.shadowlayover.common.core.model.LoginUser;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * @author zhouzhanqi
@@ -23,13 +22,15 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
             //获取上下文信息
             log.debug(">>>>>> start insert fill ...");
         }
-        this.strictInsertFill(metaObject, "creatorId", () -> 0L, Long.class);
-        this.strictInsertFill(metaObject, "creator", () -> "admin", String.class);
+        String traceId = ShadowlayoverThreadContext.getContext().getTraceId();
+        LoginUser contextUser = ShadowlayoverThreadContext.getContext().getUser();
+        this.strictInsertFill(metaObject, "creatorId", () -> contextUser.getUserId(), Long.class);
+        this.strictInsertFill(metaObject, "creator", () -> contextUser.getUserName(), String.class);
         this.strictInsertFill(metaObject, "createTime", () -> LocalDateTime.now(), LocalDateTime.class);
-        this.strictInsertFill(metaObject, "updaterId", () -> 0L, Long.class);
-        this.strictInsertFill(metaObject, "updater", () -> "admin", String.class);
+        this.strictInsertFill(metaObject, "updaterId", () -> contextUser.getUserId(), Long.class);
+        this.strictInsertFill(metaObject, "updater", () -> contextUser.getUserName(), String.class);
         this.strictInsertFill(metaObject, "updateTime", () -> LocalDateTime.now(), LocalDateTime.class);
-        this.strictInsertFill(metaObject, "traceId", () -> UUID.randomUUID().toString().replaceAll("-", ""), String.class);
+        this.strictInsertFill(metaObject, "traceId", () -> traceId, String.class);
     }
 
     @Override
@@ -38,9 +39,11 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
             //获取上下文信息
             log.debug(">>>>>> start update fill ...");
         }
-        this.strictInsertFill(metaObject, "updaterId", () -> 0L, Long.class);
-        this.strictInsertFill(metaObject, "updater", () -> "admin", String.class);
-        this.strictUpdateFill(metaObject, "updateTime", () -> LocalDateTime.now(), LocalDateTime.class);
-        this.strictInsertFill(metaObject, "traceId", () -> UUID.randomUUID().toString().replaceAll("-", ""), String.class);
+        String traceId = ShadowlayoverThreadContext.getContext().getTraceId();
+        LoginUser contextUser = ShadowlayoverThreadContext.getContext().getUser();
+        this.strictInsertFill(metaObject, "updaterId", () -> contextUser.getUserId(), Long.class);
+        this.strictInsertFill(metaObject, "updater", () -> contextUser.getUserName(), String.class);
+        this.strictInsertFill(metaObject, "updateTime", () -> LocalDateTime.now(), LocalDateTime.class);
+        this.strictInsertFill(metaObject, "traceId", () -> traceId, String.class);
     }
 }

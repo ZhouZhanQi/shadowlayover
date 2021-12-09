@@ -54,7 +54,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return completionSysUserData(sysUser);
     }
 
-    @Cacheable(cacheNames = "sys-user")
     @Override
     public SysUserBo loadUserDetailByMobilePhone(String mobilePhone) {
         SysUser sysUser = this.baseMapper.selectOneIgnoreTenant(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getMobilePhone, mobilePhone));

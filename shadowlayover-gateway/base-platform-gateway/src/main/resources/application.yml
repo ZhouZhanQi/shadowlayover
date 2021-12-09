@@ -17,6 +17,7 @@ spring:
         group: shadowlayover
         name: base-platform-gateway
         namespace: local
+    gateway:
       routes:
         - id: base-oauth
           uri: lb://base-oauth

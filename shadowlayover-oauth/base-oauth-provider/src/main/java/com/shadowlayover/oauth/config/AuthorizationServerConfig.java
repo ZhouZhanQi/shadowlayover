@@ -1,6 +1,10 @@
 package com.shadowlayover.oauth.config;
 
 import com.shadowlayover.common.cache.RedisCacheHelper;
+import com.shadowlayover.common.cache.model.code.RedisKeyPrefix;
+import com.shadowlayover.common.core.utils.JacksonUtils;
+import com.shadowlayover.common.security.convert.ShadowlayoverUserConvert;
+import com.shadowlayover.common.security.user.ShadowlayoverUser;
 import com.shadowlayover.common.security.user.ShadowlayoverUserDetailService;
 import com.shadowlayover.oauth.granter.SmsCodeTokenGranter;
 import com.shadowlayover.oauth.model.constants.BaseOauthConstant;
@@ -14,6 +18,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper;
+import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -23,12 +28,18 @@ import org.springframework.security.oauth2.provider.CompositeTokenGranter;
 import org.springframework.security.oauth2.provider.TokenGranter;
 import org.springframework.security.oauth2.provider.password.ResourceOwnerPasswordTokenGranter;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <pre>
@@ -66,15 +77,15 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         endpoints.userDetailsService(shadowlayoverUserService);
         endpoints.tokenStore(redisTokenStore());
 
-//        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-//        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), jwtAccessTokenConverter()));
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer()));
 
         DefaultTokenServices defaultTokenServices = createDefaultTokenServices();
+        defaultTokenServices.setTokenEnhancer(tokenEnhancerChain);
         addUserDetailsService(defaultTokenServices);
         endpoints.tokenGranter(tokenGranter(endpoints, defaultTokenServices))
                 .tokenServices(defaultTokenServices);
     }
-
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
@@ -83,7 +94,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 //spel表达式 访问公钥端点（/auth/token_key）需要认证
                 .tokenKeyAccess("permitAll()")
                 //spel表达式 访问令牌解析端点（/auth/check_token）需要认证
-                .checkTokenAccess("isAuthenticated()");
+                .checkTokenAccess("permitAll()");
     }
 
     @Override
@@ -139,5 +150,33 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             provider.setPreAuthenticatedUserDetailsService(new UserDetailsByNameServiceWrapper<>(shadowlayoverUserService));
             tokenServices.setAuthenticationManager(new ProviderManager(Collections.singletonList(provider)));
         }
+    }
+
+    @Bean
+    public TokenEnhancer tokenEnhancer() {
+        return (oAuth2AccessToken, oAuth2Authentication) -> {
+            // 添加额外信息的map
+            final Map<String, Object> additionMessage = new HashMap<>(2);
+
+            // 获取当前登录的用户
+            ShadowlayoverUser user = (ShadowlayoverUser) oAuth2Authentication.getUserAuthentication().getPrincipal();
+            //多缓存60s
+            redisCacheHelper.set(RedisKeyPrefix.OAUTH_TOKEN_USER, oAuth2AccessToken.getValue(), ShadowlayoverUserConvert.INSTANCE.convertToTokenUser(user), oAuth2AccessToken.getExpiresIn() + 60, TimeUnit.SECONDS);
+            // 对于客户端鉴权模式，直接返回token
+            if (oAuth2Authentication.getUserAuthentication() == null) {
+                return oAuth2AccessToken;
+            }
+
+            // 如果用户不为空
+            if (user != null) {
+                additionMessage.put(BaseOauthConstant.SHADOWLAYOVER_USER_ID, user.getUserId());
+                additionMessage.put(BaseOauthConstant.SHADOWLAYOVER_USER_NAME, user.getUsername());
+                additionMessage.put(BaseOauthConstant.SHADOWLAYOVER_USER_TYPE, user.getUserId());
+                additionMessage.put(BaseOauthConstant.SHADOWLAYOVER_TENANT_ID, user.getTenantId());
+            }
+
+            ((DefaultOAuth2AccessToken) oAuth2AccessToken).setAdditionalInformation(additionMessage);
+            return oAuth2AccessToken;
+        };
     }
 }

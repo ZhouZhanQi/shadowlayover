@@ -1,21 +1,17 @@
 package com.shadowlayover.example;
 
-import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.context.AnalysisContext;
-import com.alibaba.excel.metadata.CellData;
-import com.alibaba.excel.metadata.CellExtra;
-import com.alibaba.excel.read.listener.ReadListener;
-import com.shadowlayover.common.db.generator.CodeGenerator;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import org.assertj.core.util.Lists;
+import com.google.common.collect.Maps;
+import org.apache.rocketmq.spring.support.RocketMQHeaders;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.stream.function.StreamBridge;
+import org.springframework.integration.channel.DirectChannel;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.support.MessageBuilder;
 
-import java.io.File;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,26 +25,19 @@ import java.util.Map;
 public class ExampleOrderApplicationTest {
 
 
+    @Autowired
+    private StreamBridge streamBridge;
+
     @Test
-   public void test1() {
+    public void testRocketMq() {
+//        MessageChannel messageChannel = new DirectChannel();
+//        Map<String, Object> paramMap = Maps.newHashMap();
+//        paramMap.put(RocketMQHeaders.TAGS, "base-message");
+//        paramMap.put(RocketMQHeaders.KEYS, "test");
+//        MessageHeaders messageHeaders = new MessageHeaders(paramMap);
+//        Message<String> message = MessageBuilder.createMessage("123", messageHeaders);
+//        messageChannel.send(message);
+        streamBridge.send("message", "123");
 
-        List<ShipmentData> payLogDataList = Lists.newArrayList();
-        File file =  new File("C:\\Users\\86136\\Desktop\\1117\\paylog.xlsx");
-
-        EasyExcel.read("C:\\Users\\86136\\Desktop\\1117\\paylog.xlsx", ShipmentData.class, new ShipmentDataListener(payLogDataList)).sheet("export_result - 2021-11-17T1722").doRead();
-        for (ShipmentData shipmentData  : payLogDataList) {
-            System.out.println(shipmentData.getOrderNo());
-        }
-
-   }
-
-   @Data
-   public static class ShipmentData implements Serializable {
-
-        private String orderNo;
-
-        private BigDecimal price1;
-
-        private BigDecimal price2;
-   }
+    }
 }

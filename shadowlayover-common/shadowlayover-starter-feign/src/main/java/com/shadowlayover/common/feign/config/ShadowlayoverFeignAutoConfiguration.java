@@ -52,6 +52,10 @@ public class ShadowlayoverFeignAutoConfiguration {
                     TraceUtils.mdcTraceId(headValue);
                     template.header(headName, headValue);
                 }
+
+                if (headName.equalsIgnoreCase(CoreConstants.SHADOWLOYOVER_USER_INFO)) {
+                    template.header(headName, headValue);
+                }
             }
         };
     }

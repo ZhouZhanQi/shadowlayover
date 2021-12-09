@@ -30,4 +30,9 @@ public interface FilterOrderedConstants {
      * token校验
      */
     Integer PRE_AUTH_TOKE = 20;
+
+    /**
+     * 认证之后
+     */
+    Integer AFTER_AUTH_TOKEN = 30;
 }

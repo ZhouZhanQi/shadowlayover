@@ -8,11 +8,6 @@ package com.shadowlayover.common.core.model.constants;
 public interface CoreConstants {
 
     /**
-     * 基础扫描包路径
-     */
-    String BASE_COMPONENT_PACKAGE = "com.shadowlayover";
-
-    /**
      * 基础远程client路径
      */
     String BASE_CLIENT_PACKAGE = "com.shadowlayover.*.client";
@@ -21,7 +16,12 @@ public interface CoreConstants {
      * 链路追踪Id
      */
     String SHADOWLOYOVER_TRACE_ID = "shadowlayover-trace-id";
-    
+
+    /**
+     * 用户信息
+     */
+    String SHADOWLOYOVER_USER_INFO = "shadowlayover-user-info";
+
     /**
      * 日志链路Id
      */

@@ -1,7 +1,9 @@
 package com.shadowlayover.common.core.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,6 +16,8 @@ import java.util.List;
  * </pre>
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class LoginUser implements Serializable {
  

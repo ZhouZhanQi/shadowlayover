@@ -4,6 +4,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.shadowlayover.common.core.exceptions.AssertException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import javax.annotation.CheckForNull;
@@ -70,8 +71,9 @@ public class AssertUtils {
      * @return
      * @throws Throwable
      */
+    @SneakyThrows
     @CanIgnoreReturnValue
-    public static <X extends Throwable> void checkArgument(boolean expression, Supplier<? extends X> exceptionSupplier) throws Throwable {
+    public static <X extends Throwable> void checkArgument(boolean expression, Supplier<? extends X> exceptionSupplier) {
         if (expression) {
             return;
         }
@@ -135,8 +137,9 @@ public class AssertUtils {
      * @return
      * @throws Throwable
      */
+    @SneakyThrows
     @CanIgnoreReturnValue
-    public static <T, X extends Throwable> T checkNotNull(@CheckForNull T reference, Supplier<? extends X> exceptionSupplier) throws Throwable {
+    public static <T, X extends Throwable> T checkNotNull(@CheckForNull T reference, Supplier<? extends X> exceptionSupplier)  {
         if (reference == null) {
             throw exceptionSupplier.get();
         }
